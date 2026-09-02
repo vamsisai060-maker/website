@@ -5,6 +5,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CountdownStrip from './CountdownStrip';
+import EventsCarousel from '@/components/EventsCarousel';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -665,6 +666,7 @@ Apply for incubation                    </div>
           </div>
           <div className="hero-slider">
             <CountdownStrip />
+            <EventsCarousel />
           </div>
         </div>
       </section>
