@@ -661,18 +661,7 @@ Apply for incubation                    </div>
               <div id="w-node-_3ed4ddf5-96e2-2d95-cc00-99d4d88a966e-ef5b982d" className="hero-partners">
               </div>
             </div>
-            <div className="social-panel">
-              <div className="w-layout-vflex social-wrapper">
-                <a rel="noreferer, noopener noreferrer" href="https://twitter.com/ChainGPT_Labs" target="_blank" className="social-link w-inline-block">
-                </a>
-                <a rel="noreferer, noopener noreferrer" href="https://t.me/chaingpt" target="_blank" className="social-link w-inline-block">
-                </a>
-                <a rel="noreferer, noopener noreferrer" href="https://medium.com/@chaingpt" target="_blank" className="social-link w-inline-block">
-                </a>
-                <a rel="noreferer, noopener noreferrer" href="https://www.linkedin.com/company/103925830/" target="_blank" className="social-link w-inline-block">
-                </a>
-              </div>
-            </div>
+            
           </div>
           <div className="hero-slider">
             <CountdownStrip />
