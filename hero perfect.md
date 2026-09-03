@@ -5,7 +5,6 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CountdownStrip from './CountdownStrip';
-import EventsCarousel from '@/components/EventsCarousel';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -659,7 +658,19 @@ Apply for incubation                    </div>
                 <div className="graphic-block-decor graphic-block-decor-bottom-right"></div>
                 <div className="graphic-block-decor graphic-block-decor-bottom-left"></div>
               </div>
-                           <div id="w-node-_3ed4ddf5-96e2-2d95-cc00-99d4d88a966e-ef5b982d" className="hero-partners">
+              <div id="w-node-_3ed4ddf5-96e2-2d95-cc00-99d4d88a966e-ef5b982d" className="hero-partners">
+              </div>
+            </div>
+            <div className="social-panel">
+              <div className="w-layout-vflex social-wrapper">
+                <a rel="noreferer, noopener noreferrer" href="https://twitter.com/ChainGPT_Labs" target="_blank" className="social-link w-inline-block">
+                </a>
+                <a rel="noreferer, noopener noreferrer" href="https://t.me/chaingpt" target="_blank" className="social-link w-inline-block">
+                </a>
+                <a rel="noreferer, noopener noreferrer" href="https://medium.com/@chaingpt" target="_blank" className="social-link w-inline-block">
+                </a>
+                <a rel="noreferer, noopener noreferrer" href="https://www.linkedin.com/company/103925830/" target="_blank" className="social-link w-inline-block">
+                </a>
               </div>
             </div>
           </div>
@@ -668,7 +679,6 @@ Apply for incubation                    </div>
           </div>
         </div>
       </section>
-      <EventsCarousel />
       <div id="cookie-consent-banner" className="cookie-popup">
         <div className="cookie-popup-body">
           <p className="m-0-2">
@@ -704,3 +714,95 @@ Reject              </div>
     </div>
   );
 }
+
+
+
+css
+
+@import "tailwindcss";
+
+.hero-section .hero-partners {
+  display: none !important;
+}
+
+.countdown-strip {
+  background-color: var(--lightgrey);
+  position: relative;
+  z-index: 3;
+}
+
+.countdown-kicker {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--grey);
+  font-family: LabsAmiga, sans-serif;
+  font-size: clamp(0.95rem, 1.6vh, 1.15rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--darklighter);
+}
+
+.countdown-boxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  min-height: 10.5rem;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1.25rem 0.5rem 1.5rem;
+  border-right: 1px solid var(--grey);
+  position: relative;
+}
+
+.countdown-cell:last-child {
+  border-right: none;
+}
+
+.countdown-colon {
+  display: none;
+}
+
+.countdown-value {
+  font-family: LabsAmiga, sans-serif;
+  font-size: clamp(2.4rem, 7.2vh, 5.25rem);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  color: var(--darklighter);
+}
+
+.countdown-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--darklighter);
+}
+
+@media (max-width: 767px) {
+  .countdown-boxes {
+    min-height: 8.25rem;
+  }
+
+  .countdown-value {
+    font-size: clamp(1.6rem, 9vw, 2.4rem);
+  }
+
+  .countdown-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+  }
+}
+
