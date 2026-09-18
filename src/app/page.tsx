@@ -1,14 +1,47 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import CountdownStrip from './CountdownStrip';
+import StaggeredMenu from '@/components/StaggeredMenu';
+import DecryptedText from '@/components/DecryptedText';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const SLIDE_COUNT = 16;
+  const [step, setStep] = useState(440);
+  const [portfolioSlide, setPortfolioSlide] = useState(1);
+  const portfolioPrev = () => setPortfolioSlide((i) => Math.max(i - 1, 0));
+  const portfolioNext = () => setPortfolioSlide((i) => Math.min(i + 1, SLIDE_COUNT - 1));
+  const TEAM_SLIDE_STEP = 291.765;
+  const TEAM_SLIDE_COUNT = 6;
+  const [teamSlide, setTeamSlide] = useState(0);
+  const teamPrev = () => setTeamSlide((i) => Math.max(i - 1, 0));
+  const teamNext = () => setTeamSlide((i) => Math.min(i + 1, TEAM_SLIDE_COUNT - 1));
+
+  useLayoutEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const update = () => {
+      const slide = sliderRef.current?.querySelector('.portfolio-slide');
+      if (slide) {
+        const gap = parseFloat(getComputedStyle(slide).marginRight) || 0;
+        setStep(Math.round(slide.getBoundingClientRect().width + gap));
+      }
+      setPortfolioSlide(mql.matches ? 0 : 1);
+    };
+    update();
+    mql.addEventListener('change', update);
+    window.addEventListener('resize', update);
+    return () => {
+      mql.removeEventListener('change', update);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -345,37 +378,39 @@ export default function Home() {
               <div className="header-main-nav">
                 <nav role="navigation" className="nav-menu w-nav-menu">
                   <ul id="w-node-_25add9ba-5160-246b-6d87-3ffd945c5436-945c542c" role="list" className="header-menu">
-                    <li className="header-menu-item">
-                      <a scramble-link="" href="index.html#portfolio-section" className="header-menu-link w-inline-block">
+<li className="header-menu-item">
+                      <a scramble-link="" href="#portfolio-section" className="header-menu-link w-inline-block">
                         <div className="header-menu-link-wrapper">
-                          <div scramble-text="" className="header-menu-link-text">
-Portfolio                          </div>
+<div scramble-text="" className="header-menu-link-text">
+                          <DecryptedText text="Our Events" animateOn="hover" encryptedClassName="header-menu-encrypted-char" />
+                        </div>
+                          <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
+                          <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
+                        </div>
+                      </a>
+                    </li>
+<li className="header-menu-item">
+                      <a scramble-link="" href="#team-section" className="header-menu-link w-inline-block">
+                        <div className="header-menu-link-wrapper">
+<div scramble-text="" className="header-menu-link-text">
+                          <DecryptedText text="Our Visionaries" animateOn="hover" encryptedClassName="header-menu-encrypted-char" />
+                        </div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
                         </div>
                       </a>
                     </li>
                     <li className="header-menu-item">
-                      <a scramble-link="" href="index.html#team-section" className="header-menu-link w-inline-block">
+                      <a scramble-link="" href="#faq-section" className="header-menu-link w-inline-block">
                         <div className="header-menu-link-wrapper">
                           <div scramble-text="" className="header-menu-link-text">
-Team                            <br className="" />
-                          </div>
+                          <DecryptedText text="FAQ" animateOn="hover" encryptedClassName="header-menu-encrypted-char" />
+                        </div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
                         </div>
                       </a>
-                    </li>
-                    <li className="header-menu-item">
-                      <a scramble-link="" href="index.html#faq-section" className="header-menu-link w-inline-block">
-                        <div className="header-menu-link-wrapper">
-                          <div scramble-text="" className="header-menu-link-text">
-FAQ                          </div>
-                          <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
-                          <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
-                        </div>
-                      </a>
-                    </li>
+</li>
                   </ul>
                 </nav>
                 <div className="menu-button w-nav-button" style={{WebkitUserSelect: "text"}} aria-label="menu" role="button" tabIndex={0} aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
@@ -537,6 +572,24 @@ Apply now                    </div>
           <div className="header-clip header-clip-right"></div>
         </div>
       </div>
+      <div className="mobile-staggered-menu">
+        <StaggeredMenu
+          position="right"
+          colors={['#0e0e0e', '#1b1b1b']}
+          items={[
+            { label: 'Our Events', link: '#portfolio-section' },
+            { label: 'Our Visionaries', link: '#team-section' },
+            { label: 'FAQ', link: '#faq-section' },
+          ]}
+          accentColor="#ff7120"
+          menuButtonColor="#0e0e0e"
+          openMenuButtonColor="#0e0e0e"
+          displaySocials={false}
+          displayItemNumbering={true}
+          isFixed={true}
+          logoUrl="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+      </div>
       <section id="hero-section" className="hero-section">
         <div id="hero-section-container" className="w-layout-blockcontainer container hero-container w-container">
           <div className="hero-wrapper">
@@ -569,7 +622,18 @@ Apply now                    </div>
                 </div>
                 <div className="hero-square hero-square-top-right hero-square-mobile"></div>
                 <div className="hero-square hero-square-top-left hero-square-mobile"></div>
-<div className="hero-video w-embed">
+                <div className="hero-backing">
+                  <div className="hero-square"></div>
+                  <div id="w-node-_30e76485-ae6c-05d7-60f5-023e5c311de5-ef5b982d" className="w-layout-hflex hero-backing-text">
+                    <div className="hero-backing-item">
+ ASTRA                      <br className="" />
+                    </div>
+                    <div className="hero-backing-item">
+ 2K26                    </div>
+                  </div>
+                  <div id="w-node-bf49c4bc-c533-46a4-5e65-738d863c031d-ef5b982d" className="hero-square"></div>
+                </div>
+                <div className="hero-video w-embed">
                   <video autoPlay loop muted playsInline className="">
                     <source src="https://chaingpt-web.s3.us-east-2.amazonaws.com/assets/video/Labs/LABS_hero_SAFARI_HEVC.mp4" type="video/mp4; codecs=hvc1" className="" />
                     <source src="https://chaingpt-web.s3.us-east-2.amazonaws.com/assets/video/Labs/LABS_hero_CHROME_VP9.webm" type="video/webm" className="" />
@@ -582,6 +646,7 @@ Apply now                    </div>
                 <div className="hero-description">
  Backing the very best web3 builders -transforming visionary ideas into real-world growth.                </div>
               </div>
+              <div className="hero-bottom-space"></div>
               <div className="graphic-block hero-graphic-block">
                 <div className="graphic-block-decor graphic-block-decor-top-left"></div>
                 <div className="graphic-block-decor graphic-block-decor-top-right"></div>
@@ -592,32 +657,16 @@ Apply now                    </div>
             </div>
             <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDQiIGhlaWdodD0iNDQiIHZpZXdCb3g9IjAgMCA0NCA0NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgeD0iMC41IiB5PSIwLjUiIHdpZHRoPSI0MyIgaGVpZ2h0PSI0MyIgZmlsbD0iI0Y2RjZGNiIvPgo8cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjQzIiBoZWlnaHQ9IjQzIiBzdHJva2U9IiM5RTlFOUUiLz4KPHBhdGggZD0iTTE4LjM4NTMgMjQuOTE3Nkw5LjAwMDA4IDM0LjMwMjlMOS42OTcxNyAzNUwxOS4wODI1IDI1LjYxNDdIMjQuOTE3NUwzNC4zMDI4IDM1TDM0Ljk5OTkgMzQuMzAyOUwyNS42MTQ3IDI0LjkxNzdWMTkuMDgyNEwzNSA5LjY5NzA5TDM0LjMwMjkgOUwyNC45MTc3IDE4LjM4NTNIMTkuMDgyM0w5LjY5NzA4IDlMOSA5LjY5NzA5TDE4LjM4NTMgMTkuMDgyNVYyNC45MTc2WiIgZmlsbD0iIzlFOUU5RSIvPgo8L3N2Zz4K" loading="lazy" width={44} height={44} alt="" id="hero-decor" className="hero-decor-1" />
             <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDQiIGhlaWdodD0iNDQiIHZpZXdCb3g9IjAgMCA0NCA0NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgeD0iMC41IiB5PSIwLjUiIHdpZHRoPSI0MyIgaGVpZ2h0PSI0MyIgZmlsbD0iI0Y2RjZGNiIvPgo8cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjQzIiBoZWlnaHQ9IjQzIiBzdHJva2U9IiM5RTlFOUUiLz4KPHBhdGggZD0iTTIyLjAwMDMgMjUuOTI4NkMyNC4xNjk5IDI1LjkyODYgMjUuOTI4OCAyNC4xNjk3IDI1LjkyODggMjJDMjUuOTI4OCAxOS44MzAzIDI0LjE2OTkgMTguMDcxNCAyMi4wMDAzIDE4LjA3MTRDMTkuODMwNiAxOC4wNzE0IDE4LjA3MTcgMTkuODMwMyAxOC4wNzE3IDIyQzE4LjA3MTcgMjQuMTY5NyAxOS44MzA2IDI1LjkyODYgMjIuMDAwMyAyNS45Mjg2WiIgZmlsbD0iIzlFOUU5RSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTIyIDExQzE1LjkyNDkgMTEgMTEgMTUuOTI0OSAxMSAyMkMxMSAyOC4wNzUxIDE1LjkyNDkgMzMgMjIgMzNDMjguMDc1MSAzMyAzMyAyOC4wNzUxIDMzIDIyQzMzIDE1LjkyNDkgMjguMDc1MSAxMSAyMiAxMVpNMTIuMDQ3NiAyMkMxMi4wNDc2IDE2LjUwMzUgMTYuNTAzNSAxMi4wNDc2IDIyIDEyLjA0NzZDMjcuNDk2NSAxMi4wNDc2IDMxLjk1MjQgMTYuNTAzNSAzMS45NTI0IDIyQzMxLjk1MjQgMjcuNDk2NSAyNy40OTY1IDMxLjk1MjQgMjIgMzEuOTUyNEMxNi41MDM1IDMxLjk1MjQgMTIuMDQ3NiAyNy40OTY1IDEyLjA0NzYgMjJaIiBmaWxsPSIjOUU5RTlFIi8+Cjwvc3ZnPgo=" loading="lazy" width={44} height={44} alt="" id="hero-decor" className="hero-decor-2" />
-            <div className="social-panel">
-              <div className="w-layout-vflex social-wrapper">
-                <a rel="noreferer, noopener noreferrer" href="https://twitter.com/ChainGPT_Labs" target="_blank" className="social-link w-inline-block">
-                  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzc0OV81Njg3MikiPgo8cGF0aCBkPSJNMTQuMDkxMiA0LjgyNTU2QzE0LjcxNDcgNC4zNzU0MSAxNS4yMzkzIDMuODEzNTIgMTUuNjY2NyAzLjE2NjU1VjMuMTY1OUMxNS4wOTYxIDMuNDE5ODggMTQuNDg5MiAzLjU4ODc3IDEzLjg1NTQgMy42NzA2MkMxNC41MDcxIDMuMjc1MDMgMTUuMDA0OCAyLjY1MzM5IDE1LjIzODYgMS45MDQ0M0MxNC42MzEgMi4yNzI3NCAxMy45NjAyIDIuNTMyNTcgMTMuMjQ1MyAyLjY3ODA3QzEyLjY2ODQgMi4wNTMxOCAxMS44NDYxIDEuNjY2NjkgMTAuOTQ5MSAxLjY2NjY5QzkuMjA4NzggMS42NjY2OSA3LjgwNzcgMy4xMDI4OSA3LjgwNzcgNC44NjMyM0M3LjgwNzcgNS4xMTY1NyA3LjgyODc4IDUuMzYwMTYgNy44ODA1MyA1LjU5MjA2QzUuMjY3NDcgNS40NjIxNCAyLjk1NDcgNC4xODg5OCAxLjQwMDkyIDIuMjQ4N0MxLjEzMDAzIDIuNzI3NDQgMC45NzAzMDggMy4yNzUwMyAwLjk3MDMwOCAzLjg2NDE5QzAuOTcwMzA4IDQuOTcxMDYgMS41MzA2MSA1Ljk1MTkyIDIuMzY2OTIgNi41MjAyOUMxLjg2MTU2IDYuNTEwNTUgMS4zNjY0MiA2LjM2MTE1IDAuOTQ2NjY5IDYuMTI2NjVWNi4xNjE3M0MwLjk0NjY2OSA3LjcxNDg2IDIuMDM1OTcgOS4wMDQ5MSAzLjQ2NTE3IDkuMzAyNDFDMy4yMDg5NyA5LjM3Mzg3IDIuOTMwNDIgOS40MDc2NSAyLjY0MSA5LjQwNzY1QzIuNDM5NzUgOS40MDc2NSAyLjIzNjU5IDkuMzk1OTUgMi4wNDYyIDkuMzUzMDhDMi40NTMxNyAxMC42MTg0IDMuNjA5NTYgMTEuNTQ5MyA0Ljk4MzE3IDExLjU3OThDMy45MTM2NyAxMi40MzAxIDIuNTU1MzkgMTIuOTQyNiAxLjA4NTMxIDEyLjk0MjZDMC44Mjc4MzYgMTIuOTQyNiAwLjU4MDU4NiAxMi45MzA5IDAuMzMzMzM2IDEyLjg5OTFDMS43MjYxMSAxMy44MTE3IDMuMzc1NzIgMTQuMzMzNCA1LjE1NTY3IDE0LjMzMzRDMTAuNzAzMSAxNC4zMzM0IDE0LjMxODYgOS42Mjc4NSAxNC4wOTEyIDQuODI1NTZaIiBmaWxsPSIjMEUwRTBFIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfNzQ5XzU2ODcyIj4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=" loading="lazy" alt="" className="social-link-image" />
-                </a>
-                <a rel="noreferer, noopener noreferrer" href="https://t.me/chaingpt" target="_blank" className="social-link w-inline-block">
-                  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzc0OV81Njg3MSkiPgo8cGF0aCBkPSJNNi4yNzgyNyAxMC4xMjExTDYuMDEzNiAxMy44NDM5QzYuMzkyMjcgMTMuODQzOSA2LjU1NjI4IDEzLjY4MTIgNi43NTI5NSAxMy40ODU5TDguNTI4MzIgMTEuNzg5MkwxMi4yMDcxIDE0LjQ4MzJDMTIuODgxOCAxNC44NTkyIDEzLjM1NzEgMTQuNjYxMiAxMy41MzkxIDEzLjg2MjZMMTUuOTUzOCAyLjU0NzYxTDE1Ljk1NDUgMi41NDY5NUMxNi4xNjg1IDEuNTQ5NTkgMTUuNTkzOCAxLjE1OTU4IDE0LjkzNjUgMS40MDQyNUwwLjc0MjgwMyA2LjgzODM4Qy0wLjIyNTg4NyA3LjIxNDM5IC0wLjIxMTIyIDcuNzU0NCAwLjU3ODEzMiA3Ljk5OTA4TDQuMjA2ODkgOS4xMjc3N0wxMi42MzU4IDMuODUzNjRDMTMuMDMyNCAzLjU5MDk3IDEzLjM5MzEgMy43MzYzMSAxMy4wOTY0IDMuOTk4OThMNi4yNzgyNyAxMC4xMjExWiIgZmlsbD0iIzBFMEUwRSIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzc0OV81Njg3MSI+CjxyZWN0IHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" loading="lazy" alt="" className="social-link-image" />
-                </a>
-                <a rel="noreferer, noopener noreferrer" href="https://medium.com/@chaingpt" target="_blank" className="social-link w-inline-block">
-                  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzc0OV81Njg3NCkiPgo8cGF0aCBkPSJNMTQuNzIzMyAzLjE1NTM1TDE2IDEuOTM0MDJWMS42NjY2OUgxMS41NzczTDguNDI1MzMgOS41MTIwMkw0LjgzOTMzIDEuNjY2NjlIMC4yMDJWMS45MzQwMkwxLjY5MzMzIDMuNzI5MzVDMS44Mzg2NyAzLjg2MjAyIDEuOTE0NjcgNC4wNTYwMiAxLjg5NTMzIDQuMjUxMzVWMTEuMzA2N0MxLjk0MTMzIDExLjU2MDcgMS44NTg2NyAxMS44MjIgMS42OCAxMi4wMDY3TDAgMTQuMDQyN1YxNC4zMDY3SDQuNzYzMzNWMTQuMDM5NEwzLjA4MzMzIDEyLjAwNjdDMi45MDEzMyAxMS44MjE0IDIuODE1MzMgMTEuNTY0NyAyLjg1MiAxMS4zMDY3VjUuMjA0MDJMNy4wMzMzMyAxNC4zMUg3LjUxOTMzTDExLjExNDcgNS4yMDQwMlYxMi40NThDMTEuMTE0NyAxMi42NDk0IDExLjExNDcgMTIuNjg4NyAxMC45ODkzIDEyLjgxNEw5LjY5NiAxNC4wNjU0VjE0LjMzMzRIMTUuOTcwN1YxNC4wNjZMMTQuNzI0IDEyLjg0NTRDMTQuNjE0NyAxMi43NjI3IDE0LjU1OCAxMi42MjQgMTQuNTgxMyAxMi40ODk0VjMuNTExMzVDMTQuNTU4IDMuMzc2MDIgMTQuNjE0IDMuMjM3MzUgMTQuNzIzMyAzLjE1NTM1WiIgZmlsbD0iIzBFMEUwRSIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzc0OV81Njg3NCI+CjxyZWN0IHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" loading="lazy" alt="" className="social-link-image" />
-                </a>
-                <a rel="noreferer, noopener noreferrer" href="https://www.linkedin.com/company/103925830/" target="_blank" className="social-link w-inline-block">
-                  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDgiIHpvb21BbmRQYW49Im1hZ25pZnkiIHZpZXdCb3g9IjAgMCAzNiAzNi4wMDAwMDEiIGhlaWdodD0iNDgiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIHZlcnNpb249IjEuMCI+PGRlZnM+PGNsaXBQYXRoIGlkPSI0ZTMxMzUxY2YzIj48cGF0aCBkPSJNIDAuODUxNTYyIDAuMzYzMjgxIEwgMzUuMTQ4NDM4IDAuMzYzMjgxIEwgMzUuMTQ4NDM4IDM0LjY2NDA2MiBMIDAuODUxNTYyIDM0LjY2NDA2MiBaIE0gMC44NTE1NjIgMC4zNjMyODEgIiBjbGlwLXJ1bGU9Im5vbnplcm8iLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjNGUzMTM1MWNmMykiPjxwYXRoIGZpbGw9IiMwOTA5MGUiIGQ9Ik0gMzUuMTQ4NDM4IDI5LjQ0OTIxOSBDIDM1LjE0ODQzOCAzMi4zMjQyMTkgMzIuODE2NDA2IDM0LjY2MDE1NiAyOS45Mzc1IDM0LjY2MDE1NiBMIDYuMDYyNSAzNC42NjAxNTYgQyAzLjE4NzUgMzQuNjYwMTU2IDAuODUxNTYyIDMyLjMyNDIxOSAwLjg1MTU2MiAyOS40NDkyMTkgTCAwLjg1MTU2MiA1LjU3NDIxOSBDIDAuODUxNTYyIDIuNjk1MzEyIDMuMTg3NSAwLjM2MzI4MSA2LjA2MjUgMC4zNjMyODEgTCAyOS45Mzc1IDAuMzYzMjgxIEMgMzIuODE2NDA2IDAuMzYzMjgxIDM1LjE0ODQzOCAyLjY5NTMxMiAzNS4xNDg0MzggNS41NzQyMTkgWiBNIDM1LjE0ODQzOCAyOS40NDkyMTkgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvZz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNIDE0LjQxNDA2MiAxMi41OTc2NTYgQyAxNC40MTQwNjIgMTIuOTM3NSAxNC4zNDc2NTYgMTMuMjY1NjI1IDE0LjIxODc1IDEzLjU3ODEyNSBDIDE0LjA4OTg0NCAxMy44OTQ1MzEgMTMuOTAyMzQ0IDE0LjE3MTg3NSAxMy42NjQwNjIgMTQuNDEwMTU2IEMgMTMuNDIxODc1IDE0LjY1MjM0NCAxMy4xNDQ1MzEgMTQuODM1OTM4IDEyLjgzMjAzMSAxNC45NjQ4NDQgQyAxMi41MTk1MzEgMTUuMDkzNzUgMTIuMTkxNDA2IDE1LjE2MDE1NiAxMS44NTE1NjIgMTUuMTYwMTU2IEMgMTEuNTExNzE5IDE1LjE2MDE1NiAxMS4xODM1OTQgMTUuMDkzNzUgMTAuODcxMDk0IDE0Ljk2NDg0NCBDIDEwLjU1ODU5NCAxNC44MzU5MzggMTAuMjgxMjUgMTQuNjUyMzQ0IDEwLjAzOTA2MiAxNC40MTAxNTYgQyA5LjgwMDc4MSAxNC4xNzE4NzUgOS42MTMyODEgMTMuODk0NTMxIDkuNDg0Mzc1IDEzLjU3ODEyNSBDIDkuMzU1NDY5IDEzLjI2NTYyNSA5LjI4OTA2MiAxMi45Mzc1IDkuMjg5MDYyIDEyLjU5NzY1NiBDIDkuMjg5MDYyIDEyLjI1NzgxMiA5LjM1NTQ2OSAxMS45MzM1OTQgOS40ODQzNzUgMTEuNjE3MTg4IEMgOS42MTMyODEgMTEuMzA0Njg4IDkuODAwNzgxIDExLjAyNzM0NCAxMC4wMzkwNjIgMTAuNzg1MTU2IEMgMTAuMjgxMjUgMTAuNTQ2ODc1IDEwLjU1ODU5NCAxMC4zNjMyODEgMTAuODcxMDk0IDEwLjIzMDQ2OSBDIDExLjE4MzU5NCAxMC4xMDE1NjIgMTEuNTExNzE5IDEwLjAzNTE1NiAxMS44NTE1NjIgMTAuMDM1MTU2IEMgMTIuMTkxNDA2IDEwLjAzNTE1NiAxMi41MTk1MzEgMTAuMTAxNTYyIDEyLjgzMjAzMSAxMC4yMzA0NjkgQyAxMy4xNDQ1MzEgMTAuMzYzMjgxIDEzLjQyMTg3NSAxMC41NDY4NzUgMTMuNjY0MDYyIDEwLjc4NTE1NiBDIDEzLjkwMjM0NCAxMS4wMjczNDQgMTQuMDg5ODQ0IDExLjMwNDY4OCAxNC4yMTg3NSAxMS42MTcxODggQyAxNC4zNDc2NTYgMTEuOTMzNTk0IDE0LjQxNDA2MiAxMi4yNTc4MTIgMTQuNDE0MDYyIDEyLjU5NzY1NiBaIE0gMTQuNDE0MDYyIDEyLjU5NzY1NiAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTSA5LjY0NDUzMSAxNy4wNTA3ODEgTCAxNC4wNDI5NjkgMTcuMDUwNzgxIEwgMTQuMDQyOTY5IDMxLjIwNzAzMSBMIDkuNjQ0NTMxIDMxLjIwNzAzMSBaIE0gOS42NDQ1MzEgMTcuMDUwNzgxICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNIDE2LjgxMjUgMTcuMDUwNzgxIEwgMjEuMDAzOTA2IDE3LjA1MDc4MSBMIDIxLjAwMzkwNiAzMS4yMDcwMzEgTCAxNi44MTI1IDMxLjIwNzAzMSBaIE0gMTYuODEyNSAxNy4wNTA3ODEgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0gMTYuOTk2MDk0IDI0LjU4OTg0NCBMIDIxLjE4MzU5NCAyNC41ODk4NDQgTCAyMS4xODM1OTQgMzEuMjA3MDMxIEwgMTYuOTk2MDk0IDMxLjIwNzAzMSBaIE0gMTYuOTk2MDk0IDI0LjU4OTg0NCAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTSAyMS4xODM1OTQgMjQuNTg5ODQ0IEMgMjEuMTgzNTk0IDI0LjU4OTg0NCAyMS4xMTcxODggMjIuNzUgMjEuNjAxNTYyIDIxLjc5Njg3NSBDIDIxLjYwMTU2MiAyMS43OTY4NzUgMjIuMDg1OTM4IDIwLjYyMTA5NCAyMy42MDkzNzUgMjAuNjEzMjgxIEMgMjMuNjA5Mzc1IDIwLjYxMzI4MSAyNS4zOTQ1MzEgMjAuMzAwNzgxIDI1LjkwNjI1IDIyLjA3NDIxOSBDIDI1LjkwNjI1IDIyLjA3NDIxOSAyNi4xMDE1NjIgMjMuMDU0Njg4IDI2LjEwMTU2MiAyMy40NzI2NTYgQyAyNi4xMDE1NjIgMjMuODg2NzE5IDI2LjExMzI4MSAzMS4yMTA5MzggMjYuMTEzMjgxIDMxLjIxMDkzOCBMIDMwLjUgMzEuMjEwOTM4IEwgMzAuNSAyMy4wOTc2NTYgQyAzMC41IDIzLjA5NzY1NiAzMC44MjAzMTIgMTguNTE1NjI1IDI4LjA3MDMxMiAxNy4yNjE3MTkgQyAyOC4wNzAzMTIgMTcuMjYxNzE5IDIzLjU1MDc4MSAxNS4yMzA0NjkgMjEuMDkzNzUgMTguOTYwOTM4IEMgMjEuMDkzNzUgMTguOTYwOTM4IDIwLjU1ODU5NCAxOS4zMjgxMjUgMjAuNDg0Mzc1IDE4LjI5Njg3NSBDIDIwLjQxMDE1NiAxNy4yNjE3MTkgMTkuNzg1MTU2IDE5Ljg4MjgxMiAxOS43NjU2MjUgMTkuOTM3NSBDIDE5Ljc0NjA5NCAxOS45OTIxODggMjAuNDg0Mzc1IDI1LjE2MDE1NiAyMC40ODQzNzUgMjUuMTYwMTU2IFogTSAyMS4xODM1OTQgMjQuNTg5ODQ0ICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4=" loading="lazy" alt="" className="social-link-image" />
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
+      <CountdownStrip />
       <figure id="portfolio-section" className="portfolio-section">
         <div className="container">
           <div className="portfolio-content">
             <div className="portfolio-top">
               <div className="portfolio-main">
-                <h2 anim-trigger="" className="portfolio-title text-two-line-clamp gsap-fade-up" style={{textTransform: "none"}}>
-                  <span className="">
+                <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{textTransform: "uppercase", textAlign: "left", whiteSpace: "nowrap"}}>
                     <div style={{position: "relative", display: "inline-block"}} className="">
                       <div style={{position: "relative", display: "inline-block"}} className="">
 O                      </div>
@@ -626,8 +675,6 @@ u                      </div>
                       <div style={{position: "relative", display: "inline-block"}} className="">
 r                      </div>
                     </div>
-                  </span>
-                  <span className="">
                     <div style={{position: "relative", display: "block"}} className="">
                       <div style={{position: "relative", display: "inline-block"}} className="">
 e                      </div>
@@ -642,15 +689,14 @@ t                      </div>
                       <div style={{position: "relative", display: "inline-block"}} className="">
 s                      </div>
                     </div>
-                  </span>
                 </h2>
               </div>
-              <a href="/portfolio" className="portfolio-all w-inline-block">
+              <a href="/events" className="portfolio-all w-inline-block">
                 <div className="portfolio-info">
                   <div className="portfolio-projects">
-All Projects                  </div>
+All Events                  </div>
                   <div portfolio-count="" className="portfolio-count">
-16                  </div>
+11                  </div>
                 </div>
                 <address className="portfolio-link portfolio-item-link--sm">
                   <img width={23} height={23} alt="" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjY0ODQgNC41MjE3M0MxMS4xMDU1IDQuNTIxNzMgMTAuNjY1NCA0Ljk2MTgzIDEwLjY2NTQgNS41MDQ3MlY3LjQ3MDY5QzEwLjY2NTQgOC4wMTM1OCAxMS4xMDU1IDguNDUzNjggMTEuNjQ4NCA4LjQ1MzY4SDEzLjEyMjlDMTMuNjY1OCA4LjQ1MzY4IDE0LjEwNTggOC44OTM3NyAxNC4xMDU4IDkuNDM2NjZWMTAuOTExMUMxNC4xMDU4IDExLjA1MDkgMTQuMTM1IDExLjE4MzkgMTQuMTg3NiAxMS4zMDQzSDUuNjUyMTZDNS4wMjc4NCAxMS4zMDQzIDQuNTIxNzMgMTEuODEwNSA0LjUyMTczIDEyLjQzNDhWMTMuNTY1MkM0LjUyMTczIDE0LjE4OTUgNS4wMjc4NCAxNC42OTU2IDUuNjUyMTYgMTQuNjk1NkgxMy44NTAzQzEzLjcwMzIgMTQuODY3NSAxMy42MTQ0IDE1LjA5MDcgMTMuNjE0NCAxNS4zMzQ2VjE2LjgwOTFDMTMuNjE0NCAxNy4zNTIgMTMuMTc0MyAxNy43OTIxIDEyLjYzMTQgMTcuNzkyMUgxMS4xNTY5QzEwLjYxNCAxNy43OTIxIDEwLjE3MzkgMTguMjMyMSAxMC4xNzM5IDE4Ljc3NVYyMC43NDFDMTAuMTczOSAyMS4yODM5IDEwLjYxNCAyMS43MjQgMTEuMTU2OSAyMS43MjRIMTMuMTIyOUMxMy42NjU4IDIxLjcyNCAxNC4xMDU4IDIxLjI4MzkgMTQuMTA1OCAyMC43NDFWMTkuMjY2NUMxNC4xMDU4IDE4LjcyMzYgMTQuNTQ1OSAxOC4yODM1IDE1LjA4ODggMTguMjgzNUgxNi41NjMzQzE3LjEwNjIgMTguMjgzNSAxNy41NDYzIDE3Ljg0MzQgMTcuNTQ2MyAxNy4zMDA2VjE2LjMxNzZDMTcuNTQ2MyAxNS43NzQ3IDE3Ljk4NjQgMTUuMzM0NiAxOC41MjkzIDE1LjMzNDZIMjAuNDk1M0MyMS4wMzgyIDE1LjMzNDYgMjEuNDc4MyAxNC44OTQ1IDIxLjQ3ODMgMTQuMzUxNlYxMi4zODU2QzIxLjQ3ODMgMTIuMTU2MiAyMS4zOTk2IDExLjk0NTEgMjEuMjY3OCAxMS43Nzc4QzIxLjA2MjggMTEuNDkxMiAyMC43MjcxIDExLjMwNDMgMjAuMzQ3OCAxMS4zMDQzSDE4LjU5MThDMTguMjYzOSAxMS4xNDUgMTguMDM3OCAxMC44MDg3IDE4LjAzNzggMTAuNDE5NlY4Ljk0NTE3QzE4LjAzNzggOC40MDIyOCAxNy41OTc3IDcuOTYyMTggMTcuMDU0OCA3Ljk2MjE4SDE1LjU4MDNDMTUuMDM3NCA3Ljk2MjE4IDE0LjU5NzMgNy41MjIwOCAxNC41OTczIDYuOTc5MlY1LjUwNDcyQzE0LjU5NzMgNC45NjE4MyAxNC4xNTcyIDQuNTIxNzMgMTMuNjE0NCA0LjUyMTczSDExLjY0ODRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K" loading="lazy" className="portfolio-item-arrow item-arrow--hover-out" />
@@ -667,16 +713,16 @@ All Projects                  </div>
           </div>
           <div className="portfolio-bottom">
             <div className="portfolio-buttons">
-              <div portfolio-slider-prev="" className="portfolio-button" tabIndex={0} role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-dafc49337be281068" aria-disabled="false">
+              <div portfolio-slider-prev="" className="portfolio-button" onClick={portfolioPrev} tabIndex={0} role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-dafc49337be281068" aria-disabled={portfolioSlide === 0}>
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE0LjMyMDggMi45MTQyOUMxNC4zMjA4IDIuNDA5MzQgMTMuOTExNSAyIDEzLjQwNjUgMkgxMS41NzhDMTEuMDczIDIgMTAuNjYzNyAyLjQwOTM0IDEwLjY2MzcgMi45MTQyOVY0LjI4NTcxQzEwLjY2MzcgNC43OTA2NiAxMC4yNTQzIDUuMiA5Ljc0OTM4IDUuMkg4LjM3Nzk1QzcuODczMDEgNS4yIDcuNDYzNjcgNS42MDkzNCA3LjQ2MzY3IDYuMTE0MjlWNy40ODU3MUM3LjQ2MzY3IDcuOTkwNjYgNy4wNTQzMyA4LjQgNi41NDkzOCA4LjRINS4xNzc5NUM0LjY3MzAxIDguNCA0LjI2MzY3IDguODA5MzQgNC4yNjM2NyA5LjMxNDI5VjExLjE0MjlDNC4yNjM2NyAxMS42NDc4IDQuNjczMDEgMTIuMDU3MSA1LjE3Nzk1IDEyLjA1NzFINy4wMDY1M0M3LjUxMTQ3IDEyLjA1NzEgNy45MjA4MSAxMi40NjY1IDcuOTIwODEgMTIuOTcxNFYxMy44ODU3QzcuOTIwODEgMTQuMzkwNyA4LjMzMDE1IDE0LjggOC44MzUxIDE0LjhIMTAuMjA2NUMxMC43MTE1IDE0LjggMTEuMTIwOCAxNS4yMDkzIDExLjEyMDggMTUuNzE0M1YxNy4wODU3QzExLjEyMDggMTcuNTkwNyAxMS41MzAyIDE4IDEyLjAzNTEgMThIMTMuODYzN0MxNC4zNjg2IDE4IDE0Ljc3OCAxNy41OTA3IDE0Ljc3OCAxNy4wODU3VjE1LjI1NzFDMTQuNzc4IDE0Ljc1MjIgMTQuMzY4NiAxNC4zNDI5IDEzLjg2MzcgMTQuMzQyOUgxMi40OTIyQzExLjk4NzMgMTQuMzQyOSAxMS41NzggMTMuOTMzNSAxMS41NzggMTMuNDI4NlYxMi4wNTcxQzExLjU3OCAxMS41NTIyIDExLjE2ODYgMTEuMTQyOSAxMC42NjM3IDExLjE0MjlIOC44MzUxQzguMzMwMTUgMTEuMTQyOSA3LjkyMDgxIDEwLjczMzUgNy45MjA4MSAxMC4yMjg2VjkuNzcxNDNDNy45MjA4MSA5LjI2NjQ4IDguMzMwMTUgOC44NTcxNCA4LjgzNTEgOC44NTcxNEgxMC4yMDY1QzEwLjcxMTUgOC44NTcxNCAxMS4xMjA4IDguNDQ3OCAxMS4xMjA4IDcuOTQyODZWNi41NzE0M0MxMS4xMjA4IDYuMDY2NDggMTEuNTMwMiA1LjY1NzE0IDEyLjAzNTEgNS42NTcxNEgxMy40MDY1QzEzLjkxMTUgNS42NTcxNCAxNC4zMjA4IDUuMjQ3OCAxNC4zMjA4IDQuNzQyODZWMi45MTQyOVoiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" alt="" className="portfolio-button-image" />
               </div>
-              <div portfolio-slider-next="" className="portfolio-button portfolio-button-next" tabIndex={0} role="button" aria-label="Next slide" aria-controls="swiper-wrapper-dafc49337be281068" aria-disabled="false">
+              <div portfolio-slider-next="" className="portfolio-button portfolio-button-next" onClick={portfolioNext} tabIndex={0} role="button" aria-label="Next slide" aria-controls="swiper-wrapper-dafc49337be281068" aria-disabled={portfolioSlide === SLIDE_COUNT - 1}>
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNjc5MTkgMi45MTQyOUM1LjY3OTE5IDIuNDA5MzQgNi4wODg1MyAyIDYuNTkzNDcgMkg4LjQyMjA1QzguOTI2OTkgMiA5LjMzNjMzIDIuNDA5MzQgOS4zMzYzMyAyLjkxNDI5VjQuMjg1NzFDOS4zMzYzMyA0Ljc5MDY2IDkuNzQ1NjcgNS4yIDEwLjI1MDYgNS4ySDExLjYyMkMxMi4xMjcgNS4yIDEyLjUzNjMgNS42MDkzNCAxMi41MzYzIDYuMTE0MjlWNy40ODU3MUMxMi41MzYzIDcuOTkwNjYgMTIuOTQ1NyA4LjQgMTMuNDUwNiA4LjRIMTQuODIyQzE1LjMyNyA4LjQgMTUuNzM2MyA4LjgwOTM0IDE1LjczNjMgOS4zMTQyOVYxMS4xNDI5QzE1LjczNjMgMTEuNjQ3OCAxNS4zMjcgMTIuMDU3MSAxNC44MjIgMTIuMDU3MUgxMi45OTM1QzEyLjQ4ODUgMTIuMDU3MSAxMi4wNzkyIDEyLjQ2NjUgMTIuMDc5MiAxMi45NzE0VjEzLjg4NTdDMTIuMDc5MiAxNC4zOTA3IDExLjY2OTggMTQuOCAxMS4xNjQ5IDE0LjhIOS43OTM0N0M5LjI4ODUzIDE0LjggOC44NzkxOSAxNS4yMDkzIDguODc5MTkgMTUuNzE0M1YxNy4wODU3QzguODc5MTkgMTcuNTkwNyA4LjQ2OTg1IDE4IDcuOTY0OSAxOEg2LjEzNjMzQzUuNjMxMzkgMTggNS4yMjIwNSAxNy41OTA3IDUuMjIyMDUgMTcuMDg1N1YxNS4yNTcxQzUuMjIyMDUgMTQuNzUyMiA1LjYzMTM5IDE0LjM0MjkgNi4xMzYzMyAxNC4zNDI5SDcuNTA3NzZDOC4wMTI3MSAxNC4zNDI5IDguNDIyMDUgMTMuOTMzNSA4LjQyMjA1IDEzLjQyODZWMTIuMDU3MUM4LjQyMjA1IDExLjU1MjIgOC44MzEzOSAxMS4xNDI5IDkuMzM2MzMgMTEuMTQyOUgxMS4xNjQ5QzExLjY2OTggMTEuMTQyOSAxMi4wNzkyIDEwLjczMzUgMTIuMDc5MiAxMC4yMjg2VjkuNzcxNDNDMTIuMDc5MiA5LjI2NjQ4IDExLjY2OTggOC44NTcxNCAxMS4xNjQ5IDguODU3MTRIOS43OTM0N0M5LjI4ODUzIDguODU3MTQgOC44NzkxOSA4LjQ0NzggOC44NzkxOSA3Ljk0Mjg2VjYuNTcxNDNDOC44NzkxOSA2LjA2NjQ4IDguNDY5ODUgNS42NTcxNCA3Ljk2NDkgNS42NTcxNEg2LjU5MzQ3QzYuMDg4NTMgNS42NTcxNCA1LjY3OTE5IDUuMjQ3OCA1LjY3OTE5IDQuNzQyODZWMi45MTQyOVoiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" alt="" className="portfolio-button-image" />
               </div>
             </div>
             <div className="portfolio-slider">
-              <div portfolio-slider-init="" className="swiper swiper-portfolio w-dyn-list swiper-initialized swiper-horizontal">
-                <div role="list" className="swiper-wrapper w-dyn-items" id="swiper-wrapper-dafc49337be281068" aria-live="off" style={{transitionDuration: "0ms", transform: "translate3d(-440px, 0px, 0px)", transitionDelay: "0ms"}}>
+<div portfolio-slider-init="" className="swiper swiper-portfolio w-dyn-list swiper-initialized swiper-horizontal">
+                  <div ref={sliderRef} role="list" className="swiper-wrapper w-dyn-items" id="swiper-wrapper-dafc49337be281068" aria-live="off" style={{transitionDuration: "600ms", transform: `translate3d(-${portfolioSlide * step}px, 0px, 0px)`, transitionDelay: "0ms"}}>
                   <div role="group" className="swiper-slide portfolio-slide w-dyn-item swiper-slide-prev" aria-label="1 / 16" style={{width: "424px", marginRight: "16px"}}>
                     <a portfolio-card="" href="/portfolio/cookie3" className="portfolio-item w-inline-block">
                       <div className="portfolio-item-top">
@@ -1342,37 +1388,41 @@ Partnerships                            </div>
       </figure>
       <section id="team-section" className="team-section">
         <div className="w-layout-blockcontainer container w-container">
-          <div className="team-visionaries" style={{borderTop: "1px solid var(--grey)", borderBottom: "1px solid var(--grey)", backgroundColor: "var(--light)", justifyContent: "center", paddingTop: "3rem", paddingBottom: "4rem", display: "flex"}}>
-            <div style={{color: "var(--darklighter)", fontFamily: "LabsAmiga, sans-serif", fontWeight: "400", textAlign: "center", textTransform: "uppercase", fontSize: "clamp(3.5rem, 10vw, 9rem)", lineHeight: "0.85", letterSpacing: "-0.02em"}} className="gsap-fade-up">
-              <div>
-OUR                </div>
-              <div>
-VISION                </div>
-              <div>
-ARIES                </div>
-            </div>
-          </div>
           <div className="team-slider-row">
             <div className="section-heading sh-grid-2-1-1">
               <div className="section-title st-our-team">
-                <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{width: "355.203px", height: "37.5px"}}>
+                <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{textAlign: "left"}}>
                   <div style={{position: "relative", display: "inline-block"}} className="">
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
+                    <div style={{position: "relative", display: "inline-block"}} className="">
 O                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
+                    <div style={{position: "relative", display: "inline-block"}} className="">
 U                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
+                    <div style={{position: "relative", display: "inline-block"}} className="">
 R                    </div>
                   </div>
-                  <div style={{position: "relative", display: "inline-block"}} className="">
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
-T                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
-E                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
+                  <div style={{position: "relative", display: "block", marginTop: "0.25em", textAlign: "left"}} className="">
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+V                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+I                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+S                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+I                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+O                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+N                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
 A                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
-M                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+R                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+I                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+E                    </div>
+                    <div style={{position: "relative", display: "inline-block"}} className="">
+S                    </div>
                   </div>
                 </h2>
               </div>
@@ -1381,21 +1431,21 @@ M                    </div>
                   <div className="section-descr-info">
                     <div className="section-descr-info-decor"></div>
                     <h3 className="section-descr-title gsap-fade-up">
-Powered by ASTRA                      <br className="" />
-Driving 2K26                    </h3>
+Built by Founders                      <br className="" />
+For Founders                    </h3>
                   </div>
                 </div>
               </div>
               <div className="section-heading-controls">
                 <div className="team-nav">
-                  <div id="hovered-container-orange-arrow" team-slider-prev="" className="team-nav-button swiper-button-disabled" tabIndex={-1} role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-6897a10e55610441b7" aria-disabled="true">
+                  <div id="hovered-container-orange-arrow" team-slider-prev="" className={teamSlide === 0 ? "team-nav-button swiper-button-disabled" : "team-nav-button"} tabIndex={teamSlide === 0 ? -1 : 0} role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-6897a10e55610441b7" aria-disabled={teamSlide === 0} onClick={teamPrev}>
                     <div id="hovered-orange-arrow" className="team-nav-image w-embed">
                       <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="">
                         <path d="M14.3212 2.91429C14.3212 2.40934 13.9118 2 13.4069 2H11.5783C11.0734 2 10.664 2.40934 10.664 2.91429V4.28571C10.664 4.79066 10.2547 5.2 9.74975 5.2H8.37832C7.87337 5.2 7.46404 5.60934 7.46404 6.11429V7.48571C7.46404 7.99066 7.0547 8.4 6.54975 8.4H5.17832C4.67338 8.4 4.26404 8.80934 4.26404 9.31429V11.1429C4.26404 11.6478 4.67338 12.0571 5.17832 12.0571H7.00689C7.51184 12.0571 7.92118 12.4665 7.92118 12.9714V13.8857C7.92118 14.3907 8.33052 14.8 8.83546 14.8H10.2069C10.7118 14.8 11.1212 15.2093 11.1212 15.7143V17.0857C11.1212 17.5907 11.5305 18 12.0355 18H13.864C14.369 18 14.7783 17.5907 14.7783 17.0857V15.2571C14.7783 14.7522 14.369 14.3429 13.864 14.3429H12.4926C11.9877 14.3429 11.5783 13.9335 11.5783 13.4286V12.0571C11.5783 11.5522 11.169 11.1429 10.664 11.1429H8.83546C8.33052 11.1429 7.92118 10.7335 7.92118 10.2286V9.77143C7.92118 9.26648 8.33052 8.85714 8.83546 8.85714H10.2069C10.7118 8.85714 11.1212 8.4478 11.1212 7.94286V6.57143C11.1212 6.06648 11.5305 5.65714 12.0355 5.65714H13.4069C13.9118 5.65714 14.3212 5.2478 14.3212 4.74286V2.91429Z" fill="currentColor" className=""></path>
                       </svg>
                     </div>
                   </div>
-                  <div id="hovered-container-orange-arrow" team-slider-next="" className="team-nav-button" tabIndex={0} role="button" aria-label="Next slide" aria-controls="swiper-wrapper-6897a10e55610441b7" aria-disabled="false">
+                  <div id="hovered-container-orange-arrow" team-slider-next="" className={teamSlide === TEAM_SLIDE_COUNT - 1 ? "team-nav-button swiper-button-disabled" : "team-nav-button"} tabIndex={teamSlide === TEAM_SLIDE_COUNT - 1 ? -1 : 0} role="button" aria-label="Next slide" aria-controls="swiper-wrapper-6897a10e55610441b7" aria-disabled={teamSlide === TEAM_SLIDE_COUNT - 1} onClick={teamNext}> 
                     <div id="hovered-orange-arrow" className="team-nav-image w-embed">
                       <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="">
                         <path d="M5.67882 2.91429C5.67882 2.40934 6.08816 2 6.59311 2H8.42168C8.92663 2 9.33597 2.40934 9.33597 2.91429V4.28571C9.33597 4.79066 9.7453 5.2 10.2503 5.2H11.6217C12.1266 5.2 12.536 5.60934 12.536 6.11429V7.48571C12.536 7.99066 12.9453 8.4 13.4503 8.4H14.8217C15.3266 8.4 15.736 8.80934 15.736 9.31429V11.1429C15.736 11.6478 15.3266 12.0571 14.8217 12.0571H12.9931C12.4882 12.0571 12.0788 12.4665 12.0788 12.9714V13.8857C12.0788 14.3907 11.6695 14.8 11.1645 14.8H9.79311C9.28816 14.8 8.87882 15.2093 8.87882 15.7143V17.0857C8.87882 17.5907 8.46948 18 7.96454 18H6.13597C5.63102 18 5.22168 17.5907 5.22168 17.0857V15.2571C5.22168 14.7522 5.63102 14.3429 6.13597 14.3429H7.50739C8.01234 14.3429 8.42168 13.9335 8.42168 13.4286V12.0571C8.42168 11.5522 8.83102 11.1429 9.33597 11.1429H11.1645C11.6695 11.1429 12.0788 10.7335 12.0788 10.2286V9.77143C12.0788 9.26648 11.6695 8.85714 11.1645 8.85714H9.79311C9.28816 8.85714 8.87882 8.4478 8.87882 7.94286V6.57143C8.87882 6.06648 8.46948 5.65714 7.96454 5.65714H6.59311C6.08816 5.65714 5.67882 5.2478 5.67882 4.74286V2.91429Z" fill="currentColor" className=""></path>
@@ -1417,7 +1467,7 @@ Driving 2K26                    </h3>
             </div>
             <div className="team-slider-row-inner team">
               <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden">
-                <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite">
+                <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * TEAM_SLIDE_STEP}px, 0px, 0px)`, transitionDelay: "0ms"}}>
                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 6" style={{width: "291.765px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">

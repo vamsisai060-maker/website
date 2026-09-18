@@ -31,6 +31,16 @@ export default function EventsIndexPage() {
           All Events
         </h1>
 
+        <p
+          style={{
+            fontSize: '1.25rem',
+            margin: '0 0 2.5rem',
+            color: 'var(--dark-60)',
+          }}
+        >
+          Events page placeholder — this text will be updated soon.
+        </p>
+
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {EVENTS.map((event) => (
             <li
