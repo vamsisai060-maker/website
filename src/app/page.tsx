@@ -400,17 +400,7 @@ export default function Home() {
                         </div>
                       </a>
                     </li>
-                    <li className="header-menu-item">
-                      <a scramble-link="" href="#faq-section" className="header-menu-link w-inline-block">
-                        <div className="header-menu-link-wrapper">
-                          <div scramble-text="" className="header-menu-link-text">
-                          <DecryptedText text="FAQ" animateOn="hover" encryptedClassName="header-menu-encrypted-char" />
-                        </div>
-                          <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
-                          <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
-                        </div>
-                      </a>
-</li>
+                    
                   </ul>
                 </nav>
                 <div className="menu-button w-nav-button" style={{WebkitUserSelect: "text"}} aria-label="menu" role="button" tabIndex={0} aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
@@ -579,7 +569,6 @@ Apply now                    </div>
           items={[
             { label: 'Our Events', link: '#portfolio-section' },
             { label: 'Our Visionaries', link: '#team-section' },
-            { label: 'FAQ', link: '#faq-section' },
           ]}
           accentColor="#ff7120"
           menuButtonColor="#0e0e0e"
@@ -1474,7 +1463,7 @@ For Founders                    </h3>
                         <h3 className="team-member-name">
 Ariel Asafov                        </h3>
                         <div className="team-member-pos">
-Incubation Director                        </div>
+SECRETARY                        </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
@@ -1522,7 +1511,7 @@ Bio                              </div>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
-Vlad Filatov                        </h3>
+SUGUNA REDDY                        </h3>
                         <div className="team-member-pos">
 administration                        </div>
                       </div>
@@ -1775,213 +1764,6 @@ Bio                              </div>
           </div>
         </div>
         <div className="team-custome-code w-embed w-script"></div>
-      </section>
-      <section id="faq-section" className="faq-section">
-        <div className="container">
-          <div className="">
-            <div className="section-heading sh-grid-1-1-2">
-              <div className="section-title">
-                <h2 anim-trigger="" className="h2 h2-lg faq-tablet gsap-fade-up" style={{width: "356.203px", height: "37.5px"}}>
-                  <div style={{position: "relative", display: "inline-block"}} className="">
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
-F                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
-A                    </div>
-                    <div style={{position: "relative", display: "inline-block", opacity: "0", visibility: "hidden"}} className="">
-Q                    </div>
-                  </div>
-                </h2>
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDQiIGhlaWdodD0iNDQiIHZpZXdCb3g9IjAgMCA0NCA0NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgeD0iMC41IiB5PSIwLjUiIHdpZHRoPSI0MyIgaGVpZ2h0PSI0MyIgZmlsbD0iI0Y2RjZGNiIvPgo8cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjQzIiBoZWlnaHQ9IjQzIiBzdHJva2U9IiM5RTlFOUUiLz4KPHBhdGggZD0iTTE4LjM4NTMgMjQuOTE3Nkw5LjAwMDA4IDM0LjMwMjlMOS42OTcxNyAzNUwxOS4wODI1IDI1LjYxNDdIMjQuOTE3NUwzNC4zMDI4IDM1TDM0Ljk5OTkgMzQuMzAyOUwyNS42MTQ3IDI0LjkxNzdWMTkuMDgyNEwzNSA5LjY5NzA5TDM0LjMwMjkgOUwyNC45MTc3IDE4LjM4NTNIMTkuMDgyM0w5LjY5NzA4IDlMOSA5LjY5NzA5TDE4LjM4NTMgMTkuMDgyNVYyNC45MTc2WiIgZmlsbD0iIzlFOUU5RSIvPgo8L3N2Zz4K" loading="lazy" width={44} height={44} alt="" className="section-title-decor" />
-              </div>
-              <div className="section-heading-illustration">
-                <div className="graphic-block graphic-block-alt">
-                  <div className="graphic-block-decor graphic-block-decor-top-left"></div>
-                  <div className="graphic-block-decor graphic-block-decor-top-right"></div>
-                  <div className="graphic-block-decor graphic-block-decor-bottom-right"></div>
-                  <div className="graphic-block-decor graphic-block-decor-bottom-left"></div>
-                  <img src="data:image/webp;base64,UklGRsISAABXRUJQVlA4WAoAAAAQAAAAawEAawEAQUxQSCMLAAAB8AcA1Oq0/f+dewkhaFNF18Ks7u7u7u6udPCquzFf3ec++nqtznzU3bu96u4agkNyn/NHAyQ3D+fc/4iICYAi/xf5v8j/Rf4vGm1IaPXukwe1qlc+wGIytJS2szf+fvOF5kTE3OynDy8kfzX8dV9jyqfp31noxqyLWzuX8jWcaifmoLtF1sFV3UxGUtXvs9Gz4vKMaMVIUNVSb0RZiqmKV8RcQR0++V89PwPAL6hSl2GLv/vrkj0149G9Mwf2/jB//vgoi658E1GfOadHBavMG3zpiaZhwTNOL6hdSj9TNJ0girsflVcYF52Mbhfao5UDQvVR7wXq+dmS4lyzLkJP318VqYOgc6jzG++oLGtxC3V4t7+vxz4WekPH4Sb8it6O+hQ/vemheqnohVlbIxVexdpQt48nBnrC/At659MJIYxqkYy6PljdA/2El6A4U1VhknUl6v1eebfF3EbvfTqCRz1sqP+jwW5St6E3Z74fyJ/oZPTKDWb39Mn1KsRtZZljXWRDLx3rltIX0duvNVQ40+IWeq2trTs+Qe9//o6FLdYv0JsvhxasfrYE0LE2mCmxNvTuL00FCTmMUhTrFI7USEZvfxFZAHWsUw7oXOLHDutKlOBmU/6qPEBpTlaZ0eIWyvBRuXyZdqA8c6eyIjoZJfm+kp8RmkQwY7zCh0U2lOWL0HxE3UOpZvfjQsw1lKeYkZfysZALPm3Ag3LXUaZ3Q/KoYUfZHjdzwGc7SlWMc2U6jdIVM1QGNMqSC14p5mKJJh98XIEB36BktRGv1HyCMk6ykO/tdNngSTOAOQnl3Jd8i1C6uX0BRghJ3Y8kXunH8sFjaulHKOuFxItFCed03YLSPm8mnfmyjPB6hrwyq5CuqkNKUo8lXUuNWn+plBuL1E6JpFwsuXAU5RLo9THlttErjnL76TWMcKYz5BJtCKfuIVdmRcLBNHJlhVKuQgq17vpTLugyscQMIP0yQatDwbRrr5EquyXQPuQmqT5RiAdbKHWnDFC/dgadskYD/beTSfwewIAuDirdiwEGmpKIJMYDCwc5afS7mQfm30mUXh+YOFSj0EfAxYDTBLodzgYYQ5+MbkBdS9Sg0bVLWhQ9WK+S51s/2gQ3Xn7Mjiie3PvhwynVS6oegneo86gsUDZy9aUszK8j4/SPczu95ae4r8wj2mhTgLKNrqBb7Y//SIivGam6BRbSJsmHMEqcHT2YnX4xcUWbt4MKVPoBZezVgK6hXzjR89kv9m+KbxgVrOYFaymToNKl1jHUrbDd/X7loDdKuyj3jC5XSgJZX3+Ies9KO/zV5NYxls1k0VoBWa0H0TtF2vNzZPnYRBafr5CdN0OBrLFOdjhHAFlbpyA796tkeeMSstNWDajquxPZKeYoZGmdxY8TxYGqgQeRnZnNgaxtsvmxXCWL+RSy8/8hQNYBGjscg4Cs5lPIziQ/unQW7HhQGcgasB+5qc0HutbIYseffoRZity0NQG6mk5xQ3ygEqZSLjeulALCTkZmig5AWMtZbvxgokzFLGY8rAyUjUNeOuOBsmoSM/aYSFPsCS9SqgJp62m8SCzuS5qughfixb+Jc9q/EUyVmcjR7Fu/bBpYO0xVqKFsZ8mrQnt5ede8TtUDSHGBLXnm3jm2flzjaD+FBCEPuOPSkfbvzhV9qoaohV19B4tcCvHizKbJHaIshdgo5LYz99+khEF1I9RCaQa7XArt+dlv49tHmwubhTxzLRy3/1o7vEGYRSk01nLOtTP9/N5l/cqb1cJgHf9cCnH/8MaxZaW3wSBwfaezIrlthgKmbi0ut2+NBRSnaqgy224wIGb2l5iyz3DA9ObygoPGAx4IlNceAwJXyOszI+JlDWnFGRF4wiSrTsKIcM6QVS1DAq+XkVRoiiGR00hSgdcMCVyvykndb0xcssgJthoTWkdJTTQmcIukIlOMiZuBcoLdxoRoLalRwpDAMZKKSDUmVknKlGRMJClygpGaIXFWlVTMM0PiUTFJwQynEZFZUVbWo0aEs4GsoLLNgMDx0oIPjIh4eQXtMyDmyguapxgPSyQGra4YDhNlBuEbhYEGPqNeGAuxcgOo8keaMA7EYNmBX+l28d9cvOc0BLCf9FyagqoNWvDLJbvgXvfCwbVapkns2oMPshnXujBxaQ6sOHDijxftgmNa/ULHtalk3cErku85NF6lRhRSLhXLa71jvz332MGmm76FmWtLQIP+Sw9cz9IYtAeo6BPVKu7zE/dzeLOQDC7NATUGztj1j01wZSAtXKrm4q2HbDp818EPRxWCuFZCYnrN3f6EFw+sZHEZwYwLQFplHfLyJ9p0zWHGeNIUP4u8tIeTJkEw43eFMk1SkJkzgbC+55CZ2RUoM1NwY49KmJhHyM3/AF3Vz5GbmeUJ08XJjhP+dIm6idzUBgJZfbciO0+F0KVlBjvEKCCr/1Fk5wUzXWYJdmgDgaxvpiA7L4SQJSAR2al1AKoqvbP5kexDlnIPkJ1pDYCqyufITkcskLVLDj8SgawhZ5GdZ0vQJQ7ZeacKkDX6KVW0JR/9cSdbeENWfyBr0J9I1gRQgmK6TP/vWZtDX1mzgK7jc+lyPwxeVZTQGr3f/eOfTL08Ggp0LfsACRvnIk9LaIe4b0480ISnDkQDXdWvkbJXrfl6VVHDq3RL2HM23X3OTaWAsN000uDUAuVpKtV89LoDD4UokHgyzASEtV5C2p4t6SaXavDbvRf+dMqWk5c9eVI0kHahRhzR1xMuFShdd/ji3XfSn33eJUIB2lZ7idQ9E+ipPE0lQoC86kEkr9ZXJySe56QPJlu4UPkpElhrxwR1G5L4ZxMPWgoa5TZnQdglJPKnCgPUNYJK2Y0Y0MiOZN6ikC/wMNI5pRL5FgpC4QLqVU5HSh8z0868E0md8ybtuubSSgwjXdj/kdg/mSjXQlDrbhDlRiG1RQ/KxZILF1NuFb3ep9zP9JpHOPUMvXoTDvaTSzSj3Apy5VaiXN1samWUo1zgXWrd96UcbJSYEFI6aSJdG01ef56X0nQgfYkX0korP8ghoReRtIMPZSXmguWyhD4B4r92V1InAwAmOqXzvAr1oJ+cslsBQMAt6XwO5Lf8KqWvfAEA5gjJ5DShH5RPl9DtKHi1zD3J/OHLAGWeJp9O4FJZKqTyrDVwMPCEdH6wuILXn8nENhx4WPuBZJ69CXkqCRJJjgYutrRLRcyGfJbNkMWtFsDIbikyOeabH+VTSayyAisnZcgjtSHku2quDJJrADenaNL40Cd/vtu8zzYd+Okz2SGJ6+FQwPp2b/vCCiydpUnB0RMK6vedd91qAUw1T02RwVa1QFDyvBfZFgNflfZXve9hJLix2ROvSY4G1pbdJ7xMmwFuHap5x60ewN3AtZp3HQ92j89G4Q2rrMBfn3HPvOllHXCz5Q/9JbcAHjc86z0iAdwefU5ntunA5uDN2d5yvJj7IHRjjp62W4HRPk1OCa/I6gmeVJqeFnq51QKYHdz/hjdsAg8HLLLrwrbYCvy2rszQ3f3XPAVQ+U/Nc8nRwPNGibn6yu4BOjT32ZXi9IhtBLBd6X9U6Gm9rx4AIKTrxquau8RKK3Der9PeLN1cLgW6VQNqv388LVMTKPIQ4tnjGztWNgL2V/r4hqaL1Jag89CKtVr3GRX/0brvd7wb37tBqWBFBUPQL/60w3Op8WAYK42+f6x5JCexEhjJin+Dmb/aNTel76yhgPFcpv4n59NRFCAz5a9mfmBQq1EdRs5YvXH/+csv7VcTt87sVbGMCoa3YgkIU1Uo8n+R/4v8X+T/Iv8X+V+PAFZQOCB4BwAAUF8AnQEqbAFsAT6RSJxKpb+vIabWWRvwEglpbuFxqOMtt8cPxD/Tz6p6FfxXb7C5bffb+qAxN889//eZP+B3yQm/ksXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3WTFgJXv9S9tPEvJibHt+hAjHSn4alq54r3d3d3dOlpV2wgjPiqVto7PxTOGUCDtLl21Kk1lefvKmX2qJQ7JqAID0yfFj1voyu1RwiIiIiBZFTlA+cg0xUENY4MCvtp/PMr2FI2ILJBninlDjK6zyemU25UrTS8MzMzMyPb6CF9Np8TczU3t+HcMsEegUE0lnOppwnvrli5gnabo/qZTdi7u6rDR1wBTh6P/Ew35ehxNUgH4mkbn3iecHuY6tw6tsevUTiHM9XBlLBbEZzTgV0tQYxKqqqh46tZQk6erjSIpJB/2WIggYdDDWjAtAB0By9RLRdCRRZgGuaOB6Ke5V+pmZmYFMS1Ezp9D34YzqphDgpxnVLO6Dic/hx72x+RObMOWHWZtYxptL/ZWlfinjdgonTAqgBd419qqOJZngTmqvviqe1Rilg37+IAMZvs9ZZ7IiFfbyHXW4+X9qpcn6g57D2fSyj+NynJrgA3z9aumoOOqizTYQulhTAcQ9W/Y6AqNKMWIf12Ow3/4+yc1wiIFwFfkUPMFDNnHvW8/02PcSOHv6/IIrgrFOaxsH1IA22c2JERCv7rEpkElw7O3V0WRyrQEY/sLjibxtg1Rphf9zbAMLNBMtlI2xd3dV54KCj21Zu++4usgIbYb0yYQBF/5U4eBuLLgiZOVq04g3N3d3ZLeI7Hbw5ULWhKT2ntFGeKndDI1VRYqHDasK3VGjgtI0Wr3dPIlSp+PVW4y1lQfGNGzX+q87/Jjm7mJmoOCZC3R9I0Wr3d1Pj4MuRncn3K8cp/ceaOooxOBd1zgZ0ESPjcdNU1it5LvyIiIiIiIXnanOUX5tN3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dkAAP7+pJdRgAAjYgx5xG5aPSbgqxdOQv1Fdakj6qBz3/cWGRkWWzVHZIPmHdK6pXhjPW5Xoev/OFvdKiiGl6ws0aCCzz6rYFKSdlA8S5FVLb5iwjDAI2G4bYxLdM0mhBO/J0YGWSTDX/PT+MmIzG4vVD+Rk56DOTx9b05JPQgAg8DLY0zhZco64fECOodMjVvZjhIZCYzYMDi7o9rVnF6/0FxVnYbGebxy3PJvuPflhMm1aMHSpLDwyPLhMRfTikWNYXVtXlzJeF9meZW+Y2sQPmyxI7c5zpU9SDfh46mUMdlc1gr8eCN0BJKgvhugegtmIUcZYN8iMTKG2ggBcBo93KfWbFoBNSjHVOaZKSCj9wZIyrarJMUa/3HzbSBls0UYbRY+JnONwQOzKqBCnfx8yHuRSLk/Zcv8y2t25ETK9DajhsxbbjPa2MKqaNaRX5IkU8LNpvdIreuvG5NdV6nt1dRGQIj4MzDW/e+RTOKtaHcGWLqGcV2kx+pXhTrmn2DcPB77eMsHFhMcJMAE+MVdgbUWjlZnkvxraIAbzcUs1rFLCrbpmgENjXhyHc95XUTaoWqao5l0lpA28dlgdEpIKnrIAq0CfVvd1+1x/j+vEzP+TFO6ZH8ah9NbPvZKyI8EEXqHm1/rDyOvXwjAFBYTl8h2/1vY/L4fE2uUBwS+iNKh4y03txA+GX64cCPb9X5m9T3bJtfLFHjDrdMSRiEh7q2YSzUzEAs9gAAGW40TOv/YXCcE0xQCi5f9owjA1lrVvT/Ou2A2Y/T6lROxDLH9vJkV50Bd83aLPnOFu0ufC2sUuV6flYubaofhsFb6bW9tq+/HP3QgtstVrA4pNb8FKA3GNsuUY9jY7bGocKztNUSDKmKacMw62sBquXYBjau9vaGvMyhpWmMtlzGHJ+xl2CECqT/NSiA+1Fl9VwrWkTSdOI04K7tuFt/d2XLn2xdr0kZyLgutFjfUL4X6fT+MdxlOdoDzFWzPUCwlxz0ZMwtpgkXg4HmyRiZPZftN2qxSV4Us2ORysOQueFBpxtajchLu3JJe2FDCJqJmG2Tb6y+NgAK1dl2a/7m9XaTPyQtAzly7vYMP8EdDFDE/0CAjk2OeGCaWFixLGYm1pheuJFwtajG2RLnmm4ib188juPxGBrKmX6uu2m54RygPXG3JNLH3mPC++MxDSlav+uuQ9+kHW+qL7xCaTo7fAYE5Bk4MZnKs+mUDSkPjJutFzxnYoRoo0eP1b6QLEw5Ib1aKtqXJutne5o0pM+AOx7zPZ7b/HrNXK822DQjY0kjugnbNJ//q8j/j3lgBwtGKKerx+Joi1XXJ5o2JJfGaQxzvhNlQBKk9UcfsgX+Z9+YeU84MEesPXSOBqyuOxDTv4sRagwt/QfoG6zbFdHWYKK5PikcygMD/DX0UYk9CfAbzLCGn2EHC4s9/wg9vIH/sti5Oc+fAsLIAsQ3apiv5aqZtl5+dnoy4rz/Av+FQ/+qY+6YgHT5RZ+1101vmACg4Dw9kgAAAAAAAAA==" loading="lazy" width={364} height={364} alt="" className="graphic-block-image" />
-                </div>
-              </div>
-              <div className="section-heading-descr hide-in-tablet">
-                <div className="section-heading-descr-inner">
-                  <div className="section-descr-info">
-                    <div className="section-descr-info-decor"></div>
-                    <h3 className="section-descr-title gsap-fade-up">
-Most Common Questions                    </h3>
-                  </div>
-                  <div className="section-descr-text">
-No worries, here you can find all the answers                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="gap-vertical show-in-tablet"></div>
-            <div className="faq-wrapper w-dyn-list">
-              <div role="list" className="faq-listing w-dyn-items">
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-1" aria-controls="w-dropdown-list-1" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-What is the incubation program?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-1" aria-labelledby="w-dropdown-toggle-1">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-Our incubation program is a holistic support system designed to nurture startups from the early stages through to post-listing success. It encompasses VCs, KOLs, Launchpads, exchange listings, business development, branding, legal and technology guidance, marketing, community development, advisor onboarding, online advertising, user acquisition, treasury management, and revenue growth. This program operates 6-12 months pre-listing and extends to 24 months post-listing to ensure sustained growth and stability.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-2" aria-controls="w-dropdown-list-2" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-What is the acceleration program?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-2" aria-labelledby="w-dropdown-toggle-2">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-The acceleration program is tailored for startups nearing their listing date. It provides intensive support from 30-45 days before listing to 60 days post-listing. Similar to the incubation program, it focuses on a shorter, more intense period to ensure successful market entry and initial growth.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-3" aria-controls="w-dropdown-list-3" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-Which verticals are you investing in?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-3" aria-labelledby="w-dropdown-toggle-3">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-Our investment focus includes AI, DeFi, Blockchain, Infrastructure, and DePin verticals. Nevertheless, we remain open to evaluating other tech-centric projects that align with our mission of fostering innovation in the web3 space.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-4" aria-controls="w-dropdown-list-4" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-What is your investment thesis?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-4" aria-labelledby="w-dropdown-toggle-4">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-We seek to invest in startups developing groundbreaking technologies in the Web3 sector. Our goal is to collaborate with teams that are poised to make significant impacts and drive innovation within the industry.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-5" aria-controls="w-dropdown-list-5" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-In which stages are you investing?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-5" aria-labelledby="w-dropdown-toggle-5">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-Our investments focus on the pre-listing stages, where we offer extensive resources and guidance to help startups achieve a successful launch and sustainable growth.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-6" aria-controls="w-dropdown-list-6" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-Who should apply for the acceleration and incubation programs?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-6" aria-labelledby="w-dropdown-toggle-6">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-Any startup needing strategic support to ensure a successful launch and long-term growth should consider applying for our acceleration and incubation programs. We provide the tools and mentorship necessary for thriving in the web3 space.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-                <div role="listitem" className="faq-item w-dyn-item">
-                  <div data-hover="false" data-delay="0" data-w-id="f616fc6a-8175-c5af-a5c5-c5ea499b956d" className="accordion w-dropdown">
-                    <div className="accordion-toggle w-dropdown-toggle" id="w-dropdown-toggle-7" aria-controls="w-dropdown-list-7" aria-haspopup="menu" aria-expanded="false" role="button" tabIndex={0}>
-                      <h3 className="accordion-title">
-How does ChainGPT Labs differentiate itself from other investment firms?                      </h3>
-                      <div className="accordion-button">
-                        <div className="accordion-button-inner">
-                          <div className="accordion-button-frame">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjAzNjggMC44ODE0M0MxMS4wMzY4IDAuMzk0NjI5IDExLjQ0NTUgMCAxMS45NDk3IDBIMTIuMDMyN0MxMi41MzY5IDAgMTIuOTQ1NiAwLjM5NDYzIDEyLjk0NTYgMC44ODE0MzFWOS4yNzU1MkMxMi45NDU2IDkuNTA5MDggMTIuOTkxNyA5Ljc0MDY3IDEzLjA4MTUgOS45NTcxN0MxMy4xNzEyIDEwLjE3MzcgMTMuMzAzMiAxMC4zNzEzIDEzLjQ3MDUgMTAuNTM4NEMxMy42Mzc5IDEwLjcwNTYgMTMuODM3MyAxMC44Mzg5IDE0LjA1NzkgMTAuOTMwMkMxNC4yNzg1IDExLjAyMTQgMTQuNTE1NSAxMS4wNjg2IDE0Ljc1NTEgMTEuMDY4NkgyMy4wODcxQzIzLjU5MTMgMTEuMDY4NiAyNCAxMS40NjMzIDI0IDExLjk1MDFWMTIuMDc5NkMyNCAxMi41NjY0IDIzLjU5MTMgMTIuOTYxIDIzLjA4NzEgMTIuOTYxSDE0Ljc1NTFDMTQuMjcwNCAxMi45NjEgMTMuODA4NyAxMy4xNTM1IDEzLjQ3MDUgMTMuNDkxMkMxMy4xMzI5IDEzLjgyODUgMTIuOTQ1NiAxNC4yODMgMTIuOTQ1NiAxNC43NTQxVjIzLjExODZDMTIuOTQ1NiAyMy42MDU0IDEyLjUzNjkgMjQgMTIuMDMyNyAyNEgxMS45NDk3QzExLjQ0NTUgMjQgMTEuMDM2OCAyMy42MDU0IDExLjAzNjggMjMuMTE4NlYxNC43NTQxQzExLjAzNjggMTQuMjgzIDEwLjg0OTUgMTMuODI4NSAxMC41MTE5IDEzLjQ5MTJDMTAuMTczNyAxMy4xNTM1IDkuNzExOTUgMTIuOTYxIDkuMjI3MjYgMTIuOTYxSDAuOTEyOTFDMC40MDg3MjQgMTIuOTYxIDAgMTIuNTY2NCAwIDEyLjA3OTZWMTEuOTUwNEMwIDExLjQ2MzYgMC40MDg3MjUgMTEuMDY5IDAuOTEyOTExIDExLjA2OUg5LjIyNzI2QzkuNzExOTUgMTEuMDY5IDEwLjE3MzcgMTAuODc2NSAxMC41MTE5IDEwLjUzODhDMTAuODQ5NSAxMC4yMDE1IDExLjAzNjggOS43NDY5OCAxMS4wMzY4IDkuMjc1ODZWMC44ODE0M1oiIGZpbGw9IiMwRTBFMEUiLz4KPC9zdmc+Cg==" loading="lazy" width={24} height={24} alt="" style={{transformStyle: "preserve-3d", transform: "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)"}} className="accordion-toggle-icon expand" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <nav style={{height: "0px"}} className="accordion-content w-dropdown-list" id="w-dropdown-list-7" aria-labelledby="w-dropdown-toggle-7">
-                      <div className="accordion-content-inner">
-                        <div className="faq-answer w-richtext">
-                          <p className="">
-Unlike typical investment firms, ChainGPT Labs was established by founders for founders. We provide comprehensive support that goes beyond funding, including strategic advisory, mentorship, and hands-on guidance to ensure our startups achieve lasting success.                          </p>
-                        </div>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
       <section className="footer footer-with-blog">
         <div className="w-layout-blockcontainer container w-container">
