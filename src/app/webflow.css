@@ -2056,7 +2056,7 @@ textarea.w-input, textarea.w-select {
 
 @font-face {
   font-family: LabsAmiga;
-  src: url(https://labs.chaingpt.org/assets/webflow/664753c2515af09bef5b9826/6647809f28af789ca1b7f574_LABSAmiga-Regular.woff) format("woff");
+  src: url(/labsamiga.woff) format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -2930,7 +2930,7 @@ ul {
 }
 
 .hero-backing-item {
-  font-family: RobotoMono, sans-serif;
+  font-family: LabsAmiga, sans-serif;
   font-size: var(--14px-size);
   letter-spacing: -.01em;
   line-height: 100%;
