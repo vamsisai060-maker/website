@@ -70,6 +70,15 @@ export default async function EventDetailPage({
             <div className="featured-card-data-name">Team Size</div>
           </div>
         </div>
+        <Link
+          href={`/register/${event.slug}`}
+          className="button-primary w-inline-block"
+          style={{ display: 'inline-block', marginTop: '2rem' }}
+        >
+          <div className="button-primary-border">
+            <div className="button-primary-text">Register</div>
+          </div>
+        </Link>
       </main>
     </div>
   );

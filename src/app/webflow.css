@@ -8571,9 +8571,6 @@ ul {
   height: auto;
   margin-top: -1.75rem;
   margin-bottom: -.875rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .footer-astra-image {
@@ -8582,6 +8579,12 @@ ul {
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+#\33 d-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .unicorn-embed {

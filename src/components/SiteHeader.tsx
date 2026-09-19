@@ -66,9 +66,9 @@ export default function SiteHeader() {
                 </div>
               </div>
               <div className="header-actions" style={{justifyContent: 'flex-end'}}>
-                <a scramble-link="" data-style-width="" href="/apply" className="button-primary w-inline-block">
+                <a scramble-link="" data-style-width="" href="/register" className="button-primary w-inline-block">
                   <div className="button-primary-border">
-                    <div scramble-text="" className="button-primary-text">Apply now</div>
+                    <div scramble-text="" className="button-primary-text">Register</div>
                   </div>
                 </a>
               </div>

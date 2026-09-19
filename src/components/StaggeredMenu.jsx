@@ -27,17 +27,11 @@ export const StaggeredMenu = ({
   const panelRef = useRef(null);
   const preLayersRef = useRef(null);
   const preLayerElsRef = useRef([]);
-  const plusHRef = useRef(null);
-  const plusVRef = useRef(null);
   const iconRef = useRef(null);
-  const textInnerRef = useRef(null);
-  const textWrapRef = useRef(null);
-  const [textLines, setTextLines] = useState(['Menu', 'Close']);
 
   const openTlRef = useRef(null);
   const closeTweenRef = useRef(null);
   const spinTweenRef = useRef(null);
-  const textCycleAnimRef = useRef(null);
   const colorTweenRef = useRef(null);
   const toggleBtnRef = useRef(null);
   const busyRef = useRef(false);
@@ -47,11 +41,8 @@ export const StaggeredMenu = ({
     const ctx = gsap.context(() => {
       const panel = panelRef.current;
       const preContainer = preLayersRef.current;
-      const plusH = plusHRef.current;
-      const plusV = plusVRef.current;
       const icon = iconRef.current;
-      const textInner = textInnerRef.current;
-      if (!panel || !plusH || !plusV || !icon || !textInner) return;
+      if (!panel || !icon) return;
 
       let preLayers = [];
       if (preContainer) {
@@ -64,10 +55,11 @@ export const StaggeredMenu = ({
       if (preContainer) {
         gsap.set(preContainer, { xPercent: 0, opacity: 1 });
       }
-      gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
-      gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
+      const topLine = icon.querySelector('.sm-icon-line-top');
+      const middleLine = icon.querySelector('.sm-icon-line-middle');
+      const bottomLine = icon.querySelector('.sm-icon-line-bottom');
+      gsap.set([topLine, middleLine, bottomLine], { transformOrigin: '50% 50%', rotate: 0, y: 0, scaleX: 1 });
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
-      gsap.set(textInner, { yPercent: 0 });
       if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
     });
     return () => ctx.revert();
@@ -238,10 +230,22 @@ export const StaggeredMenu = ({
     const icon = iconRef.current;
     if (!icon) return;
     spinTweenRef.current?.kill();
+    const top = icon.querySelector('.sm-icon-line-top');
+    const middle = icon.querySelector('.sm-icon-line-middle');
+    const bottom = icon.querySelector('.sm-icon-line-bottom');
+    if (!top || !middle || !bottom) return;
     if (opening) {
-      spinTweenRef.current = gsap.to(icon, { rotate: 225, duration: 0.8, ease: 'power4.out', overwrite: 'auto' });
+      spinTweenRef.current = gsap.timeline();
+      spinTweenRef.current
+        .to(top, { y: 6, rotate: 45, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' })
+        .to(bottom, { y: -8, rotate: -45, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' }, 0)
+        .to(middle, { scaleX: 0, opacity: 0, duration: 0.25, ease: 'power2.out', overwrite: 'auto' }, 0.05);
     } else {
-      spinTweenRef.current = gsap.to(icon, { rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
+      spinTweenRef.current = gsap.timeline();
+      spinTweenRef.current
+        .to(top, { y: 0, rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' })
+        .to(bottom, { y: 0, rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' }, 0)
+        .to(middle, { scaleX: 1, opacity: 1, duration: 0.25, ease: 'power2.out', overwrite: 'auto' }, 0.05);
     }
   }, []);
 
@@ -276,34 +280,6 @@ export const StaggeredMenu = ({
     }
   }, [changeMenuColorOnOpen, menuButtonColor, openMenuButtonColor]);
 
-  const animateText = useCallback(opening => {
-    const inner = textInnerRef.current;
-    if (!inner) return;
-    textCycleAnimRef.current?.kill();
-
-    const currentLabel = opening ? 'Menu' : 'Close';
-    const targetLabel = opening ? 'Close' : 'Menu';
-    const cycles = 3;
-    const seq = [currentLabel];
-    let last = currentLabel;
-    for (let i = 0; i < cycles; i++) {
-      last = last === 'Menu' ? 'Close' : 'Menu';
-      seq.push(last);
-    }
-    if (last !== targetLabel) seq.push(targetLabel);
-    seq.push(targetLabel);
-    setTextLines(seq);
-
-    gsap.set(inner, { yPercent: 0 });
-    const lineCount = seq.length;
-    const finalShift = ((lineCount - 1) / lineCount) * 100;
-    textCycleAnimRef.current = gsap.to(inner, {
-      yPercent: -finalShift,
-      duration: 0.5 + lineCount * 0.07,
-      ease: 'power4.out'
-    });
-  }, []);
-
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
     openRef.current = target;
@@ -317,8 +293,7 @@ export const StaggeredMenu = ({
     }
     animateIcon(target);
     animateColor(target);
-    animateText(target);
-  }, [playOpen, playClose, animateIcon, animateColor, animateText, onMenuOpen, onMenuClose]);
+  }, [playOpen, playClose, animateIcon, animateColor, onMenuOpen, onMenuClose]);
 
   const closeMenu = useCallback(() => {
     if (openRef.current) {
@@ -328,9 +303,8 @@ export const StaggeredMenu = ({
       playClose();
       animateIcon(false);
       animateColor(false);
-      animateText(false);
     }
-  }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
+  }, [playClose, animateIcon, animateColor, onMenuClose]);
 
   React.useEffect(() => {
     if (!closeOnClickAway || !open) return;
@@ -390,18 +364,10 @@ export const StaggeredMenu = ({
           onClick={toggleMenu}
           type="button"
         >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
-            </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+          <span ref={iconRef} className="sm-icon sm-icon-hamburger" aria-hidden="true">
+            <span className="sm-icon-line sm-icon-line-top" />
+            <span className="sm-icon-line sm-icon-line-middle" />
+            <span className="sm-icon-line sm-icon-line-bottom" />
           </span>
         </button>
       </header>
