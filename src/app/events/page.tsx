@@ -4,7 +4,7 @@ import EventsListing from '@/components/EventsListing';
 
 export const metadata: Metadata = {
   title: 'All Events | ChainGPT Labs',
-  description: 'Browse upcoming internal and external events from ChainGPT Labs.',
+  description: 'Browse the upcoming external events from ChainGPT Labs.',
 };
 
 export default function EventsIndexPage() {

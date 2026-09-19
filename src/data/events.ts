@@ -1,4 +1,4 @@
-export type EventCategory = 'Internal' | 'External';
+export type EventCategory = 'External';
 
 export type Event = {
   slug: string;
@@ -9,74 +9,52 @@ export type Event = {
   blurb: string;
 };
 
-export const EVENT_CATEGORIES: EventCategory[] = ['Internal', 'External'];
+export const EVENT_CATEGORIES: EventCategory[] = ['External'];
 
 export const EVENT_ENTRY_FEE = 'FREE';
 export const EVENT_PRIZE_POOL = 'Certificate';
 
 export const EVENTS: Event[] = [
   {
-    slug: 'chain-reaction-ai',
-    name: 'Chain Reaction AI',
-    category: 'Internal',
-    teamSize: '2–4',
-    date: '30-09-2026',
-    blurb: 'Build agentic products on-chain in our flagship internal hackathon. Ship a working demo, present to mentors, and leave with a participation certificate.',
-  },
-  {
-    slug: 'web3-game-jam',
-    name: 'Web3 Game Jam',
+    slug: 'game-verse',
+    name: 'Game Verse',
     category: 'External',
-    teamSize: '1–3',
+    teamSize: '2',
     date: '30-09-2026',
-    blurb: 'A weekend jam for playable prototypes that mix AI, crypto, and game design. Open to studios and solo builders.',
+    blurb: 'A competitive gaming challenge for teams of two. Laptop required, and teammates from the same college are not allowed.',
   },
   {
-    slug: 'defi-builder-sprint',
-    name: 'DeFi Builder Sprint',
-    category: 'Internal',
-    teamSize: '3–5',
-    date: '30-09-2026',
-    blurb: 'An internal Labs sprint focused on DeFi primitives, risk tooling, and on-chain UX.',
-  },
-  {
-    slug: 'pixel-punk-battle',
-    name: 'Pixel Punk Battle',
+    slug: '3minds-1mission',
+    name: '3Minds 1Mission',
     category: 'External',
-    teamSize: 'Solo',
+    teamSize: '3',
     date: '30-09-2026',
-    blurb: 'A community pixel-art battle. Ship a tiny playable in 48 hours and compete for bragging rights.',
+    blurb: 'A three-member team challenge built on collaboration and problem-solving. Exactly three members are compulsory, at least one laptop is required, and the team leader registers all members.',
   },
   {
-    slug: 'onchain-art-fair',
-    name: 'Onchain Art Fair',
+    slug: 'see-it-prompt-it',
+    name: 'See It, Prompt It',
     category: 'External',
-    teamSize: '1–2',
+    // teamSize unconfirmed
+    teamSize: 'TBD',
     date: '30-09-2026',
-    blurb: 'A public showcase for generative and on-chain art. Exhibit work, meet collectors, and swap process notes.',
+    blurb: 'A team prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
   },
   {
-    slug: 'agent-arena',
-    name: 'Agent Arena',
+    slug: 'logical-duo',
+    name: 'Logical Duo',
     category: 'External',
-    teamSize: '2–4',
+    teamSize: '2',
     date: '30-09-2026',
-    blurb: 'Open arena for autonomous agents. Pit models against tasks, then demo your stack to the room.',
+    blurb: 'A two-member logical thinking challenge that tests teamwork and reasoning. No laptop required, but a team leader is required.',
   },
   {
-    slug: 'pixel-forge-cup',
-    name: 'Pixel Forge Cup',
+    slug: 'error-404',
+    name: 'ERROR 404',
     category: 'External',
-    teamSize: '1–4',
+    // teamSize unconfirmed
+    teamSize: 'TBD',
     date: '30-09-2026',
-    blurb: 'External cup for arcade-scale Web3 games. Prototype first, polish later, certificate for every team that ships.',
-  },
-  {
-    slug: 'labs-resident-challenge',
-    name: 'Labs Resident Challenge',
-    category: 'Internal',
-    teamSize: '2–4',
-    date: '30-09-2026',
-    blurb: 'Internal challenge for Labs residents. Pair with mentors, stress-test your thesis, and present to the cohort.',
+    blurb: 'A wrong-answers challenge where teams give unexpected answers. No laptop required.',
   },
 ];

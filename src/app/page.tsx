@@ -1169,12 +1169,11 @@ All rights reserved by ChainGPTlabs.org.                  </div>
               <div className="footer-bottom-divider fbd-middle"></div>
               <div className="footer-bottom-divider fbd-right"></div>
               <div id="3d-footer" className="webgl-wrapper">
-                <div className="unicorn-embed w-embed">
-                  <div className="unicorn-embed" data-us-project-src="/assets/webflow/664753c2515af09bef5b9826/67000d3448d4472346f561c0_3d-footer-animation.json.txt" data-us-scale="0.9" data-us-dpi="1" data-us-lazyload="true" data-us-production="true" data-us-alttext="ChainGPT Labs" data-us-arialabel="This is a canvas scene" data-us-initialized="true" data-scene-id="49f09c6f-a257-40d5-a7ff-2efd83387f41">
-                    <canvas width={420} height={140} style={{width: "467px", height: "155px"}} aria-label="This is a canvas scene" role="image" className="">
-ChainGPT Labs                    </canvas>
-                  </div>
-                </div>
+                <img
+                  src="/astra.png"
+                  alt="ChainGPT Labs"
+                  className="footer-astra-image"
+                />
               </div>
             </div>
           </div>
