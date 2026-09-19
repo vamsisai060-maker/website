@@ -133,9 +133,9 @@ html.lenis body {
     display: none !important;
   }
 
-  /* Space the Apply button away from the menu toggle */
+  /* Keep the Register button to the right, just clear of the menu toggle */
   .portfolio-apply-header .header-actions {
-    padding-right: 92px;
+    padding-right: 28px;
   }
 }
 

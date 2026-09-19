@@ -3,6 +3,27 @@
   background-color: var(--lightgrey);
 }
 
+/* --- REGISTER marquee animation --- */
+.register-page .marquee {
+  animation: register-marquee 14s linear infinite;
+}
+.register-page .marquee-content.scroll.apply-scroll {
+  width: 100%;
+}
+@keyframes register-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .register-page .marquee {
+    animation: none;
+  }
+}
+
 /* --- is-filled label rollover (rules emptied out of webflow.css) --- */
 .register-page .form-row-item.is-filled .field-head-status {
   background-color: var(--orange);

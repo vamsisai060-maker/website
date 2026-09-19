@@ -49,7 +49,9 @@ function EventCard({ event }: { event: Event }) {
       <Link href={`/events/${event.slug}`} className="portfolio-item layout-diff w-inline-block">
         <div className="portfolio-item-thumb">
           <div className="portfolio-item-category">{event.category}</div>
-          <div className="portfolio-item-name">{event.name}</div>
+          <div className="portfolio-item-name" style={{ fontFamily: 'Arial, sans-serif' }}>
+            {event.name}
+          </div>
         </div>
         <div className="portfolio-item-bottom margin-top-auto">
           <Stats teamSize={event.teamSize} date={event.date} />
