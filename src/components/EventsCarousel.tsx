@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EVENTS } from '@/data/events';
+import { EVENT_ENTRY_FEE, EVENT_PRIZE_POOL, EVENTS } from '@/data/events';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -126,25 +126,24 @@ export default function EventsCarousel() {
               href={`/events/${event.slug}`}
               className="event-card"
             >
-              <span className="event-card-tag">Incubation</span>
+              <span className="event-card-tag">{event.category}</span>
               <div className="event-card-body">
                 <h3 className="event-card-name">{event.name}</h3>
-                <p className="event-card-meta">
-                  {event.category} · {event.teamSize}
-                </p>
+                <p className="event-card-meta">{event.date}</p>
+                <p className="event-card-meta">{event.teamSize}</p>
               </div>
               <div className="event-card-stats">
                 <div className="event-card-stat">
-                  <span className="event-card-stat-value">{event.entryFee}</span>
+                  <span className="event-card-stat-value">{EVENT_ENTRY_FEE}</span>
                   <span className="event-card-stat-label">Entry Fee</span>
                 </div>
                 <div className="event-card-stat">
-                  <span className="event-card-stat-value">{event.prizePool}</span>
+                  <span className="event-card-stat-value">{EVENT_PRIZE_POOL}</span>
                   <span className="event-card-stat-label">Prize Pool</span>
                 </div>
                 <div className="event-card-stat">
-                  <span className="event-card-stat-value">{event.slotsLeft}</span>
-                  <span className="event-card-stat-label">Slots Left</span>
+                  <span className="event-card-stat-value">{event.teamSize}</span>
+                  <span className="event-card-stat-label">Team Size</span>
                 </div>
                 <div className="event-card-stat event-card-stat-apply">
                   <span className="event-card-stat-value event-card-stat-arrow" aria-hidden="true">

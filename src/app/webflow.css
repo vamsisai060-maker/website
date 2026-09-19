@@ -12537,11 +12537,17 @@ ul {
   .filter-panel-inner {
     grid-column-gap: 0rem;
     grid-row-gap: 0rem;
-    padding: 0;
+    padding: .625rem;
   }
 
   .filters-list {
-    display: none;
+    display: flex;
+    width: 100%;
+  }
+
+  .filters-list .radio-tab {
+    flex: 1 1 0%;
+    min-width: 0;
   }
 
   .filter-search {
@@ -12555,9 +12561,7 @@ ul {
   }
 
   .filters-list-mobile {
-    flex: none;
-    width: 50%;
-    display: block;
+    display: none;
   }
 
   .filter-select-field-mobile {

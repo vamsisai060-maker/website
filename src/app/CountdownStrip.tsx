@@ -46,12 +46,11 @@ const INITIAL: Remaining = {
 
 export default function CountdownStrip() {
   const [time, setTime] = useState<Remaining>(INITIAL);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(true);
 
   useEffect(() => {
     const tick = () => setTime(remainingFrom(Date.now()));
     tick();
-    setReady(true);
     const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
   }, []);

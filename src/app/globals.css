@@ -138,3 +138,241 @@ html.lenis body {
     padding-right: 92px;
   }
 }
+
+.events-page {
+  min-height: 100vh;
+  background-color: var(--lightgrey);
+  padding-top: 5rem;
+}
+
+.events-page .featured-block-illustration.portfolio-featured-illustration {
+  min-height: 10rem;
+}
+
+.featured-card-name,
+.portfolio-item-name {
+  font-family: LabsAmiga, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  color: var(--dark);
+}
+
+.featured-card-name {
+  display: flex;
+  align-items: center;
+  width: 19.125rem;
+  min-height: 7.5rem;
+  margin: 2.5rem 0 2rem;
+  padding: 0 0.5rem;
+  font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+}
+
+.portfolio-item-name {
+  width: 17.375rem;
+  max-width: 100%;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  text-align: center;
+}
+
+.radio-tab:has(.w--redirected-checked) .radio-tab-label {
+  color: var(--lightgrey);
+}
+
+.clear-search.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.events-empty {
+  grid-column: 1 / -1;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--dark-60);
+  font-size: var(--14px-size);
+}
+
+.pt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  grid-template-columns: 2.75rem 1fr 1fr 1fr 1fr 2.75rem;
+  width: calc(100% + 1rem);
+  height: 100%;
+  pointer-events: none;
+}
+
+.pt-col {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pt-bar,
+.pt-edge {
+  position: absolute;
+}
+
+.pt-bar {
+  inset: 0;
+  background-color: var(--orange, #ff7120);
+  will-change: transform;
+}
+
+.pt-edge {
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 1px;
+  height: 100%;
+  background-color: #000;
+}
+
+.pt-col:first-child .pt-edge {
+  right: auto;
+  left: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .pt-overlay {
+    grid-template-columns: 2.75rem 1fr 1fr 1fr 1fr 3.25rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .pt-overlay {
+    grid-template-columns: 3.75rem 1fr 1fr 1fr 1fr 3.75rem;
+  }
+}
+
+::view-transition-old(*),
+::view-transition-new(*),
+::view-transition-group(*),
+::view-transition-image-pair(*) {
+  animation: none !important;
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-overlay {
+    display: none !important;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ---- Events page redesign polish ---- */
+
+/* Filter bar: clean segmented tabs, no search chrome */
+.events-page .filters-panel {
+  position: static;
+}
+
+.events-page .filter-panel-inner {
+  justify-content: flex-start;
+}
+
+.events-page .radio-tab {
+  flex: 1 1 auto;
+  min-width: 8rem;
+}
+
+.events-page .radio-tab-label {
+  white-space: nowrap;
+}
+
+/* Stats grid: crisp 2x2 quarters without half-lines */
+.portfolio-item-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portfolio-item-info {
+  min-width: 0;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  .events-page .radio-tab {
+    min-width: 0;
+  }
+
+  /* Compact, centered event cards on mobile */
+  .events-page .portfolio-listing {
+    padding: 1.25rem .625rem 1.85rem;
+  }
+
+  .events-page .portfolio-item-thumb {
+    padding: 44px 20px 28px;
+  }
+
+  .events-page .portfolio-item-name {
+    font-size: clamp(1.25rem, 6.4vw, 1.55rem);
+  }
+
+  .events-page .portfolio-item-bottom {
+    border-top: 1px solid var(--grey);
+  }
+
+  .events-page .portfolio-item-info {
+    padding: .5rem .9rem;
+  }
+
+  .events-page .portfolio-item-info-title {
+    font-size: .9375rem;
+  }
+
+  .events-page .portfolio-item-info-descr {
+    text-align: right;
+    margin-top: 0;
+    font-size: .8125rem;
+  }
+
+  .events-page .portfolio-item-link {
+    width: 4.25rem;
+  }
+
+  .events-page .portfolio-item-arrow {
+    width: 1.35rem;
+  }
+}
+
+.events-slide-title {
+  color: var(--dark);
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.12;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 15.5rem;
+}
+
+.portfolio-slide {
+  display: flex;
+}
+
+.portfolio-slide .portfolio-item {
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.portfolio-slide .portfolio-item-top {
+  flex: 1 1 auto;
+  align-items: center;
+}
+
+.portfolio-slide .portfolio-item-bottom {
+  margin-top: auto;
+}
