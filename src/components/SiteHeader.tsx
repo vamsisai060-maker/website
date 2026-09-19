@@ -39,10 +39,10 @@ Our Programs                          </div>
                       </Link>
                     </li>
                     <li className="header-menu-item">
-                      <Link scramble-link="" href="/#portfolio-section" className="header-menu-link w-inline-block">
+                      <Link scramble-link="" href="/events" className="header-menu-link w-inline-block">
                         <div className="header-menu-link-wrapper">
                           <div scramble-text="" className="header-menu-link-text">
-Portfolio                          </div>
+Our Events                          </div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
                         </div>
@@ -70,14 +70,14 @@ Team                            <br className="" />
                       </Link>
                     </li>
                     <li className="header-menu-item">
-                      <a scramble-link="" href="/residency" className="header-menu-link w-inline-block">
+                      <Link scramble-link="" href="/residency" className="header-menu-link w-inline-block">
                         <div className="header-menu-link-wrapper">
                           <div scramble-text="" className="header-menu-link-text">
 Residency Program                          </div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
                           <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
                         </div>
-                      </a>
+                      </Link>
                     </li>
                     <li className="header-menu-item">
                       <Link scramble-link="" href="/#blogs-section" className="header-menu-link w-inline-block">
@@ -233,12 +233,12 @@ Coming soon                            </div>
                     </div>
                   </nav>
                 </div>
-                <a scramble-link="" data-style-width="" href="/register" className="button-primary w-inline-block">
+                <Link scramble-link="" data-style-width="" href="/register" className="button-primary w-inline-block">
                   <div className="button-primary-border">
                     <div scramble-text="" className="button-primary-text">
 Register                    </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="body-line left-middle"></div>
