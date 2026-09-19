@@ -217,9 +217,7 @@ html.lenis body {
 
 .pt-bar {
   inset: 0;
-  background-color: var(--orange);
-  transform: scaleY(0);
-  transform-origin: 50% 0;
+  background-color: var(--orange, #ff7120);
   will-change: transform;
 }
 
@@ -229,7 +227,12 @@ html.lenis body {
   z-index: 2;
   width: 1px;
   height: 100%;
-  background-color: #c15727;
+  background-color: #000;
+}
+
+.pt-col:first-child .pt-edge {
+  right: auto;
+  left: 0;
 }
 
 @media screen and (max-width: 991px) {
@@ -266,4 +269,110 @@ html.lenis body {
     animation-duration: 0s !important;
     animation-delay: 0s !important;
   }
+}
+
+/* ---- Events page redesign polish ---- */
+
+/* Filter bar: clean segmented tabs, no search chrome */
+.events-page .filters-panel {
+  position: static;
+}
+
+.events-page .filter-panel-inner {
+  justify-content: flex-start;
+}
+
+.events-page .radio-tab {
+  flex: 1 1 auto;
+  min-width: 8rem;
+}
+
+.events-page .radio-tab-label {
+  white-space: nowrap;
+}
+
+/* Stats grid: crisp 2x2 quarters without half-lines */
+.portfolio-item-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portfolio-item-info {
+  min-width: 0;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  .events-page .radio-tab {
+    min-width: 0;
+  }
+
+  /* Compact, centered event cards on mobile */
+  .events-page .portfolio-listing {
+    padding: 1.25rem .625rem 1.85rem;
+  }
+
+  .events-page .portfolio-item-thumb {
+    padding: 44px 20px 28px;
+  }
+
+  .events-page .portfolio-item-name {
+    font-size: clamp(1.25rem, 6.4vw, 1.55rem);
+  }
+
+  .events-page .portfolio-item-bottom {
+    border-top: 1px solid var(--grey);
+  }
+
+  .events-page .portfolio-item-info {
+    padding: .5rem .9rem;
+  }
+
+  .events-page .portfolio-item-info-title {
+    font-size: .9375rem;
+  }
+
+  .events-page .portfolio-item-info-descr {
+    text-align: right;
+    margin-top: 0;
+    font-size: .8125rem;
+  }
+
+  .events-page .portfolio-item-link {
+    width: 4.25rem;
+  }
+
+  .events-page .portfolio-item-arrow {
+    width: 1.35rem;
+  }
+}
+
+.events-slide-title {
+  color: var(--dark);
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.12;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 15.5rem;
+}
+
+.portfolio-slide {
+  display: flex;
+}
+
+.portfolio-slide .portfolio-item {
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.portfolio-slide .portfolio-item-top {
+  flex: 1 1 auto;
+  align-items: center;
+}
+
+.portfolio-slide .portfolio-item-bottom {
+  margin-top: auto;
 }

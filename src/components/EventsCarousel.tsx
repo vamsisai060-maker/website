@@ -129,9 +129,8 @@ export default function EventsCarousel() {
               <span className="event-card-tag">{event.category}</span>
               <div className="event-card-body">
                 <h3 className="event-card-name">{event.name}</h3>
-                <p className="event-card-meta">
-                  {event.kind} · {event.teamSize}
-                </p>
+                <p className="event-card-meta">{event.date}</p>
+                <p className="event-card-meta">{event.teamSize}</p>
               </div>
               <div className="event-card-stats">
                 <div className="event-card-stat">

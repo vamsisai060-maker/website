@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import StaggeredMenu from '@/components/StaggeredMenu';
 import SiteHeader from '@/components/SiteHeader';
 import { EVENT_ENTRY_FEE, EVENT_PRIZE_POOL, EVENTS } from '@/data/events';
 
@@ -35,24 +34,6 @@ export default async function EventDetailPage({
   return (
     <div className="events-page">
       <SiteHeader />
-      <div className="mobile-staggered-menu">
-        <StaggeredMenu
-          position="right"
-          colors={['#0e0e0e', '#1b1b1b']}
-          items={[
-            { label: 'Home', link: '/' },
-            { label: 'Our Events', link: '/events' },
-            { label: 'Our Visionaries', link: '/#team-section' },
-          ]}
-          accentColor="#ff7120"
-          menuButtonColor="#0e0e0e"
-          openMenuButtonColor="#0e0e0e"
-          displaySocials={false}
-          displayItemNumbering={true}
-          isFixed={true}
-          logoUrl="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-      </div>
       <main className="featured-block-descr-wrap" style={{ maxWidth: '52rem', margin: '0 auto', paddingTop: '7rem', paddingBottom: '4rem' }}>
         <p style={{ margin: '0 0 1rem', fontSize: '0.875rem' }}>
           <Link href="/events" style={{ color: 'var(--dark)' }}>
@@ -60,8 +41,7 @@ export default async function EventDetailPage({
           </Link>
         </p>
         <div className="featured-card-labels" style={{ marginBottom: '1.25rem' }}>
-          <div className="featured-card-label is-marked">{event.kind}</div>
-          <div className="featured-card-label">{event.category}</div>
+          <div className="featured-card-label is-marked">{event.category}</div>
         </div>
         <h1
           style={{

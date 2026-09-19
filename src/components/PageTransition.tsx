@@ -51,11 +51,11 @@ export default function PageTransition() {
     if (!cols.length) return;
 
     setOverlayVisible(true);
-    gsap.set(cols, { transformOrigin: '50% 0%', scaleY: 0 });
+    gsap.set(cols, { yPercent: -100 });
 
     const tl = gsap.timeline();
     tl.to(cols, {
-      scaleY: 1,
+      yPercent: 0,
       duration: COVER_DURATION,
       ease: 'power3.inOut',
       stagger: STAGGER,
@@ -71,11 +71,11 @@ export default function PageTransition() {
       return;
     }
 
-    gsap.set(cols, { transformOrigin: '50% 100%' });
+    gsap.set(cols, { yPercent: 0 });
 
     const tl = gsap.timeline({ onComplete: () => setOverlayVisible(false) });
     tl.to(cols, {
-      scaleY: 0,
+      yPercent: -100,
       duration: REVEAL_DURATION,
       ease: 'power4.inOut',
       stagger: STAGGER,
