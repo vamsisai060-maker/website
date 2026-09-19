@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './webflow.css';
 import SmoothScroll from '@/components/SmoothScroll';
+import PageTransition from '@/components/PageTransition';
+import PageTransitionView from '@/components/PageTransitionView';
 
 export const metadata: Metadata = {
   title: 'ChainGPT Labs Replica | Next.js Engine',
@@ -12,7 +14,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="bg-[var(--lightgrey)] text-[var(--dark)] antialiased selection:bg-orange-500 selection:text-white">
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <PageTransitionView>{children}</PageTransitionView>
+          <PageTransition />
+        </SmoothScroll>
       </body>
     </html>
   );
