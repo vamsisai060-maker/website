@@ -494,3 +494,17 @@ body.has-preloader {
     animation: none;
   }
 }
+
+.brand .brand-image-astra {
+  width: auto;
+  height: 44px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media screen and (max-width: 767px) {
+  .brand .brand-image-astra {
+    height: 32px;
+  }
+}
