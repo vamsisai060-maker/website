@@ -1035,6 +1035,31 @@ const ARROW_SVG = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIHhtbG5zPSJ
 
 gsap.registerPlugin(ScrollTrigger);
 
+function heroLetterDelays(text: string, seed: number, maxDelay: number): string[] {
+  let s = seed | 0;
+  const rand = () => {
+    s = (s + 0x6d2b79f5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  return text.split('').map(() => (rand() * maxDelay).toFixed(3));
+}
+
+function HeroTitle({ text, className }: { text: string; className?: string }) {
+  const chars = text.split('');
+  const delays = heroLetterDelays(text, 1337, 2.5);
+  return (
+    <h1 className={className}>
+      {chars.map((ch, i) => (
+        <span key={i} className="hero-title-letter" style={{ animationDelay: `${delays[i]}s` }}>
+          {ch === ' ' ? '\u00A0' : ch}
+        </span>
+      ))}
+    </h1>
+  );
+}
+
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -1090,15 +1115,6 @@ export default function Home() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero Entrance Animation
-      gsap.from('.gsap-hero-title', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        stagger: 0.2,
-      });
-
       // ScrollTrigger Section Animations
       gsap.utils.toArray<HTMLElement>('.gsap-fade-up').forEach((el) => {
         gsap.from(el, {
@@ -1408,16 +1424,12 @@ export default function Home() {
               </div>
               <div className="hero-marquee-wrapper">
                 <div className="hero-marquee marquee-animation-start is-animated">
-<h1 className="marquee-heading gsap-hero-title">
- ASTRA                  </h1>
-                  <h1 className="marquee-heading gsap-hero-title">
- 2K26                  </h1>
+                  <HeroTitle text="ASTRA" className="marquee-heading gsap-hero-title" />
+                  <HeroTitle text="2K26" className="marquee-heading gsap-hero-title" />
                 </div>
                 <div className="hero-marquee marquee-animation-start is-animated">
-<h1 className="marquee-heading gsap-hero-title">
- ASTRA                  </h1>
-                  <h1 className="marquee-heading gsap-hero-title">
- 2K26                  </h1>
+                  <HeroTitle text="ASTRA" className="marquee-heading gsap-hero-title" />
+                  <HeroTitle text="2K26" className="marquee-heading gsap-hero-title" />
                 </div>
               </div>
               <div className="hero-top-content">
@@ -1476,26 +1488,10 @@ export default function Home() {
               <div className="portfolio-main">
                 <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{textTransform: "uppercase", textAlign: "left", whiteSpace: "nowrap"}}>
                     <div style={{position: "relative", display: "inline-block"}} className="">
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-O                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-u                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-r                      </div>
+                      <DecryptedText text="Our" animateOn="view" sequential revealDirection="start" />
                     </div>
                     <div style={{position: "relative", display: "block"}} className="">
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-e                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-v                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-e                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-n                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-t                      </div>
-                      <div style={{position: "relative", display: "inline-block"}} className="">
-s                      </div>
+                      <DecryptedText text="Events" animateOn="view" sequential revealDirection="start" />
                     </div>
                 </h2>
               </div>
@@ -1598,36 +1594,10 @@ All Events                  </div>
               <div className="section-title st-our-team">
                 <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{textAlign: "left"}}>
                   <div style={{position: "relative", display: "inline-block"}} className="">
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-O                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-U                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-R                    </div>
+                    <DecryptedText text="OUR" animateOn="view" sequential revealDirection="start" />
                   </div>
                   <div style={{position: "relative", display: "block", marginTop: "0.25em", textAlign: "left"}} className="">
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-V                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-I                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-S                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-I                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-O                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-N                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-A                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-R                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-I                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-E                    </div>
-                    <div style={{position: "relative", display: "inline-block"}} className="">
-S                    </div>
+                    <DecryptedText text="VISIONARIES" animateOn="view" sequential revealDirection="start" />
                   </div>
                 </h2>
               </div>

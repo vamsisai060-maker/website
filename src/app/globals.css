@@ -376,6 +376,8 @@ html.lenis body {
 
 #preloader {
   display: block;
+  background-color: var(--dark);
+  z-index: 1001;
 }
 
 body.has-preloader {
@@ -463,5 +465,28 @@ body.has-preloader {
 @media (prefers-reduced-motion: reduce) {
   #preloader {
     display: none !important;
+  }
+}
+
+@keyframes hero-letter-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-title-letter {
+  display: inline-block;
+  opacity: 0;
+  animation: hero-letter-fade 0.5s ease both;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-letter {
+    opacity: 1;
+    animation: none;
   }
 }
