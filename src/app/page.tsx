@@ -633,7 +633,7 @@
 //               <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden">
 //                 <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * TEAM_SLIDE_STEP}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 
-//                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -655,7 +655,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -677,7 +677,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -699,7 +699,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -721,7 +721,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -743,7 +743,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -765,7 +765,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -787,7 +787,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" style={{width: "440px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" >
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -1063,13 +1063,14 @@ function HeroTitle({ text, className }: { text: string; className?: string }) {
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const teamSliderRef = useRef<HTMLDivElement>(null);
   const SLIDE_COUNT = EVENTS.length;
   const [step, setStep] = useState(440);
   const [portfolioSlide, setPortfolioSlide] = useState(1);
   const portfolioPrev = () => setPortfolioSlide((i) => Math.max(i - 1, 0));
   const portfolioNext = () => setPortfolioSlide((i) => Math.min(i + 1, SLIDE_COUNT - 1));
-  const TEAM_SLIDE_STEP = 440;
   const TEAM_SLIDE_COUNT = 8;
+  const [teamStep, setTeamStep] = useState(284);
   const [teamSlide, setTeamSlide] = useState(0);
   const [teamPerView, setTeamPerView] = useState(2);
   const [teamHover, setTeamHover] = useState(false);
@@ -1101,6 +1102,16 @@ export default function Home() {
     update();
     mql.addEventListener('change', update);
     return () => mql.removeEventListener('change', update);
+  }, []);
+
+  useLayoutEffect(() => {
+    const update = () => {
+      const slide = teamSliderRef.current?.querySelector('.team-slide');
+      if (slide) setTeamStep(Math.round(slide.getBoundingClientRect().width));
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   useEffect(() => {
@@ -1641,10 +1652,10 @@ For Founders                    </h3>
               </div>
             </div>
             <div className="team-slider-row-inner team">
-              <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden" onMouseEnter={() => setTeamHover(true)} onMouseLeave={() => setTeamHover(false)}>
-                <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * TEAM_SLIDE_STEP}px, 0px, 0px)`, transitionDelay: "0ms"}}>
+<div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden" ref={teamSliderRef} onMouseEnter={() => setTeamHover(true)} onMouseLeave={() => setTeamHover(false)}>
+              <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * teamStep}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 
-                  <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1691,7 +1702,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1738,7 +1749,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1785,7 +1796,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1832,7 +1843,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1879,7 +1890,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1926,7 +1937,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1973,7 +1984,7 @@ Bio                              </div>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" style={{width: "440px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -2027,6 +2038,70 @@ Bio                              </div>
           </div>
         </div>
         <div className="team-custome-code w-embed w-script"></div>
+      </section>
+      <section id="venue-section" className="venue-section">
+        <div className="w-layout-blockcontainer container w-container">
+          <div className="section-heading sh-grid-2-1-1">
+            <div className="section-title st-our-team">
+              <h2 anim-trigger="" className="h2 h2-lg" style={{textAlign: "left"}}>
+                <div style={{position: "relative", display: "inline-block"}} className="">
+                  <DecryptedText text="VENUE" animateOn="view" sequential revealDirection="start" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
+                </div>
+              </h2>
+            </div>
+            <div className="section-heading-descr shd-paddings-l hide-in-tablet">
+              <div className="section-heading-descr-inner">
+                <div className="section-descr-info">
+                  <div className="section-descr-info-decor"></div>
+                  <h3 className="section-descr-title gsap-fade-up">
+                    Where Astra 2K26<br className="" />
+                    is taking place
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="section-heading-controls venue-heading-controls">
+              <div className="venue-heading-graphic graphic-block graphic-block-alt">
+                <div className="graphic-block-decor graphic-block-decor-top-left"></div>
+                <div className="graphic-block-decor graphic-block-decor-top-right"></div>
+                <div className="graphic-block-decor graphic-block-decor-bottom-right"></div>
+                <div className="graphic-block-decor graphic-block-decor-bottom-left"></div>
+                <div className="venue-heading-pin">
+                  <span className="hero-square"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="venue-grid gsap-fade-up">
+            <div className="venue-content">
+              <div className="venue-kicker">
+Venue · Astra 2K26              </div>
+              <h3 className="venue-title">
+Aditya Degree College              </h3>
+              <p className="venue-text">
+Two days of events, innovation and energy unfold at Aditya Degree College, Visakhapatnam — a campus built for learning and creativity.              </p>
+              <div className="venue-facts">
+                <div className="venue-fact">
+                  <span className="venue-fact-label">Location</span>
+                  <span className="venue-fact-value">Visakhapatnam, Andhra Pradesh</span>
+                </div>
+                <div className="venue-fact">
+                  <span className="venue-fact-label">Dates</span>
+                  <span className="venue-fact-value">28 – 29 September 2026</span>
+                </div>
+                <div className="venue-fact">
+                  <span className="venue-fact-label">Entry</span>
+                  <span className="venue-fact-value">Free for all</span>
+                </div>
+              </div>
+            </div>
+            <div className="venue-image-cell">
+              <div className="venue-image-frame">
+                <img src="/venue-placeholder.svg" loading="lazy" width={800} height={600} alt="Aditya Degree College, venue of Astra 2K26" className="venue-image" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <section className="footer footer-with-blog">
         <div className="w-layout-blockcontainer container w-container">

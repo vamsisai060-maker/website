@@ -242,7 +242,8 @@ export default function RegisterForm({
   );
   const config = REGISTRATIONS[selectedEventSlug];
 
-  const teamNameError = submitted ? validateField(TEAM_NAME_FIELD, teamName) : null;
+  const isSingle = config.memberSlots === 1;
+  const teamNameError = !isSingle && submitted ? validateField(TEAM_NAME_FIELD, teamName) : null;
 
   const onSelectEvent = (slug: string) => {
     if (locked) return;
@@ -259,7 +260,7 @@ export default function RegisterForm({
   };
 
   const isFormValid = () => {
-    if (validateField(TEAM_NAME_FIELD, teamName)) return false;
+    if (!isSingle && validateField(TEAM_NAME_FIELD, teamName)) return false;
     return members.every((member) =>
       MEMBER_FIELDS.every((field) => !validateField(field, member[field.key]))
     );
@@ -291,7 +292,7 @@ export default function RegisterForm({
       const payload = {
         eventSlug: selectedEventSlug,
         eventName: selectedEvent.name,
-        teamName: teamName.trim(),
+        teamName: isSingle ? members[0]?.name.trim() : teamName.trim(),
         teamSize: members.length,
         members: members.map((member) => ({
           name: member.name.trim(),
@@ -392,14 +393,16 @@ export default function RegisterForm({
               </div>
             </div>
             <div className="form-row fr-last">
-              <FieldRow
-                id="team-name"
-                nb="1.2"
-                field={TEAM_NAME_FIELD}
-                value={teamName}
-                onChange={setTeamName}
-                error={teamNameError}
-              />
+              {!isSingle && (
+                <FieldRow
+                  id="team-name"
+                  nb="1.2"
+                  field={TEAM_NAME_FIELD}
+                  value={teamName}
+                  onChange={setTeamName}
+                  error={teamNameError}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -456,10 +459,12 @@ export default function RegisterForm({
                 <div>Event Date</div>
                 <div>{selectedEvent.date}</div>
               </div>
-              <div className="register-summary-row">
-                <div>Team Name</div>
-                <div>{teamName}</div>
-              </div>
+              {!isSingle && (
+                <div className="register-summary-row">
+                  <div>Team Name</div>
+                  <div>{teamName}</div>
+                </div>
+              )}
               <div className="register-summary-row">
                 <div>Team Size</div>
                 <div>{selectedEvent.teamSize}</div>

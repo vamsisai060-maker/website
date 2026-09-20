@@ -3557,6 +3557,7 @@ ul {
 
 .swiper-slide.team-slide {
   height: unset;
+  width: min(284px, calc(24vw + 2rem));
 }
 
 .swiper-slide.media-slide, .swiper-slide.response-slide {
@@ -10498,6 +10499,7 @@ ul {
   .swiper-slide.team-slide {
     padding-left: .875rem;
     padding-right: .875rem;
+    width: min(284px, calc((100vw - 13rem) / 2));
   }
 
   .incubation-top {
@@ -11796,6 +11798,7 @@ ul {
   .swiper-slide.team-slide {
     padding-left: 8px;
     padding-right: 8px;
+    width: calc(100vw - 6rem);
   }
 
   .support-slider-nav {
