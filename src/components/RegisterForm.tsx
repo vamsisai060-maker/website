@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { EVENTS } from '@/data/events';
 import { SmoothInput } from '@/components/smoothinput';
+import { CustomSelect } from '@/components/CustomSelect';
 import {
   MEMBER_FIELDS,
   REGISTRATIONS,
@@ -97,23 +98,13 @@ function FieldRow({
         </label>
       </div>
       {field.options ? (
-        <select
-          className="form-field-text w-input"
+        <CustomSelect
           id={id}
-          name={id}
           value={value}
-          onChange={(event) => onChange(event.target.value)}
-          required
-        >
-          <option value="" disabled hidden>
-            {field.selectPlaceholder ?? 'Select'}
-          </option>
-          {field.options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+          options={field.options}
+          placeholder={field.selectPlaceholder ?? 'Select'}
+          onChange={onChange}
+        />
       ) : (
         <SmoothInput
           id={id}

@@ -35,11 +35,7 @@ export default function RegisterPage({
             <div className="page-heading-title-col">
               <div className="marquee">
                 <div className="marquee-content scroll apply-scroll">
-                  <h1 className="page-heading-title apply-title">REGISTER </h1>
-                  <div className="page-heading-title underscore">_</div>
-                </div>
-                <div className="marquee-content scroll">
-                  <div className="page-heading-title">REGISTER</div>
+                  <h1 className="page-heading-title apply-title">REGISTER</h1>
                 </div>
                 <div className="marquee-content scroll">
                   <div className="page-heading-title">REGISTER</div>

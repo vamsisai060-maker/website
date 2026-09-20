@@ -87,6 +87,12 @@ export default function RegisterSuccess({
                 <div className="register-success-note">
                   {team ? `Team: ${team}` : ''}
                 </div>
+                <div className="register-success-venue">
+                  <span className="register-success-venue-label">Venue</span>
+                  <span className="register-success-venue-name">
+                    ADITYA DEGREE COLLEGE, [CO-ED] GAJUWAKA CAMPUS
+                  </span>
+                </div>
                 <div className="register-success-actions">
                   <button
                     type="button"

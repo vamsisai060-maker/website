@@ -43,23 +43,119 @@
   color: var(--light);
 }
 
-/* --- campus dropdown --- */
-.register-page select.form-field-text {
+/* --- campus / year custom dropdown --- */
+.register-page .form-field-select {
+  position: relative;
+}
+.register-page .form-field-select-trigger {
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230e0e0e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.125rem center;
-  background-size: 0.85rem;
-  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  border-style: solid;
+  border-width: 0 0 1px;
+  border-color: black black var(--grey);
+  background-color: transparent;
+  padding: 0.875rem 0;
+  font-family: RobotoMono, sans-serif;
+  font-size: var(--16px-size);
+  color: var(--dark);
+  text-align: left;
   cursor: pointer;
+  line-height: 140%;
 }
-.register-page select.form-field-text:invalid {
+.register-page .form-field-select-trigger:hover,
+.register-page .form-field-select-trigger[aria-expanded='true'] {
+  border-bottom-color: var(--dark);
+}
+.register-page .form-field-select-trigger.is-placeholder {
   color: var(--dark-60);
 }
-.register-page select.form-field-text option {
-  color: var(--dark);
+.register-page .form-field-select-chevron {
+  flex: none;
+  transition: transform 0.2s;
+}
+.register-page .form-field-select-trigger[aria-expanded='true'] .form-field-select-chevron {
+  transform: rotate(180deg);
+}
+.register-page .form-field-select-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 50;
   background-color: var(--light);
+  border: 1px solid var(--dark);
+  box-shadow: 4px 4px 0 0 rgba(14, 14, 14, 0.25);
+  max-height: 15.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.register-page .form-field-select-panel.placement-down {
+  top: calc(100% + 0.125rem);
+}
+.register-page .form-field-select-panel.placement-up {
+  bottom: calc(100% + 0.125rem);
+}
+.register-page .form-field-select-option {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--grey);
+  background-color: transparent;
+  padding: 0.7rem 0.875rem;
+  font-family: RobotoMono, sans-serif;
+  font-size: var(--14px-size);
+  color: var(--dark);
+  text-align: left;
+  line-height: 140%;
+  cursor: pointer;
+}
+.register-page .form-field-select-option:last-child {
+  border-bottom: none;
+}
+.register-page .form-field-select-option:hover,
+.register-page .form-field-select-option.is-highlight {
+  background-color: var(--dark);
+  color: var(--light);
+}
+.register-page .form-field-select-option.is-selected {
+  background-color: var(--orange);
+  border-bottom-color: var(--orange);
+  color: var(--light);
+}
+
+/* --- tighter vertical rhythm --- */
+.register-page .form-row {
+  margin-bottom: 1.75rem;
+}
+.register-page .form-row.fr-double {
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+}
+.register-page .form-row.fr-last .form-row-item + .form-row-item {
+  margin-top: 1.75rem;
+}
+.register-page .field-head {
+  margin-bottom: 0.3125rem;
+}
+.register-page .register-rules {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+  .register-page .form-row {
+    margin-bottom: 1.5rem;
+  }
+  .register-page .form-row.fr-double {
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.25rem;
+  }
+  .register-page .form-row.fr-last {
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* --- validation errors --- */
@@ -113,19 +209,19 @@
 }
 
 /* --- member blocks --- */
-.register-member-block {
-  margin-bottom: 3rem;
+.register-page .register-member-block {
+  margin-bottom: 2.5rem;
 }
-.register-member-block + .register-member-block {
+.register-page .register-member-block + .register-member-block {
   border-top: 1px solid var(--grey);
-  padding-top: 3rem;
+  padding-top: 2.5rem;
 }
-.register-member-title {
+.register-page .register-member-title {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   font-family: RobotoMono, monospace;
   font-size: var(--14px-size);
   text-transform: uppercase;
@@ -223,6 +319,33 @@
 .success-code-home:hover {
   color: var(--dark);
   border-color: var(--dark);
+}
+.register-success-venue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  padding: 1.25rem 1.5rem;
+  border: 2px solid var(--orange);
+  background-color: rgba(255, 167, 0, 0.08);
+}
+.register-success-venue-label {
+  font-family: RobotoMono, monospace;
+  font-size: var(--12px-size);
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+.register-success-venue-name {
+  font-family: RobotoMono, monospace;
+  font-size: var(--16px-size);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--dark);
+  text-transform: uppercase;
 }
 .register-success-hint {
   max-width: 34rem;

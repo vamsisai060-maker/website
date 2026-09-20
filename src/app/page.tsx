@@ -1664,7 +1664,7 @@ Chairman                </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/Dr.%20N.%20Sesha%20Reddy.jpeg" loading="lazy" width={203} height={174} alt="Dr. N. Sesha Reddy" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
@@ -1711,7 +1711,7 @@ Secretary               </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/Dr.%20N.%20Suguna%20Reddy.jpeg" loading="lazy" width={203} height={174} alt="Dr. N. Suguna Reddy" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
@@ -1758,7 +1758,7 @@ Academic Director       </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/Dr.%20B.E.V.L.%20Naidu.jpeg" loading="lazy" width={203} height={174} alt="Dr. B.E.V.L. Naidu" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
@@ -1805,7 +1805,7 @@ Dean of AI              </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/U.%20Siddarth%20Reddy.jpeg" loading="lazy" width={203} height={174} alt="U. Siddarth Reddy" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
@@ -1852,7 +1852,7 @@ Principal (Co-Ed)       </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/M.%20Satya%20Prakash.jpeg" loading="lazy" width={203} height={174} alt="M. Satya Prakash" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">

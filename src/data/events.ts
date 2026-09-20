@@ -20,7 +20,7 @@ export const EVENTS: Event[] = [
     name: 'Game Verse',
     category: 'External',
     teamSize: '2',
-    date: '30-09-2026',
+    date: '28-09-2026',
     blurb: 'A competitive gaming challenge for teams of two. Laptop required, and teammates from the same college are not allowed.',
   },
   {
@@ -28,7 +28,7 @@ export const EVENTS: Event[] = [
     name: '3Minds 1Mission',
     category: 'External',
     teamSize: '3',
-    date: '30-09-2026',
+    date: '28-09-2026',
     blurb: 'A three-member team challenge built on collaboration and problem-solving. Exactly three members are compulsory, at least one laptop is required, and the team leader registers all members.',
   },
   {
@@ -37,7 +37,7 @@ export const EVENTS: Event[] = [
     category: 'External',
     // teamSize unconfirmed
     teamSize: 'TBD',
-    date: '30-09-2026',
+    date: '29-09-2026',
     blurb: 'A team prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
   },
   {
@@ -45,7 +45,7 @@ export const EVENTS: Event[] = [
     name: 'Logical Duo',
     category: 'External',
     teamSize: '2',
-    date: '30-09-2026',
+    date: '29-09-2026',
     blurb: 'A two-member logical thinking challenge that tests teamwork and reasoning. No laptop required, but a team leader is required.',
   },
   {
@@ -54,7 +54,7 @@ export const EVENTS: Event[] = [
     category: 'External',
     // teamSize unconfirmed
     teamSize: 'TBD',
-    date: '30-09-2026',
+    date: '28-09-2026',
     blurb: 'A wrong-answers challenge where teams give unexpected answers. No laptop required.',
   },
 ];
