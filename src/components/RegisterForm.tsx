@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { EVENTS } from '@/data/events';
 import { SmoothInput } from '@/components/smoothinput';
 import {
@@ -20,6 +21,8 @@ type Member = {
 };
 
 type MemberField = keyof Member;
+
+type SubmitState = 'idle' | 'success' | 'error';
 
 type FieldRowDef = { fields: RegisterField[]; cls: string };
 
@@ -236,6 +239,11 @@ export default function RegisterForm({
     Array.from({ length: REGISTRATIONS[selectedEventSlug].memberSlots }, () => emptyMember())
   );
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitState, setSubmitState] = useState<SubmitState>('idle');
+
+  const webAppUrl = process.env.NEXT_PUBLIC_GSHEET_WEB_APP_URL ?? '';
+  const router = useRouter();
 
   const selectedEvent = useMemo(
     () => EVENTS.find((event) => event.slug === selectedEventSlug)!,
@@ -259,14 +267,68 @@ export default function RegisterForm({
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const isFormValid = () => {
+    if (validateField(TEAM_NAME_FIELD, teamName)) return false;
+    return members.every((member) =>
+      MEMBER_FIELDS.every((field) => !validateField(field, member[field.key]))
+    );
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+    if (submitState === 'success') return;
+    if (!isFormValid()) return;
+    if (!webAppUrl) {
+      setSubmitState('error');
+      return;
+    }
+    setSending(true);
+    setSubmitState('idle');
+    try {
+      const payload = {
+        eventSlug: selectedEventSlug,
+        eventName: selectedEvent.name,
+        teamName: teamName.trim(),
+        teamSize: members.length,
+        members: members.map((member) => ({
+          name: member.name.trim(),
+          phone: member.phone.trim(),
+          email: member.email.trim(),
+          branch: member.branch.trim(),
+          year: member.year,
+          college: member.college,
+        })),
+      };
+      const response = await fetch(webAppUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json().catch(() => null)) as
+        | { ok?: boolean; code?: string; message?: string }
+        | null;
+      if (!response.ok || !result?.ok || !result.code) {
+        throw new Error(result?.message ?? 'Submission failed');
+      }
+      setSubmitState('success');
+      router.push(
+        `/register/${selectedEventSlug}/success?code=${encodeURIComponent(
+          result.code
+        )}&team=${encodeURIComponent(teamName.trim())}`
+      );
+    } catch {
+      setSubmitState('error');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
     <div className="page-form w-form">
-      <form data-form-anim-init="" id="wf-form-register-form" name="wf-form-register-form" onSubmit={handleSubmit} noValidate aria-label="Register form">
+      <form data-form-anim-init="" id="wf-form-register-form" name="wf-form-register-form" onSubmit={handleSubmit} noValidate aria-label="Register form"
+        style={submitState === 'success' ? { display: 'none' } : undefined}
+      >
         <div className="form-section" id="create">
           <div className="form-col form-col-first"></div>
           <div className="form-col form-col-second">
@@ -402,10 +464,10 @@ export default function RegisterForm({
               ))}
             </div>
             <div className="form-actions">
-              <button type="submit" className="button-primary width-100 w-inline-block">
+              <button type="submit" disabled={sending} className="button-primary width-100 w-inline-block">
                 <div className="button-primary-border">
                   <div className="button-primary-text button-size-text-lg button-with-icon">
-                    <div>Register team</div>
+                    <div>{sending ? 'Submitting…' : 'Register team'}</div>
                     <img width={23} height={23} src="/register/arrow.svg" alt="" loading="lazy" className="button-primary-icon" />
                   </div>
                 </div>
@@ -418,11 +480,15 @@ export default function RegisterForm({
         </div>
       </form>
 
-      <div className="w-form-done" tabIndex={-1} role="region" aria-label="Register form success">
+      <div className="w-form-done" tabIndex={-1} role="region" aria-label="Register form success"
+        style={submitState === 'success' ? { display: 'block' } : undefined}
+      >
         <div>Thank you! Your team has been registered.</div>
       </div>
-      <div className="w-form-fail" tabIndex={-1} role="region" aria-label="Register form failure">
-        <div>Oops! Something went wrong while submitting the form.</div>
+      <div className="w-form-fail" tabIndex={-1} role="region" aria-label="Register form failure"
+        style={submitState === 'error' ? { display: 'block' } : undefined}
+      >
+        <div>Oops! Something went wrong while submitting the form. Please try again.</div>
       </div>
     </div>
   );

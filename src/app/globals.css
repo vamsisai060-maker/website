@@ -230,11 +230,6 @@ html.lenis body {
   background-color: #000;
 }
 
-.pt-col:first-child .pt-edge {
-  right: auto;
-  left: 0;
-}
-
 @media screen and (max-width: 991px) {
   .pt-overlay {
     grid-template-columns: 2.75rem 1fr 1fr 1fr 1fr 3.25rem;
