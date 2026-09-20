@@ -488,10 +488,6 @@ body.has-preloader {
   display: inline-block;
 }
 
-.h2-decrypt-wrap {
-  white-space: nowrap !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hero-title-letter {
     opacity: 1;
