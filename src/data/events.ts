@@ -14,7 +14,12 @@ export const EVENT_CATEGORIES: EventCategory[] = ['External'];
 export const EVENT_ENTRY_FEE = 'FREE';
 export const EVENT_PRIZE_POOL = 'Certificate';
 
-export const EVENTS: Event[] = [
+const dateKey = (date: string) => {
+  const [d, m, y] = date.split('-').map(Number);
+  return y * 10000 + m * 100 + d;
+};
+
+const eventsByDate: Event[] = [
   {
     slug: 'game-verse',
     name: 'Game Verse',
@@ -35,10 +40,9 @@ export const EVENTS: Event[] = [
     slug: 'see-it-prompt-it',
     name: 'See It, Prompt It',
     category: 'External',
-    // teamSize unconfirmed
-    teamSize: 'TBD',
+    teamSize: '1',
     date: '29-09-2026',
-    blurb: 'A team prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
+    blurb: 'A solo prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
   },
   {
     slug: 'logical-duo',
@@ -52,9 +56,12 @@ export const EVENTS: Event[] = [
     slug: 'error-404',
     name: 'ERROR 404',
     category: 'External',
-    // teamSize unconfirmed
-    teamSize: 'TBD',
+    teamSize: '1',
     date: '28-09-2026',
-    blurb: 'A wrong-answers challenge where teams give unexpected answers. No laptop required.',
+    blurb: 'A wrong-answers challenge where participants give unexpected answers. No laptop required.',
   },
 ];
+
+export const EVENTS: Event[] = [...eventsByDate].sort(
+  (a, b) => dateKey(a.date) - dateKey(b.date)
+);

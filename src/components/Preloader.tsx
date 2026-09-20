@@ -80,32 +80,35 @@ export default function Preloader() {
     };
 
     const pixelate = () => {
-  const columns = root.querySelectorAll('.col');
-      const targets: HTMLElement[] = [];
-      columns.forEach((column) => {
-        const divs = Array.from(column.querySelectorAll<HTMLElement>('.pixel'));
-        targets.push(...divs.filter((_div, i) => i >= 9));
-      });
+      const columns = Array.from(root.querySelectorAll<HTMLElement>('.preloader-line'));
+      root.style.backgroundColor = 'transparent';
 
-      if (targets.length > 0) {
+      const finish = () => {
+        root.style.display = 'none';
+        gsap.set(root, { clearProps: 'transform,opacity,backgroundColor' });
+        storeShown();
+        intervals.forEach(clearInterval);
+      };
+
+      if (columns.length > 0) {
         const timeline = gsap.timeline();
         gsapRefs.push(timeline);
-        timeline.to(targets, {
-          backgroundColor: 'transparent',
-          opacity: 0,
-          duration: 0.5,
-          stagger: { amount: 1, from: 'random' },
-          onComplete: () => {
-            unlockScroll();
-            root.style.display = 'none';
-            storeShown();
-            intervals.forEach(clearInterval);
-          },
+        timeline.call(unlockScroll);
+        timeline.call(() => {
+          root.querySelectorAll('#zero1, #zero2, #zero3').forEach((el) => {
+            (el as HTMLElement).style.display = 'none';
+          });
         });
+        timeline.to(columns, {
+          yPercent: -120,
+          duration: 0.7,
+          ease: 'power2.inOut',
+          stagger: 0.15,
+        });
+        timeline.add(finish);
       } else {
         unlockScroll();
-        root.style.display = 'none';
-        storeShown();
+        finish();
       }
     };
 

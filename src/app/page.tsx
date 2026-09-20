@@ -22,7 +22,7 @@
 //   const [portfolioSlide, setPortfolioSlide] = useState(1);
 //   const portfolioPrev = () => setPortfolioSlide((i) => Math.max(i - 1, 0));
 //   const portfolioNext = () => setPortfolioSlide((i) => Math.min(i + 1, SLIDE_COUNT - 1));
-//   const TEAM_SLIDE_STEP = 291.765;
+//   const TEAM_SLIDE_STEP = 440;
 //   const TEAM_SLIDE_COUNT = 8;
 //   const [teamSlide, setTeamSlide] = useState(0);
 //   const teamPrev = () => setTeamSlide((i) => Math.max(i - 1, 0));
@@ -633,7 +633,7 @@
 //               <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden">
 //                 <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * TEAM_SLIDE_STEP}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 
-//                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -655,7 +655,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -677,7 +677,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -699,7 +699,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -721,7 +721,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -743,7 +743,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -765,7 +765,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -787,7 +787,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" style={{width: "291.765px"}}>
+//                   <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" style={{width: "440px"}}>
 //                     <div team-card="" className="team-card gsap-fade-up">
 //                       <div className="team-card-head">
 //                         <h3 className="team-member-name">
@@ -1068,7 +1068,7 @@ export default function Home() {
   const [portfolioSlide, setPortfolioSlide] = useState(1);
   const portfolioPrev = () => setPortfolioSlide((i) => Math.max(i - 1, 0));
   const portfolioNext = () => setPortfolioSlide((i) => Math.min(i + 1, SLIDE_COUNT - 1));
-  const TEAM_SLIDE_STEP = 291.765;
+  const TEAM_SLIDE_STEP = 440;
   const TEAM_SLIDE_COUNT = 8;
   const [teamSlide, setTeamSlide] = useState(0);
   const [teamPerView, setTeamPerView] = useState(2);
@@ -1644,7 +1644,7 @@ For Founders                    </h3>
               <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden" onMouseEnter={() => setTeamHover(true)} onMouseLeave={() => setTeamHover(false)}>
                 <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * TEAM_SLIDE_STEP}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 
-                  <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1691,7 +1691,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide swiper-slide-next" role="group" aria-label="2 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1738,7 +1738,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="3 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1785,7 +1785,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="4 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1832,7 +1832,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="5 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1879,7 +1879,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="6 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1889,7 +1889,7 @@ Principal (Women's)     </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/pradeep.jpeg" loading="lazy" width={203} height={174} alt="P. Pradeep" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
@@ -1926,7 +1926,7 @@ Profile details coming soon.</p>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="7 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1973,7 +1973,7 @@ Bio                              </div>
                     </div>
                   </div>
 
-                  <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" style={{width: "291.765px"}}>
+                  <div className="swiper-slide team-slide" role="group" aria-label="8 / 8" style={{width: "440px"}}>
                     <div team-card="" className="team-card gsap-fade-up">
                       <div className="team-card-head">
                         <h3 className="team-member-name">
@@ -1983,7 +1983,7 @@ HOD of AI               </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/sairatnam.jpeg" loading="lazy" width={203} height={174} alt="T. Sai Ratnam" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">

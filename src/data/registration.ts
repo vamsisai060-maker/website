@@ -69,10 +69,10 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
   'see-it-prompt-it': {
     slug: 'see-it-prompt-it',
     eventName: 'See It Prompt It',
-    memberSlots: 3,
+    memberSlots: 1,
     laptop: 'Laptop required',
     teamLeaderRequired: true,
-    notes: 'Exact team size and final details to be announced.',
+    notes: 'Individual event. You register yourself as a solo participant.',
   },
   'logical-duo': {
     slug: 'logical-duo',
@@ -85,10 +85,10 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
   'error-404': {
     slug: 'error-404',
     eventName: 'Error 404',
-    memberSlots: 3,
+    memberSlots: 1,
     laptop: 'No laptop required',
     teamLeaderRequired: true,
-    notes: 'Exact team size and final details to be announced.',
+    notes: 'Individual event. You register yourself as a solo participant.',
   },
 };
 
