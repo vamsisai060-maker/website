@@ -57,6 +57,12 @@ function doPost(e) {
     if (!cfg) throw new Error('Unknown event: ' + payload.eventSlug);
 
     const sheet = getSheet_(cfg);
+
+    const duplicate = findDuplicate_(sheet, cfg, payload);
+    if (duplicate) {
+      return json_({ ok: false, code: 'DUPLICATE', message: duplicate });
+    }
+
     const code = nextCode_(sheet, cfg);
     appendRow_(sheet, payload, code);
 
@@ -155,6 +161,85 @@ function appendRow_(sheet, payload, code) {
     const phoneCol = 5 + i * 6 + 2;
     sheet.getRange(rowNumber, phoneCol).setNumberFormat('@');
   }
+}
+
+// --- duplicate / multiple-registration guard -----------------------------
+
+function normalizePhone_(value) {
+  return String(value || '').trim().replace(/\D/g, '');
+}
+
+function normalizeEmail_(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+// Returns a rejection message, or null when the registration is allowed.
+// Checks every member's phone/email against all existing rows in this
+// game's tab (headers skipped), plus against other members in the SAME new
+// team. Called inside the script lock, so check + insert is atomic.
+function findDuplicate_(sheet, cfg, payload) {
+  const phoneCols = [];
+  const emailCols = [];
+  for (let i = 0; i < cfg.memberSlots; i++) {
+    phoneCols.push(5 + i * 6 + 2);
+    emailCols.push(5 + i * 6 + 3);
+  }
+
+  const existingPhones = new Set();
+  const existingEmails = new Set();
+  const last = sheet.getLastRow();
+  if (last > 1) {
+    const minCol = Math.min.apply(null, phoneCols.concat(emailCols));
+    const maxCol = Math.max.apply(null, phoneCols.concat(emailCols));
+    const values = sheet
+      .getRange(2, minCol, last - 1, maxCol - minCol + 1)
+      .getValues();
+    values.forEach((row) => {
+      phoneCols.forEach((c) => {
+        const v = normalizePhone_(row[c - minCol]);
+        if (v) existingPhones.add(v);
+      });
+      emailCols.forEach((c) => {
+        const v = normalizeEmail_(row[c - minCol]);
+        if (v) existingEmails.add(v);
+      });
+    });
+  }
+
+  const seenPhones = new Set();
+  const seenEmails = new Set();
+  const members = payload.members || [];
+  for (let i = 0; i < members.length; i++) {
+    const member = members[i] || {};
+    const label = 'Member ' + (i + 1);
+    const phone = normalizePhone_(member.phone);
+    if (phone && (existingPhones.has(phone) || seenPhones.has(phone))) {
+      return (
+        'This phone number is already registered for ' +
+        cfg.tab +
+        ' (' +
+        label +
+        ': ' +
+        phone +
+        '). Each person can register only once per event.'
+      );
+    }
+    seenPhones.add(phone);
+    const email = normalizeEmail_(member.email);
+    if (email && (existingEmails.has(email) || seenEmails.has(email))) {
+      return (
+        'This email address is already registered for ' +
+        cfg.tab +
+        ' (' +
+        label +
+        ': ' +
+        email +
+        '). Each person can register only once per event.'
+      );
+    }
+    seenEmails.add(email);
+  }
+  return null;
 }
 
 function json_(payload) {

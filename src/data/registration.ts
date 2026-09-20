@@ -33,11 +33,18 @@ export const CAMPUSES = [
 
 export const YEARS = ['1st Year', '2nd Year', '3rd Year'];
 
+export const BRANCHES = [
+  'BSC-CHEMISTRY',
+  'BSC-DATA SCIENCE',
+  'BSC-ARTIFICIAL INTELLIGENCE',
+  'BCA',
+];
+
 export const MEMBER_FIELDS: RegisterField[] = [
   { key: 'name', label: 'Full Name', placeholder: '[Name]', type: 'text', required: true },
   { key: 'phone', label: 'Phone', placeholder: '[10-digit number]', type: 'tel', required: true, numeric: true, maxLength: 10 },
   { key: 'email', label: 'Email Address', placeholder: '[you@mail.com]', type: 'email', required: true },
-  { key: 'branch', label: 'Branch', placeholder: '[e.g. CSE]', type: 'text', required: true },
+  { key: 'branch', label: 'Branch', placeholder: 'Select branch', type: 'text', required: true, options: BRANCHES, selectPlaceholder: 'Select branch' },
   { key: 'year', label: 'Year', placeholder: '[e.g. 3rd]', type: 'text', required: true, options: YEARS, selectPlaceholder: 'Select year' },
   { key: 'college', label: 'Campus', placeholder: '[Campus]', type: 'text', required: true, options: CAMPUSES, selectPlaceholder: 'Select campus' },
 ];

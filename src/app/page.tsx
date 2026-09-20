@@ -1021,7 +1021,7 @@
 
 'use client';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -1046,6 +1046,8 @@ export default function Home() {
   const TEAM_SLIDE_STEP = 291.765;
   const TEAM_SLIDE_COUNT = 8;
   const [teamSlide, setTeamSlide] = useState(0);
+  const [teamPerView, setTeamPerView] = useState(2);
+  const [teamHover, setTeamHover] = useState(false);
   const teamPrev = () => setTeamSlide((i) => Math.max(i - 1, 0));
   const teamNext = () => setTeamSlide((i) => Math.min(i + 1, TEAM_SLIDE_COUNT - 1));
 
@@ -1067,6 +1069,24 @@ export default function Home() {
       window.removeEventListener('resize', update);
     };
   }, []);
+
+  useLayoutEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const update = () => setTeamPerView(mql.matches ? 1 : 2);
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    if (teamHover) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduce.matches) return;
+    const id = setInterval(() => {
+      setTeamSlide((i) => (i + teamPerView >= TEAM_SLIDE_COUNT ? 0 : i + teamPerView));
+    }, 3500);
+    return () => clearInterval(id);
+  }, [teamHover, teamPerView]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -1651,7 +1671,7 @@ For Founders                    </h3>
               </div>
             </div>
             <div className="team-slider-row-inner team">
-              <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden">
+              <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden" onMouseEnter={() => setTeamHover(true)} onMouseLeave={() => setTeamHover(false)}>
                 <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * TEAM_SLIDE_STEP}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 
                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" style={{width: "291.765px"}}>

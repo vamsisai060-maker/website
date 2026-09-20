@@ -17,6 +17,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     lenis.on('scroll', ScrollTrigger.update);
 
+    (window).__lenis = lenis;
+
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
@@ -40,6 +42,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       document.removeEventListener('click', handleAnchorClick);
+      delete (window).__lenis;
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
     };

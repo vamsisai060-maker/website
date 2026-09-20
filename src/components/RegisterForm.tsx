@@ -232,6 +232,7 @@ export default function RegisterForm({
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const webAppUrl = process.env.NEXT_PUBLIC_GSHEET_WEB_APP_URL ?? '';
   const router = useRouter();
@@ -265,17 +266,36 @@ export default function RegisterForm({
     );
   };
 
+  const scrollToElement = (target: HTMLElement) => {
+    window.__lenis?.scrollTo(target, { offset: -90, duration: 1.2 });
+  };
+
+  const scrollToFirstError = () => {
+    const firstInvalid = document.querySelector('.form-row-item.is-invalid');
+    const source = (firstInvalid ?? document.querySelector('.form-field-error')) as HTMLElement | null;
+    if (source) scrollToElement(source);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
     if (submitState === 'success') return;
-    if (!isFormValid()) return;
+    if (!isFormValid()) {
+      scrollToFirstError();
+      return;
+    }
     if (!webAppUrl) {
       setSubmitState('error');
+      requestAnimationFrame(() => {
+        const failBanner = document.querySelector('.w-form-fail') as HTMLElement | null;
+        if (failBanner) scrollToElement(failBanner);
+      });
       return;
     }
     setSending(true);
     setSubmitState('idle');
+    setSubmitError(null);
+    let rejectMessage: string | null = null;
     try {
       const payload = {
         eventSlug: selectedEventSlug,
@@ -300,7 +320,8 @@ export default function RegisterForm({
         | { ok?: boolean; code?: string; message?: string }
         | null;
       if (!response.ok || !result?.ok || !result.code) {
-        throw new Error(result?.message ?? 'Submission failed');
+        rejectMessage = result?.message ?? null;
+        throw new Error(rejectMessage ?? 'Submission failed');
       }
       setSubmitState('success');
       router.push(
@@ -309,7 +330,12 @@ export default function RegisterForm({
         )}&team=${encodeURIComponent(teamName.trim())}`
       );
     } catch {
+      setSubmitError(rejectMessage);
       setSubmitState('error');
+      requestAnimationFrame(() => {
+        const failBanner = document.querySelector('.w-form-fail') as HTMLElement | null;
+        if (failBanner) scrollToElement(failBanner);
+      });
     } finally {
       setSending(false);
     }
@@ -436,6 +462,10 @@ export default function RegisterForm({
                 <div>{selectedEvent.name}</div>
               </div>
               <div className="register-summary-row">
+                <div>Event Date</div>
+                <div>{selectedEvent.date}</div>
+              </div>
+              <div className="register-summary-row">
                 <div>Team Name</div>
                 <div>{teamName}</div>
               </div>
@@ -479,7 +509,10 @@ export default function RegisterForm({
       <div className="w-form-fail" tabIndex={-1} role="region" aria-label="Register form failure"
         style={submitState === 'error' ? { display: 'block' } : undefined}
       >
-        <div>Oops! Something went wrong while submitting the form. Please try again.</div>
+        <div>
+          {submitError ??
+            'Oops! Something went wrong while submitting the form. Please try again.'}
+        </div>
       </div>
     </div>
   );

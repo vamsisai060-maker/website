@@ -7,8 +7,12 @@
 .register-page .marquee {
   animation: register-marquee 14s linear infinite;
 }
+.register-page .marquee-content.scroll {
+  flex: none;
+  width: max-content;
+}
 .register-page .marquee-content.scroll.apply-scroll {
-  width: 100%;
+  width: max-content;
 }
 @keyframes register-marquee {
   from {
