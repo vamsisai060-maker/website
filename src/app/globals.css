@@ -484,6 +484,14 @@ body.has-preloader {
   will-change: opacity;
 }
 
+.h2-decrypt-letter {
+  display: inline-block;
+}
+
+.h2-decrypt-wrap {
+  white-space: nowrap !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-title-letter {
     opacity: 1;

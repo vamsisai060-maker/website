@@ -1486,12 +1486,12 @@ export default function Home() {
           <div className="portfolio-content">
             <div className="portfolio-top">
               <div className="portfolio-main">
-                <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{textTransform: "uppercase", textAlign: "left", whiteSpace: "nowrap"}}>
+                <h2 anim-trigger="" className="h2 h2-lg" style={{textTransform: "uppercase", textAlign: "left", whiteSpace: "nowrap"}}>
                     <div style={{position: "relative", display: "inline-block"}} className="">
-                      <DecryptedText text="Our" animateOn="view" sequential revealDirection="start" />
+                      <DecryptedText text="Our" animateOn="view" sequential revealDirection="start" parentClassName="h2-decrypt-wrap" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
                     </div>
                     <div style={{position: "relative", display: "block"}} className="">
-                      <DecryptedText text="Events" animateOn="view" sequential revealDirection="start" />
+                      <DecryptedText text="Events" animateOn="view" sequential revealDirection="start" parentClassName="h2-decrypt-wrap" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
                     </div>
                 </h2>
               </div>
@@ -1592,12 +1592,12 @@ All Events                  </div>
           <div className="team-slider-row">
             <div className="section-heading sh-grid-2-1-1">
               <div className="section-title st-our-team">
-                <h2 anim-trigger="" className="h2 h2-lg gsap-fade-up" style={{textAlign: "left"}}>
+                <h2 anim-trigger="" className="h2 h2-lg" style={{textAlign: "left"}}>
                   <div style={{position: "relative", display: "inline-block"}} className="">
-                    <DecryptedText text="OUR" animateOn="view" sequential revealDirection="start" />
+                    <DecryptedText text="OUR" animateOn="view" sequential revealDirection="start" parentClassName="h2-decrypt-wrap" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
                   </div>
                   <div style={{position: "relative", display: "block", marginTop: "0.25em", textAlign: "left"}} className="">
-                    <DecryptedText text="VISIONARIES" animateOn="view" sequential revealDirection="start" />
+                    <DecryptedText text="VISIONARIES" animateOn="view" sequential revealDirection="start" parentClassName="h2-decrypt-wrap" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
                   </div>
                 </h2>
               </div>

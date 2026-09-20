@@ -234,7 +234,6 @@ export default function RegisterForm({
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const webAppUrl = process.env.NEXT_PUBLIC_GSHEET_WEB_APP_URL ?? '';
   const router = useRouter();
 
   const selectedEvent = useMemo(
@@ -284,14 +283,6 @@ export default function RegisterForm({
       scrollToFirstError();
       return;
     }
-    if (!webAppUrl) {
-      setSubmitState('error');
-      requestAnimationFrame(() => {
-        const failBanner = document.querySelector('.w-form-fail') as HTMLElement | null;
-        if (failBanner) scrollToElement(failBanner);
-      });
-      return;
-    }
     setSending(true);
     setSubmitState('idle');
     setSubmitError(null);
@@ -311,7 +302,7 @@ export default function RegisterForm({
           college: member.college,
         })),
       };
-      const response = await fetch(webAppUrl, {
+      const response = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload),
