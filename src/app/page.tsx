@@ -876,7 +876,7 @@ Principal (Women's)     </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="/pradeep.jpeg" loading="lazy" width={203} height={174} alt="P. Pradeep" className="team-member-photo-image" />
+                          <img src="/pradeep%20sir.jpeg" loading="lazy" width={203} height={174} alt="P. Pradeep" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
