@@ -312,7 +312,13 @@ export default function RegisterForm({
         | { ok?: boolean; code?: string; message?: string }
         | null;
       if (!response.ok || !result?.ok || !result.code) {
-        rejectMessage = result?.message ?? null;
+        if (result?.code === 'DUPLICATE') {
+          rejectMessage =
+            result.message ??
+            `This phone number or email is already registered for ${selectedEvent.name}. Each person can register only once for this game.`;
+        } else {
+          rejectMessage = result?.message ?? null;
+        }
         throw new Error(rejectMessage ?? 'Submission failed');
       }
       setSubmitState('success');

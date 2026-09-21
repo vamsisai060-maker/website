@@ -4555,8 +4555,9 @@ ul {
 }
 
 .portfolio-item-image {
-  width: 17.375rem;
-  height: 3rem;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .portfolio-item-bottom {
@@ -12163,8 +12164,8 @@ ul {
   }
 
   .portfolio-item-image {
-    width: 14.28rem;
-    height: 2.6rem;
+    width: 100%;
+    height: auto;
   }
 
   .portfolio-item-link {

@@ -201,7 +201,7 @@ function findDuplicate_(sheet, cfg, payload) {
         label +
         ': ' +
         phone +
-        '). Each person can register only once per event.'
+        '). Each person can register only once for this game.'
       );
     }
     seenPhones.add(phone);
@@ -214,7 +214,7 @@ function findDuplicate_(sheet, cfg, payload) {
         label +
         ': ' +
         email +
-        '). Each person can register only once per event.'
+        '). Each person can register only once for this game.'
       );
     }
     seenEmails.add(email);

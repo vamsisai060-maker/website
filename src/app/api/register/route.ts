@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       | null;
     if (!response.ok || !result?.ok || !result?.code) {
       return Response.json(
-        { ok: false, message: result?.message ?? 'Submission failed' },
+        { ok: false, code: result?.code, message: result?.message ?? 'Submission failed' },
         { status: response.ok ? 200 : 502 }
       );
     }

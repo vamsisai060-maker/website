@@ -58,6 +58,17 @@ export default function SiteHeader() {
                         </div>
                       </Link>
                     </li>
+                    <li className="header-menu-item">
+                      <Link href="/#venue-section" className="header-menu-link w-inline-block">
+                        <div className="header-menu-link-wrapper">
+                          <div scramble-text="" className="header-menu-link-text">
+                            <DecryptedText text="Venue" animateOn="hover" encryptedClassName="header-menu-encrypted-char" />
+                          </div>
+                          <div className="header-menu-link-dekor header-menu-link-dekor-right"></div>
+                          <div className="header-menu-link-dekor header-menu-link-dekor-left"></div>
+                        </div>
+                      </Link>
+                    </li>
                   </ul>
                 </nav>
                 <div className="menu-button w-nav-button" style={{WebkitUserSelect: 'text'}} aria-label="menu" role="button" tabIndex={0} aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
@@ -89,6 +100,7 @@ export default function SiteHeader() {
           items={[
             { label: 'Our Events', link: '/events' },
             { label: 'Our Visionaries', link: '/#team-section' },
+            { label: 'Venue', link: '/#venue-section' },
           ]}
           accentColor="#ff7120"
           menuButtonColor="#0e0e0e"

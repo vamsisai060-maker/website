@@ -535,8 +535,9 @@ body.has-preloader {
 }
 
 .venue-grid {
-  grid-column-gap: 0px;
+  grid-column-gap: 1px;
   grid-row-gap: 0px;
+  background-color: var(--grey);
   border-top: 1px solid var(--grey);
   border-bottom: 1px solid var(--grey);
   grid-template-rows: auto;
@@ -547,37 +548,12 @@ body.has-preloader {
 }
 
 .venue-content {
-  border-right: 1px solid var(--grey);
   background-color: var(--light);
-  margin-right: -1px;
   flex-flow: column;
   justify-content: center;
   align-items: flex-start;
   padding: 3rem 2.5rem;
   display: flex;
-}
-
-.venue-kicker {
-  grid-column-gap: 12px;
-  grid-row-gap: 12px;
-  color: var(--dark-60);
-  font-size: var(--12px-size);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 1.25rem;
-  display: flex;
-}
-
-.venue-kicker::before {
-  content: "";
-  background-color: var(--orange);
-  width: 8px;
-  min-width: 8px;
-  height: 8px;
-  min-height: 8px;
-  display: block;
 }
 
 .venue-title {
@@ -631,23 +607,22 @@ body.has-preloader {
 
 .venue-image-cell {
   background-color: var(--lightgrey);
-  margin-left: 1px;
   justify-content: center;
-  align-items: center;
-  padding: 1.75rem;
+  align-items: stretch;
+  padding: 0;
   display: flex;
 }
 
 .venue-image-frame {
-  border: 1px solid var(--grey);
-  background-color: var(--light);
+  background-color: var(--lightgrey);
   width: 100%;
+  display: flex;
 }
 
 .venue-image {
   clip-path: polygon(calc(100% - .75rem) 0, 100% .75rem, 100% 100%, .75rem 100%, 0 calc(100% - .75rem), 0 0);
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   object-position: center;
@@ -670,15 +645,12 @@ body.has-preloader {
   }
 
   .venue-content {
-    border-right: 0;
-    margin-right: 0;
+    border-top: 1px solid var(--grey);
     padding: 2.5rem 1.75rem;
   }
 
   .venue-image-cell {
-    border-top: 1px solid var(--grey);
-    margin-left: 0;
-    padding: 1.75rem;
+    padding: 0;
   }
 }
 
@@ -697,6 +669,6 @@ body.has-preloader {
   }
 
   .venue-image-cell {
-    padding: 1rem;
+    padding: 0;
   }
 }

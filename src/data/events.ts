@@ -7,6 +7,7 @@ export type Event = {
   teamSize: string;
   date: string;
   blurb: string;
+  image: string;
 };
 
 export const EVENT_CATEGORIES: EventCategory[] = ['External'];
@@ -27,6 +28,7 @@ const eventsByDate: Event[] = [
     teamSize: '2',
     date: '28-09-2026',
     blurb: 'A competitive gaming challenge for teams of two. Laptop required, and teammates from the same college are not allowed.',
+    image: '/gameverse.png',
   },
   {
     slug: '3minds-1mission',
@@ -35,6 +37,7 @@ const eventsByDate: Event[] = [
     teamSize: '3',
     date: '28-09-2026',
     blurb: 'A three-member team challenge built on collaboration and problem-solving. Exactly three members are compulsory, at least one laptop is required, and the team leader registers all members.',
+    image: '/3minds%201%20mission.png',
   },
   {
     slug: 'see-it-prompt-it',
@@ -43,6 +46,7 @@ const eventsByDate: Event[] = [
     teamSize: '1',
     date: '29-09-2026',
     blurb: 'A solo prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
+    image: '/seeit%20promptit.png',
   },
   {
     slug: 'logical-duo',
@@ -51,6 +55,7 @@ const eventsByDate: Event[] = [
     teamSize: '2',
     date: '29-09-2026',
     blurb: 'A two-member logical thinking challenge that tests teamwork and reasoning. No laptop required, but a team leader is required.',
+    image: '/logical%20duo.png',
   },
   {
     slug: 'error-404',
@@ -59,6 +64,7 @@ const eventsByDate: Event[] = [
     teamSize: '1',
     date: '28-09-2026',
     blurb: 'A wrong-answers challenge where participants give unexpected answers. No laptop required.',
+    image: '/404error.png',
   },
 ];
 

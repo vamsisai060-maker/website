@@ -48,10 +48,7 @@ function EventCard({ event }: { event: Event }) {
     <div role="listitem" className="portfolio-listing-item w-dyn-item">
       <Link href={`/events/${event.slug}`} className="portfolio-item layout-diff w-inline-block">
         <div className="portfolio-item-thumb">
-          <div className="portfolio-item-category">{event.category}</div>
-          <div className="portfolio-item-name" style={{ fontFamily: 'Arial, sans-serif' }}>
-            {event.name}
-          </div>
+          <img src={event.image} alt={event.name} loading="lazy" className="portfolio-item-image" />
         </div>
         <div className="portfolio-item-bottom margin-top-auto">
           <Stats teamSize={event.teamSize} date={event.date} />

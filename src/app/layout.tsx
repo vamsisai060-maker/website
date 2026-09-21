@@ -7,7 +7,7 @@ import PageTransitionView from '@/components/PageTransitionView';
 import Preloader from '@/components/Preloader';
 
 export const metadata: Metadata = {
-  title: 'ChainGPT Labs Replica | Next.js Engine',
+  title: 'Astra 2K26',
   description: 'AI & Web3 Incubation Platform',
 };
 
