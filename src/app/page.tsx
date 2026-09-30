@@ -1165,9 +1165,9 @@ MAIL                      </div>
               <div className="footer-copy-col">
                 <div className="footer-copyright">
                   <div className="copyright-year">
-© 2025                  </div>
+© {new Date().getFullYear()}                  </div>
                   <div className="copyright-text">
-All rights reserved by ChainGPTlabs.org.                  </div>
+ASTRA 2K26                  </div>
                 </div>
               </div>
               <div className="footer-label-col hidden">
