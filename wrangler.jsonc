@@ -4,8 +4,8 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-09-30",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" }
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
   "vars": {
     "GSHEET_WEB_APP_URL": "https://script.google.com/macros/s/AKfycby7gX31DcYq08zrSsKLXLp14K7kNLOAuq7GBSoaSaI0hx6XIarOEeIWEC_HVpBgvKdA6Q/exec"
-  },
+  }
 }
