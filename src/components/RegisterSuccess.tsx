@@ -49,18 +49,7 @@ export default function RegisterSuccess({
               className="page-heading-decor"
             />
             <div className="page-heading-title-col">
-              <div className="marquee">
-                <div className="marquee-content scroll apply-scroll">
-                  <h1 className="page-heading-title apply-title">REGISTERED </h1>
-                  <div className="page-heading-title underscore">_</div>
-                </div>
-                <div className="marquee-content scroll">
-                  <div className="page-heading-title">REGISTERED</div>
-                </div>
-                <div className="marquee-content scroll">
-                  <div className="page-heading-title">REGISTERED</div>
-                </div>
-              </div>
+              <h1 className="page-heading-title apply-title">REGISTERED</h1>
             </div>
             <div className="featured-block-info underscore">
               <div className="featured-block-descr-wrap">

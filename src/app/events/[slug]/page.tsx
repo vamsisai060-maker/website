@@ -19,6 +19,9 @@ export async function generateMetadata({
   };
 }
 
+const ARROW_SRC =
+  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjY0ODQgNC41MjE3M0MxMS4xMDU1IDQuNTIxNzMgMTAuNjY1NCA0Ljk2MTgzIDEwLjY2NTQgNS41MDQ3MlY3LjQ3MDY5QzEwLjY2NTQgOC4wMTM1OCAxMS4xMDU1IDguNDUzNjggMTEuNjQ4NCA4LjQ1MzY4SDEzLjEyMjlDMTMuNjY1OCA4LjQ1MzY4IDE0LjEwNTggOC44OTM3NyAxNC4xMDU4IDkuNDM2NjZWMTAuOTExMUMxNC4xMDU4IDExLjA1MDkgMTQuMTM1IDExLjE4MzkgMTQuMTg3NiAxMS4zMDQzSDUuNjUyMTZDNS4wMjc4NCAxMS4zMDQzIDQuNTIxNzMgMTEuODEwNSA0LjUyMTczIDEyLjQzNDhWMTMuNTY1MkM0LjUyMTczIDE0LjE4OTUgNS4wMjc4NCAxNC42OTU2IDUuNjUyMTYgMTQuNjk1NkgxMy44MDAzQzEzLjcwMzIgMTQuODY3NSAxMy42MTQ0IDE1LjA5MDcgMTMuNjE0NCAxNS4zMzQ2VjE2LjgwOTFDMTMuNjE0NCAxNy4zNTIgMTMuMTc0MyAxNy43OTIxIDEyLjYzMTQgMTcuNzkyMUgxMS4xNTU5QzEwLjYxNCAxNy43OTIxIDEwLjE3MzkgMTguMjMyMSAxMC4xNzM5IDE4Ljc3NVYyMC43NDFDMTAuMTczOSAyMS4yODM5IDEwLjYxNCAyMS43MjQgMTEuMTU2OSAyMS43MjRIMTMuMTIyOUMxMy42NjU4IDIxLjcyNCAxNC4xMDU4IDIxLjI4MzkgMTQuMTA1OCAyMC43NDFWMTkuMjY2NUMxNC4xMDU4IDE4LjcyMzYgMTQuNTQ1OSAxOC4yODM1IDE1LjA4ODggMTguMjgzNUgxNi41NjMzQzE3LjEwNjIgMTguMjgzNSAxNy41NDYzIDE3Ljg0MzQgMTcuNTQ2MyAxNy4zMDA2VjE2LjMxNzZDMTcuNTQ2MyAxNS43NzQ3IDE3Ljk4NjQgMTUuMzM0NiAxOC41MjkzIDE1LjMzNDZIMjAuNDk1M0MyMS4wMzgyIDE1LjMzNDYgMjEuNDc4MyAxNC44OTQ1IDIxLjQ3ODMgMTQuMzUxNlYxMi4zODU2QzIxLjQ3ODMgMTIuMTU2MiAyMS4zOTk2IDExLjk0NTEgMjEuMjY3OCAxMS43Nzc4QzIxLjA2MjggMTEuNDkxMiAyMC43MjcxIDExLjMwNDMgMjAuMzQ3OCAxMS4zMDQzSDE4LjU5MThDMTguMjYzOSAxMS4xNDUgMTguMDM3OCAxMC44MDg3IDE4LjAzNzggMTAuNDE5NlY4Ljk0NTE3QzE4LjAzNzggOC40MDIyOCAxNy41OTc3IDcuOTYyMTggMTcuMDU0OCA3Ljk2MjE4SDE1LjU4MDNDMTUuMDM3NCA3Ljk2MjE4IDE0LjU5NzMgNy41MjIwOCAxNC41OTczIDYuOTc5MlY1LjUwNDcyQzE0LjU5NzMgNC45NjE4MyAxNC4xNTcyIDQuNTIxNzMgMTMuNjE0NCA0LjUyMTczSDExLjY0ODRaIiBmaWxsPSIjMEUwRTBFIi8+Cjwvc3ZnPgo=';
+
 export default async function EventDetailPage({
   params,
 }: {
@@ -31,54 +34,76 @@ export default async function EventDetailPage({
     notFound();
   }
 
+  const registerHref = `/register/${event.slug}`;
+  const stats = [
+    { value: EVENT_ENTRY_FEE, label: 'Entry Fee' },
+    { value: EVENT_PRIZE_POOL, label: 'Prize Pool' },
+    { value: event.teamSize, label: 'Team Size' },
+    { value: event.date, label: 'Date' },
+  ];
+
   return (
     <div className="events-page">
       <SiteHeader />
-      <main className="featured-block-descr-wrap" style={{ maxWidth: '52rem', margin: '0 auto', paddingTop: '7rem', paddingBottom: '4rem' }}>
-        <p style={{ margin: '0 0 1rem', fontSize: '0.875rem' }}>
-          <Link href="/events" style={{ color: 'var(--dark)' }}>
-            All Events
-          </Link>
-        </p>
-        <div className="featured-card-labels" style={{ marginBottom: '1.25rem' }}>
-          <div className="featured-card-label is-marked">{event.category}</div>
-        </div>
-        <h1
-          style={{
-            fontFamily: 'LabsAmiga, sans-serif',
-            fontSize: '2.5rem',
-            margin: '0 0 1rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.04em',
-            lineHeight: 1.05,
-          }}
-        >
-          {event.name}
-        </h1>
-        <p style={{ margin: '0 0 2rem', color: 'var(--dark-60)', maxWidth: '40rem' }}>{event.blurb}</p>
-        <div className="featured-card-data-list" style={{ paddingLeft: 0, paddingRight: 0, maxWidth: '28rem' }}>
-          <div className="featured-card-data">
-            <div className="featured-card-data-value">{EVENT_ENTRY_FEE}</div>
-            <div className="featured-card-data-name">Entry Fee</div>
-          </div>
-          <div className="featured-card-data">
-            <div className="featured-card-data-value">{EVENT_PRIZE_POOL}</div>
-            <div className="featured-card-data-name">Prize Pool</div>
-          </div>
-          <div className="featured-card-data">
-            <div className="featured-card-data-value">{event.teamSize}</div>
-            <div className="featured-card-data-name">Team Size</div>
+      <div className="filters-panel w-form">
+        <div className="filter-panel-inner">
+          <div className="filters-list">
+            <Link href="/events" className="radio-tab events-filter-tab">
+              <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-tab-button radio-tab-button-alt w-radio-input" />
+              <span className="radio-tab-label w-form-label">All Events</span>
+            </Link>
+            <div className="radio-tab events-filter-tab is-active" aria-current="page">
+              <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-tab-button radio-tab-button-alt w-radio-input w--redirected-checked" />
+              <span className="radio-tab-label w-form-label">{event.category}</span>
+            </div>
           </div>
         </div>
-        <Link
-          href={`/register/${event.slug}`}
-          className="button-primary w-inline-block"
-          style={{ display: 'inline-block', marginTop: '2rem' }}
-        >
-          <div className="button-primary-border">
-            <div className="button-primary-text">Register</div>
+      </div>
+      <main>
+        <div role="list" className="portfolio-listing w-dyn-items">
+          <div
+            role="listitem"
+            className="portfolio-listing-item w-dyn-item"
+            style={{ gridColumn: '1 / -1' }}
+          >
+            <article className="portfolio-item layout-diff">
+              <div className="portfolio-item-thumb">
+                <img
+                  src={event.image}
+                  alt={event.name}
+                  loading="lazy"
+                  className="portfolio-item-image"
+                />
+                <div className="event-detail-divider" aria-hidden="true"></div>
+                <h1 className="portfolio-item-name event-detail-name">{event.name}</h1>
+                <Link href={registerHref} className="button-primary w-inline-block">
+                  <div className="button-primary-border">
+                    <div className="button-primary-text">Register</div>
+                  </div>
+                </Link>
+                {event.description && (
+                  <div className="event-detail-about">
+                    <p>{event.description}</p>
+                  </div>
+                )}
+              </div>
+              <Link href={registerHref} className="portfolio-item-bottom margin-top-auto">
+                <div className="portfolio-item-list">
+                  {stats.map((item) => (
+                    <div key={item.label} className="portfolio-item-info">
+                      <div className="portfolio-item-info-title">{item.value}</div>
+                      <div className="portfolio-item-info-descr">{item.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="portfolio-item-link-2 portfolio-item-link">
+                  <img width={23} height={23} alt="" src={ARROW_SRC} className="portfolio-item-arrow item-arrow--hover-out" />
+                  <img width={23} height={23} alt="" src={ARROW_SRC} className="portfolio-item-arrow item-arrow--hover-in" />
+                </div>
+              </Link>
+            </article>
           </div>
-        </Link>
+        </div>
       </main>
     </div>
   );

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-/** 1 Oct 2026, 00:00:00 India Standard Time (UTC+05:30) */
-const TARGET_MS = Date.parse('2026-10-01T00:00:00+05:30');
+/** 10 Oct 2026, 00:00:00 India Standard Time (UTC+05:30) */
+const TARGET_MS = Date.parse('2026-10-10T00:00:00+05:30');
 
 type Remaining = {
   days: number;
@@ -64,10 +64,10 @@ export default function CountdownStrip() {
         aria-live="polite"
         aria-label={
           !ready
-            ? 'Countdown to 1 October 2026, 00:00 India Standard Time'
+            ? 'Countdown to 10 October 2026, 00:00 India Standard Time'
             : time.done
               ? 'Countdown complete'
-              : `Countdown to 1 October 2026, 00:00 India Standard Time: ${time.days} days, ${time.hours} hours, ${time.minutes} minutes, ${time.seconds} seconds`
+              : `Countdown to 10 October 2026, 00:00 India Standard Time: ${time.days} days, ${time.hours} hours, ${time.minutes} minutes, ${time.seconds} seconds`
         }
       >
         <div className="footer-decor fd-top-left"></div>

@@ -16,6 +16,7 @@ export type RegistrationConfig = {
   slug: string;
   eventName: string;
   memberSlots: number;
+  codeTag: string;
   laptop: string;
   teamLeaderRequired: boolean;
   notes: string;
@@ -54,6 +55,7 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
     slug: 'game-verse',
     eventName: 'Game Verse',
     memberSlots: 2,
+    codeTag: 'GV',
     laptop: 'Laptop required',
     teamLeaderRequired: true,
     notes: 'Teammates must be from different colleges. Team leader registers all members.',
@@ -62,6 +64,7 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
     slug: '3minds-1mission',
     eventName: '3 Minds 1 Mission',
     memberSlots: 3,
+    codeTag: '3M',
     laptop: 'At least one laptop per team',
     teamLeaderRequired: true,
     notes: 'Team leader registers all members on behalf of the team.',
@@ -70,6 +73,7 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
     slug: 'see-it-prompt-it',
     eventName: 'See It Prompt It',
     memberSlots: 1,
+    codeTag: 'SP',
     laptop: 'Laptop required',
     teamLeaderRequired: true,
     notes: 'Individual event. You register yourself as a solo participant.',
@@ -78,17 +82,10 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
     slug: 'logical-duo',
     eventName: 'Logical Duo',
     memberSlots: 2,
+    codeTag: 'LD',
     laptop: 'No laptop required',
     teamLeaderRequired: true,
     notes: 'A team leader is required to register.',
-  },
-  'error-404': {
-    slug: 'error-404',
-    eventName: 'Error 404',
-    memberSlots: 1,
-    laptop: 'No laptop required',
-    teamLeaderRequired: true,
-    notes: 'Individual event. You register yourself as a solo participant.',
   },
 };
 

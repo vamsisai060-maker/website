@@ -7,6 +7,7 @@ export type Event = {
   teamSize: string;
   date: string;
   blurb: string;
+  description: string;
   image: string;
 };
 
@@ -28,6 +29,8 @@ const eventsByDate: Event[] = [
     teamSize: '2',
     date: '28-09-2026',
     blurb: 'A competitive gaming challenge for teams of two. Laptop required, and teammates from the same college are not allowed.',
+    description:
+      'Game Verse is a competitive gaming challenge built for teams of exactly two. Each team must bring a laptop, and teammates from the same college are not allowed, so you will be pushed to compete alongside someone new. The event rewards coordination, quick decision-making, and head-to-head performance.',
     image: '/gameverse.png',
   },
   {
@@ -37,6 +40,8 @@ const eventsByDate: Event[] = [
     teamSize: '3',
     date: '28-09-2026',
     blurb: 'A three-member team challenge built on collaboration and problem-solving. Exactly three members are compulsory, at least one laptop is required, and the team leader registers all members.',
+    description:
+      '3Minds 1Mission is a collaborative problem-solving challenge played by teams of exactly three. A full team of three is compulsory, and at least one laptop is required per team. One member acts as the team leader and registers all members, keeping the entire team under a single registration.',
     image: '/3minds%201%20mission.png',
   },
   {
@@ -46,6 +51,8 @@ const eventsByDate: Event[] = [
     teamSize: '1',
     date: '29-09-2026',
     blurb: 'A solo prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
+    description:
+      'See It, Prompt It is a solo prompt-engineering challenge. Participants look at what they see, then turn it into an effective prompt — testing observation, clarity, and control over AI output. A laptop is required, and each participant competes entirely on their own.',
     image: '/seeit%20promptit.png',
   },
   {
@@ -55,16 +62,9 @@ const eventsByDate: Event[] = [
     teamSize: '2',
     date: '29-09-2026',
     blurb: 'A two-member logical thinking challenge that tests teamwork and reasoning. No laptop required, but a team leader is required.',
+    description:
+      'Logical Duo is a two-member challenge centred on teamwork and reasoning. No laptop is required, so the focus stays purely on logic, communication, and quick thinking. As with every team event, a team leader is required to register the pair.',
     image: '/logical%20duo.png',
-  },
-  {
-    slug: 'error-404',
-    name: 'ERROR 404',
-    category: 'External',
-    teamSize: '1',
-    date: '28-09-2026',
-    blurb: 'A wrong-answers challenge where participants give unexpected answers. No laptop required.',
-    image: '/404error.png',
   },
 ];
 

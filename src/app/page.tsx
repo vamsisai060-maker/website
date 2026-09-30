@@ -45,7 +45,7 @@ export default function Home() {
   const teamSliderRef = useRef<HTMLDivElement>(null);
   const SLIDE_COUNT = EVENTS.length;
   const [step, setStep] = useState(440);
-  const [portfolioSlide, setPortfolioSlide] = useState(1);
+  const [portfolioSlide, setPortfolioSlide] = useState(0);
   const portfolioPrev = () => setPortfolioSlide((i) => Math.max(i - 1, 0));
   const portfolioNext = () => setPortfolioSlide((i) => Math.min(i + 1, SLIDE_COUNT - 1));
   const TEAM_SLIDE_COUNT = 8;
@@ -57,22 +57,17 @@ export default function Home() {
   const teamNext = () => setTeamSlide((i) => Math.min(i + 1, TEAM_SLIDE_COUNT - 1));
 
   useLayoutEffect(() => {
-    const mql = window.matchMedia('(max-width: 767px)');
     const update = () => {
       const slide = sliderRef.current?.querySelector('.portfolio-slide');
       if (slide) {
         const gap = parseFloat(getComputedStyle(slide).marginRight) || 0;
         setStep(Math.round(slide.getBoundingClientRect().width + gap));
       }
-      setPortfolioSlide(mql.matches ? 0 : 1);
+      setPortfolioSlide(0);
     };
     update();
-    mql.addEventListener('change', update);
     window.addEventListener('resize', update);
-    return () => {
-      mql.removeEventListener('change', update);
-      window.removeEventListener('resize', update);
-    };
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   useLayoutEffect(() => {
@@ -923,7 +918,7 @@ Vice-Principal (Co-Ed)  </div>
                       </div>
                       <div className="team-card-body">
                         <div view-bio="" className="team-member-photo">
-                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWRvZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=" loading="lazy" width={203} height={174} alt="" className="team-member-photo-image" />
+                          <img src="/viceprinciple.png" loading="lazy" width={203} height={174} alt="R.V.R. Patrudu" className="team-member-photo-image" />
                         </div>
                       </div>
                       <div className="team-card-footer">
@@ -1094,12 +1089,12 @@ For two days, Astra 2K26 takes over Aditya Degree College in Visakhapatnam — a
 ECOSYSTEM                </h4>
                 <ul role="list" className="footer-nav">
                   <li className="footer-nav-item">
-                    <a href="https://app.chaingpt.org/" target="_blank" className="footer-nav-link" rel="noreferrer noopener">
-ChainGPT AI                    </a>
+                    <a href="https://aditya.ac.in/" target="_blank" className="footer-nav-link" rel="noreferrer noopener">
+Aditya Main Website                    </a>
                   </li>
                   <li className="footer-nav-item">
-                    <a href="https://pad.chaingpt.org/" target="_blank" className="footer-nav-link" rel="noreferrer noopener">
-ChainGPT Pad                    </a>
+                    <a href="https://aditya.ac.in/adcgwk/" target="_blank" className="footer-nav-link" rel="noreferrer noopener">
+Aditya Degree Gwk College                    </a>
                   </li>
                 </ul>
               </div>
@@ -1108,69 +1103,59 @@ ChainGPT Pad                    </a>
 Quick Links                </h4>
                 <ul role="list" className="footer-nav">
                   <li className="footer-nav-item">
-                    <a href="https://labs.chaingpt.org/" className="footer-nav-link">
-Home                    </a>
+                    <Link href="/" className="footer-nav-link">
+Home                    </Link>
                   </li>
                   <li className="footer-nav-item">
-                    <a href="/residency" className="footer-nav-link">
-Residency Program                    </a>
+                    <Link href="/events" className="footer-nav-link">
+Our Events                    </Link>
                   </li>
                   <li className="footer-nav-item">
-                    <a href="https://labs.chaingpt.org/apply" className="footer-nav-link">
-Apply Now                    </a>
+                    <Link href="/#team-section" className="footer-nav-link">
+Our Visionaries                    </Link>
                   </li>
                   <li className="footer-nav-item">
-                    <a href="http://help.chaingpt.org" target="_blank" className="footer-nav-link" rel="noreferrer noopener">
-Help Center                    </a>
+                    <Link href="/#venue-section" className="footer-nav-link">
+Venue                    </Link>
                   </li>
                 </ul>
               </div>
-              <div className="footer-nav-col">
+              <div className="footer-nav-col fnc-second">
                 <h4 className="footer-nav-title">
-LEGAL                </h4>
+Game Registration                </h4>
                 <ul role="list" className="footer-nav">
                   <li className="footer-nav-item">
-                    <a href="/privacy-policy" className="footer-nav-link">
-Privacy Policy                    </a>
+                    <Link href="/register/game-verse" className="footer-nav-link">
+Game Verse                    </Link>
                   </li>
                   <li className="footer-nav-item">
-                    <a href="/cookie-policy" className="footer-nav-link">
-Cookie Policy                    </a>
+                    <Link href="/register/3minds-1mission" className="footer-nav-link">
+3 Minds 1 Mission                    </Link>
                   </li>
                   <li className="footer-nav-item">
-                    <a href="/terms-of-service" className="footer-nav-link">
-Terms of Service                    </a>
+                    <Link href="/register/see-it-prompt-it" className="footer-nav-link">
+See It Prompt It                    </Link>
+                  </li>
+                  <li className="footer-nav-item">
+                    <Link href="/register/logical-duo" className="footer-nav-link">
+Logical Duo                    </Link>
                   </li>
                 </ul>
               </div>
               <div className="footer-nav-col">
                 <ul role="list" className="footer-socials">
                   <li className="footer-socials-item">
-                    <a rel="noreferer, noopener noreferrer" href="https://t.me/chaingpt" target="_blank" className="footer-socials-link w-inline-block">
+                    <a rel="noreferer, noopener noreferrer" href="https://www.instagram.com/" target="_blank" className="footer-socials-link w-inline-block">
                       <div className="">
-TELEGRAM                      </div>
-                      <img width={10} height={10} alt="" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMTk4ODY5IDEuMTY0MjRDLTAuMDY2Mjg5OSAxLjQyOTI1IC0wLjA2NjI4OTggMS44NTg5IDAuMTk4ODY5IDIuMTIzOTFMMS4xNTkxIDMuMDgzNThDMS40MjQyNSAzLjM0ODU4IDEuODU0MTYgMy4zNDg1OCAyLjExOTMyIDMuMDgzNThMMi44Mzk0OSAyLjM2MzgzQzMuMTA0NjUgMi4wOTg4MiAzLjUzNDU2IDIuMDk4ODIgMy43OTk3MiAyLjM2MzgzTDQuNTE5ODkgMy4wODM1OEM0LjU4ODE3IDMuMTUxODIgNC42NjczOCAzLjIwMjQ5IDQuNzUxODggMy4yMzU1OEwwLjU4Mjk2IDcuNDAyMDhDMC4yNzgwMjcgNy43MDY4MyAwLjI3ODAyNyA4LjIwMDk0IDAuNTgyOTYgOC41MDU3TDEuMTM1MDkgOS4wNTc1QzEuNDQwMDIgOS4zNjIyNiAxLjkzNDQyIDkuMzYyMjYgMi4yMzkzNSA5LjA1NzVMNi4yNDM1MSA1LjA1NTY3QzYuMjU1NTkgNS4yMTEzNiA2LjMyMTIgNS4zNjM2NyA2LjQ0MDM0IDUuNDgyNzRMNy4xNjA1MSA2LjIwMjVDNy40MjU2NyA2LjQ2NzUgNy40MjU2NyA2Ljg5NzE2IDcuMTYwNTEgNy4xNjIxNkw2LjQ0MDM0IDcuODgxOTFDNi4xNzUxOCA4LjE0NjkyIDYuMTc1MTggOC41NzY1NyA2LjQ0MDM0IDguODQxNThMNy40MDA1NyA5LjgwMTI1QzcuNjY1NzMgMTAuMDY2MyA4LjA5NTYzIDEwLjA2NjMgOC4zNjA3OSA5LjgwMTI1TDkuMzIxMDIgOC44NDE1OEM5LjU4NjE4IDguNTc2NTcgOS41ODYxOCA4LjE0NjkyIDkuMzIxMDIgNy44ODE5MUw4LjYwMDg1IDcuMTYyMTZDOC4zMzU2OSA2Ljg5NzE2IDguMzM1NjkgNi40Njc1IDguNjAwODUgNi4yMDI0OUw5LjMyMTAyIDUuNDgyNzRDOS41ODYxOCA1LjIxNzc0IDkuNTg2MTggNC43ODgwOCA5LjMyMTAyIDQuNTIzMDhMOC44NDA5IDQuMDQzMjRDOC41NzU3NSAzLjc3ODI0IDguNTc1NzUgMy4zNDg1OCA4Ljg0MDkgMy4wODM1OEw5LjgwMTEzIDIuMTIzOTFDMTAuMDY2MyAxLjg1ODkgMTAuMDY2MyAxLjQyOTI1IDkuODAxMTMgMS4xNjQyNEw4Ljg0MDkgMC4yMDQ1NzVDOC43Mjg4MyAwLjA5MjU2NTMgOC41ODczMiAwLjAyNzg5ODIgOC40NDEyNiAwLjAxMDU3NTVDOC4yMDExMSAtMC4wMjkyNTE2IDcuOTQ1OTEgMC4wNDM0MTIyIDcuNzYwNjUgMC4yMjg1NjdMNi45MDI5NyAxLjA4NTc1QzYuNjY0OTggMS4xNjgwNiA2LjM5MDMyIDEuMTE0MjUgNi4yMDAyOCAwLjkyNDMyNkw1LjQ4MDExIDAuMjA0NTc1QzUuMjE0OTUgLTAuMDYwNDI5NCA0Ljc4NTA1IC0wLjA2MDQyODkgNC41MTk4OSAwLjIwNDU3NkwzLjc5OTcyIDAuOTI0MzI2QzMuNTM0NTYgMS4xODkzMyAzLjEwNDY1IDEuMTg5MzMgMi44Mzk0OSAwLjkyNDMyNkwyLjExOTMyIDAuMjA0NTc2QzEuODU0MTYgLTAuMDYwNDI4OSAxLjQyNDI1IC0wLjA2MDQyOSAxLjE1OTEgMC4yMDQ1NzZMMC4xOTg4NjkgMS4xNjQyNFoiIGZpbGw9IiM2MzYzNjMiLz4KPC9zdmc+Cg==" loading="lazy" className="footer-socials-ico" />
+INSTAGRAM                      </div>
+                      <img width={14} height={14} alt="" src={ARROW_SVG} loading="lazy" />
                     </a>
                   </li>
                   <li className="footer-socials-item">
-                    <a rel="noreferer, noopener noreferrer" href="https://x.com/ChainGPT_Labs" target="_blank" className="footer-socials-link w-inline-block">
+                    <a rel="noreferer, noopener noreferrer" href="mailto:astra2k26.ai@gmail.com" className="footer-socials-link w-inline-block">
                       <div className="">
-X/TWITTER                      </div>
-                      <img width={10} height={10} alt="" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMTk4ODY5IDEuMTY0MjRDLTAuMDY2Mjg5OSAxLjQyOTI1IC0wLjA2NjI4OTggMS44NTg5IDAuMTk4ODY5IDIuMTIzOTFMMS4xNTkxIDMuMDgzNThDMS40MjQyNSAzLjM0ODU4IDEuODU0MTYgMy4zNDg1OCAyLjExOTMyIDMuMDgzNThMMi44Mzk0OSAyLjM2MzgzQzMuMTA0NjUgMi4wOTg4MiAzLjUzNDU2IDIuMDk4ODIgMy43OTk3MiAyLjM2MzgzTDQuNTE5ODkgMy4wODM1OEM0LjU4ODE3IDMuMTUxODIgNC42NjczOCAzLjIwMjQ5IDQuNzUxODggMy4yMzU1OEwwLjU4Mjk2IDcuNDAyMDhDMC4yNzgwMjcgNy43MDY4MyAwLjI3ODAyNyA4LjIwMDk0IDAuNTgyOTYgOC41MDU3TDEuMTM1MDkgOS4wNTc1QzEuNDQwMDIgOS4zNjIyNiAxLjkzNDQyIDkuMzYyMjYgMi4yMzkzNSA5LjA1NzVMNi4yNDM1MSA1LjA1NTY3QzYuMjU1NTkgNS4yMTEzNiA2LjMyMTIgNS4zNjM2NyA2LjQ0MDM0IDUuNDgyNzRMNy4xNjA1MSA2LjIwMjVDNy40MjU2NyA2LjQ2NzUgNy40MjU2NyA2Ljg5NzE2IDcuMTYwNTEgNy4xNjIxNkw2LjQ0MDM0IDcuODgxOTFDNi4xNzUxOCA4LjE0NjkyIDYuMTc1MTggOC41NzY1NyA2LjQ0MDM0IDguODQxNThMNy40MDA1NyA5LjgwMTI1QzcuNjY1NzMgMTAuMDY2MyA4LjA5NTYzIDEwLjA2NjMgOC4zNjA3OSA5LjgwMTI1TDkuMzIxMDIgOC44NDE1OEM5LjU4NjE4IDguNTc2NTcgOS41ODYxOCA4LjE0NjkyIDkuMzIxMDIgNy44ODE5MUw4LjYwMDg1IDcuMTYyMTZDOC4zMzU2OSA2Ljg5NzE2IDguMzM1NjkgNi40Njc1IDguNjAwODUgNi4yMDI0OUw5LjMyMTAyIDUuNDgyNzRDOS41ODYxOCA1LjIxNzc0IDkuNTg2MTggNC43ODgwOCA5LjMyMTAyIDQuNTIzMDhMOC44NDA5IDQuMDQzMjRDOC41NzU3NSAzLjc3ODI0IDguNTc1NzUgMy4zNDg1OCA4Ljg0MDkgMy4wODM1OEw5LjgwMTEzIDIuMTIzOTFDMTAuMDY2MyAxLjg1ODkgMTAuMDY2MyAxLjQyOTI1IDkuODAxMTMgMS4xNjQyNEw4Ljg0MDkgMC4yMDQ1NzVDOC43Mjg4MyAwLjA5MjU2NTMgOC41ODczMiAwLjAyNzg5ODIgOC40NDEyNiAwLjAxMDU3NTVDOC4yMDExMSAtMC4wMjkyNTE2IDcuOTQ1OTEgMC4wNDM0MTIyIDcuNzYwNjUgMC4yMjg1NjdMNi45MDI5NyAxLjA4NTc1QzYuNjY0OTggMS4xNjgwNiA2LjM5MDMyIDEuMTE0MjUgNi4yMDAyOCAwLjkyNDMyNkw1LjQ4MDExIDAuMjA0NTc1QzUuMjE0OTUgLTAuMDYwNDI5NCA0Ljc4NTA1IC0wLjA2MDQyODkgNC41MTk4OSAwLjIwNDU3NkwzLjc5OTcyIDAuOTI0MzI2QzMuNTM0NTYgMS4xODkzMyAzLjEwNDY1IDEuMTg5MzMgMi44Mzk0OSAwLjkyNDMyNkwyLjExOTMyIDAuMjA0NTc2QzEuODU0MTYgLTAuMDYwNDI4OSAxLjQyNDI1IC0wLjA2MDQyOSAxLjE1OTEgMC4yMDQ1NzZMMC4xOTg4NjkgMS4xNjQyNFoiIGZpbGw9IiM2MzYzNjMiLz4KPC9zdmc+Cg==" loading="lazy" className="footer-socials-ico" />
-                    </a>
-                  </li>
-                  <li className="footer-socials-item">
-                    <a rel="noreferer, noopener noreferrer" href="https://www.linkedin.com/company/103925830/" target="_blank" className="footer-socials-link w-inline-block">
-                      <div className="">
-LINKEDIN                      </div>
-                      <img width={10} height={10} alt="" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMTk4ODY5IDEuMTY0MjRDLTAuMDY2Mjg5OSAxLjQyOTI1IC0wLjA2NjI4OTggMS44NTg5IDAuMTk4ODY5IDIuMTIzOTFMMS4xNTkxIDMuMDgzNThDMS40MjQyNSAzLjM0ODU4IDEuODU0MTYgMy4zNDg1OCAyLjExOTMyIDMuMDgzNThMMi44Mzk0OSAyLjM2MzgzQzMuMTA0NjUgMi4wOTg4MiAzLjUzNDU2IDIuMDk4ODIgMy43OTk3MiAyLjM2MzgzTDQuNTE5ODkgMy4wODM1OEM0LjU4ODE3IDMuMTUxODIgNC42NjczOCAzLjIwMjQ5IDQuNzUxODggMy4yMzU1OEwwLjU4Mjk2IDcuNDAyMDhDMC4yNzgwMjcgNy43MDY4MyAwLjI3ODAyNyA4LjIwMDk0IDAuNTgyOTYgOC41MDU3TDEuMTM1MDkgOS4wNTc1QzEuNDQwMDIgOS4zNjIyNiAxLjkzNDQyIDkuMzYyMjYgMi4yMzkzNSA5LjA1NzVMNi4yNDM1MSA1LjA1NTY3QzYuMjU1NTkgNS4yMTEzNiA2LjMyMTIgNS4zNjM2NyA2LjQ0MDM0IDUuNDgyNzRMNy4xNjA1MSA2LjIwMjVDNy40MjU2NyA2LjQ2NzUgNy40MjU2NyA2Ljg5NzE2IDcuMTYwNTEgNy4xNjIxNkw2LjQ0MDM0IDcuODgxOTFDNi4xNzUxOCA4LjE0NjkyIDYuMTc1MTggOC41NzY1NyA2LjQ0MDM0IDguODQxNThMNy40MDA1NyA5LjgwMTI1QzcuNjY1NzMgMTAuMDY2MyA4LjA5NTYzIDEwLjA2NjMgOC4zNjA3OSA5LjgwMTI1TDkuMzIxMDIgOC44NDE1OEM5LjU4NjE4IDguNTc2NTcgOS41ODYxOCA4LjE0NjkyIDkuMzIxMDIgNy44ODE5MUw4LjYwMDg1IDcuMTYyMTZDOC4zMzU2OSA2Ljg5NzE2IDguMzM1NjkgNi40Njc1IDguNjAwODUgNi4yMDI0OUw5LjMyMTAyIDUuNDgyNzRDOS41ODYxOCA1LjIxNzc0IDkuNTg2MTggNC43ODgwOCA5LjMyMTAyIDQuNTIzMDhMOC44NDA5IDQuMDQzMjRDOC41NzU3NSAzLjc3ODI0IDguNTc1NzUgMy4zNDg1OCA4Ljg0MDkgMy4wODM1OEw5LjgwMTEzIDIuMTIzOTFDMTAuMDY2MyAxLjg1ODkgMTAuMDY2MyAxLjQyOTI1IDkuODAxMTMgMS4xNjQyNEw4Ljg0MDkgMC4yMDQ1NzVDOC43Mjg4MyAwLjA5MjU2NTMgOC41ODczMiAwLjAyNzg5ODIgOC40NDEyNiAwLjAxMDU3NTVDOC4yMDExMSAtMC4wMjkyNTE2IDcuOTQ1OTEgMC4wNDM0MTIyIDcuNzYwNjUgMC4yMjg1NjdMNi45MDI5NyAxLjA4NTc1QzYuNjY0OTggMS4xNjgwNiA2LjM5MDMyIDEuMTE0MjUgNi4yMDAyOCAwLjkyNDMyNkw1LjQ4MDExIDAuMjA0NTc1QzUuMjE0OTUgLTAuMDYwNDI5NCA0Ljc4NTA1IC0wLjA2MDQyODkgNC41MTk4OSAwLjIwNDU3NkwzLjc5OTcyIDAuOTI0MzI2QzMuNTM0NTYgMS4xODkzMyAzLjEwNDY1IDEuMTg5MzMgMi44Mzk0OSAwLjkyNDMyNkwyLjExOTMyIDAuMjA0NTc2QzEuODU0MTYgLTAuMDYwNDI4OSAxLjQyNDI1IC0wLjA2MDQyOSAxLjE1OTEgMC4yMDQ1NzZMMC4xOTg4NjkgMS4xNjQyNFoiIGZpbGw9IiM2MzYzNjMiLz4KPC9zdmc+Cg==" loading="lazy" className="footer-socials-ico" />
-                    </a>
-                  </li>
-                  <li className="footer-socials-item">
-                    <a rel="noreferer, noopener noreferrer" href="https://medium.com/@chaingpt" target="_blank" className="footer-socials-link w-inline-block">
-                      <div className="">
-MEDIUM                      </div>
-                      <img width={10} height={10} alt="" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMTk4ODY5IDEuMTY0MjRDLTAuMDY2Mjg5OSAxLjQyOTI1IC0wLjA2NjI4OTggMS44NTg5IDAuMTk4ODY5IDIuMTIzOTFMMS4xNTkxIDMuMDgzNThDMS40MjQyNSAzLjM0ODU4IDEuODU0MTYgMy4zNDg1OCAyLjExOTMyIDMuMDgzNThMMi44Mzk0OSAyLjM2MzgzQzMuMTA0NjUgMi4wOTg4MiAzLjUzNDU2IDIuMDk4ODIgMy43OTk3MiAyLjM2MzgzTDQuNTE5ODkgMy4wODM1OEM0LjU4ODE3IDMuMTUxODIgNC42NjczOCAzLjIwMjQ5IDQuNzUxODggMy4yMzU1OEwwLjU4Mjk2IDcuNDAyMDhDMC4yNzgwMjcgNy43MDY4MyAwLjI3ODAyNyA4LjIwMDk0IDAuNTgyOTYgOC41MDU3TDEuMTM1MDkgOS4wNTc1QzEuNDQwMDIgOS4zNjIyNiAxLjkzNDQyIDkuMzYyMjYgMi4yMzkzNSA5LjA1NzVMNi4yNDM1MSA1LjA1NTY3QzYuMjU1NTkgNS4yMTEzNiA2LjMyMTIgNS4zNjM2NyA2LjQ0MDM0IDUuNDgyNzRMNy4xNjA1MSA2LjIwMjVDNy40MjU2NyA2LjQ2NzUgNy40MjU2NyA2Ljg5NzE2IDcuMTYwNTEgNy4xNjIxNkw2LjQ0MDM0IDcuODgxOTFDNi4xNzUxOCA4LjE0NjkyIDYuMTc1MTggOC41NzY1NyA2LjQ0MDM0IDguODQxNThMNy40MDA1NyA5LjgwMTI1QzcuNjY1NzMgMTAuMDY2MyA4LjA5NTYzIDEwLjA2NjMgOC4zNjA3OSA5LjgwMTI1TDkuMzIxMDIgOC44NDE1OEM5LjU4NjE4IDguNTc2NTcgOS41ODYxOCA4LjE0NjkyIDkuMzIxMDIgNy44ODE5MUw4LjYwMDg1IDcuMTYyMTZDOC4zMzU2OSA2Ljg5NzE2IDguMzM1NjkgNi40Njc1IDguNjAwODUgNi4yMDI0OUw5LjMyMTAyIDUuNDgyNzRDOS41ODYxOCA1LjIxNzc0IDkuNTg2MTggNC43ODgwOCA5LjMyMTAyIDQuNTIzMDhMOC44NDA5IDQuMDQzMjRDOC41NzU3NSAzLjc3ODI0IDguNTc1NzUgMy4zNDg1OCA4Ljg0MDkgMy4wODM1OEw5LjgwMTEzIDIuMTIzOTFDMTAuMDY2MyAxLjg1ODkgMTAuMDY2MyAxLjQyOTI1IDkuODAxMTMgMS4xNjQyNEw4Ljg0MDkgMC4yMDQ1NzVDOC43Mjg4MyAwLjA5MjU2NTMgOC41ODczMiAwLjAyNzg5ODIgOC40NDEyNiAwLjAxMDU3NTVDOC4yMDExMSAtMC4wMjkyNTE2IDcuOTQ1OTEgMC4wNDM0MTIyIDcuNzYwNjUgMC4yMjg1NjdMNi45MDI5NyAxLjA4NTc1QzYuNjY0OTggMS4xNjgwNiA2LjM5MDMyIDEuMTE0MjUgNi4yMDAyOCAwLjkyNDMyNkw1LjQ4MDExIDAuMjA0NTc1QzUuMjE0OTUgLTAuMDYwNDI5NCA0Ljc4NTA1IC0wLjA2MDQyODkgNC41MTk4OSAwLjIwNDU3NkwzLjc5OTcyIDAuOTI0MzI2QzMuNTM0NTYgMS4xODkzMyAzLjEwNDY1IDEuMTg5MzMgMi44Mzk0OSAwLjkyNDMyNkwyLjExOTMyIDAuMjA0NTc2QzEuODU0MTYgLTAuMDYwNDI4OSAxLjQyNDI1IC0wLjA2MDQyOSAxLjE1OTEgMC4yMDQ1NzZMMC4xOTg4NjkgMS4xNjQyNFoiIGZpbGw9IiM2MzYzNjMiLz4KPC9zdmc+Cg==" loading="lazy" className="footer-socials-ico" />
+MAIL                      </div>
+                      <img width={14} height={14} alt="" src={ARROW_SVG} loading="lazy" />
                     </a>
                   </li>
                 </ul>

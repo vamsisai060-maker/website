@@ -672,3 +672,44 @@ body.has-preloader {
     padding: 0;
   }
 }
+
+/* ---- Event detail (matches /events listing) ---- */
+.event-detail-name {
+  margin: 0;
+}
+
+.event-detail-divider {
+  border-top: 1px solid var(--grey);
+  width: 100%;
+}
+
+.event-detail-about {
+  width: 100%;
+  border: 1px solid var(--grey);
+  background-color: var(--lightgrey);
+  font-family: RobotoMono, sans-serif;
+  font-size: var(--14px-size);
+  line-height: 160%;
+  color: var(--dark-60);
+  text-align: left;
+  padding: 1.25rem 1.5rem;
+}
+
+@media screen and (max-width: 767px) {
+  .event-detail-about {
+    padding: 1rem;
+  }
+}
+
+/* ---- Footer: three nav columns (Legal removed) ---- */
+.footer-nav-row .footer-nav-col {
+  flex: 1 1 0%;
+  width: auto;
+}
+
+@media screen and (max-width: 991px) {
+  .footer-nav-row .footer-nav-col {
+    flex: 0 0 50%;
+    width: 50%;
+  }
+}

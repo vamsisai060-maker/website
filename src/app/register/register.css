@@ -11,19 +11,44 @@
   flex: none;
   width: max-content;
 }
-.register-page .marquee-content.scroll.apply-scroll {
-  width: max-content;
-}
+/* one of the three identical items */
 @keyframes register-marquee {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-33.3333%);
+  }
+}
+/* the trailing `_` makes the first item wider below 992px, which breaks the loop */
+@media screen and (max-width: 991px) {
+  .register-page .marquee {
+    animation: none;
+  }
+  /* webflow.css sizes .apply-title in rem for a 5-char word; 15vw keeps 8 in frame */
+  .register-page .marquee .page-heading-title {
+    font-size: min(5.625rem, 15vw);
+  }
+}
+
+.register-page .marquee-content .page-heading-title.underscore,
+.register-page .featured-block-info .page-heading-title {
+  animation: register-underscore-blink 1s step-end infinite;
+}
+@keyframes register-underscore-blink {
+  0%,
+  49.9% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.5334;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .register-page .marquee {
+  .register-page .marquee,
+  .register-page .marquee-content .page-heading-title.underscore,
+  .register-page .featured-block-info .page-heading-title {
     animation: none;
   }
 }
