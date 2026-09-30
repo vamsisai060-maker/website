@@ -449,7 +449,7 @@ export default function Home() {
             <div className="hero-main">
               <div className="hero-info">
                 <div className="hero-description">
- Backing the very best web3 builders -transforming visionary ideas into real-world growth.                </div>
+ Where Machines learn and ideas move                </div>
               </div>
               <div className="hero-bottom-space"></div>
               <div className="graphic-block hero-graphic-block">
