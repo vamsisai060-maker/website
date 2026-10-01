@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
-import { EVENT_ENTRY_FEE, EVENT_PRIZE_POOL, EVENTS } from '@/data/events';
+import { EVENT_ENTRY_FEE, EVENTS, SESSION_TIMES } from '@/data/events';
 
 export function generateStaticParams() {
   return EVENTS.map((event) => ({ slug: event.slug }));
@@ -37,28 +37,14 @@ export default async function EventDetailPage({
   const registerHref = `/register/${event.slug}`;
   const stats = [
     { value: EVENT_ENTRY_FEE, label: 'Entry Fee' },
-    { value: EVENT_PRIZE_POOL, label: 'Prize Pool' },
     { value: event.teamSize, label: 'Team Size' },
     { value: event.date, label: 'Date' },
+    { value: SESSION_TIMES[event.session], label: event.session },
   ];
 
   return (
     <div className="events-page">
       <SiteHeader />
-      <div className="filters-panel w-form">
-        <div className="filter-panel-inner">
-          <div className="filters-list">
-            <Link href="/events" className="radio-tab events-filter-tab">
-              <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-tab-button radio-tab-button-alt w-radio-input" />
-              <span className="radio-tab-label w-form-label">All Events</span>
-            </Link>
-            <div className="radio-tab events-filter-tab is-active" aria-current="page">
-              <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-tab-button radio-tab-button-alt w-radio-input w--redirected-checked" />
-              <span className="radio-tab-label w-form-label">{event.category}</span>
-            </div>
-          </div>
-        </div>
-      </div>
       <main>
         <div role="list" className="portfolio-listing w-dyn-items">
           <div

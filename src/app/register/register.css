@@ -20,12 +20,8 @@
     transform: translateX(-33.3333%);
   }
 }
-/* the trailing `_` makes the first item wider below 992px, which breaks the loop */
+/* webflow.css sizes .apply-title in rem for a 5-char word; 15vw keeps 8 in frame */
 @media screen and (max-width: 991px) {
-  .register-page .marquee {
-    animation: none;
-  }
-  /* webflow.css sizes .apply-title in rem for a 5-char word; 15vw keeps 8 in frame */
   .register-page .marquee .page-heading-title {
     font-size: min(5.625rem, 15vw);
   }

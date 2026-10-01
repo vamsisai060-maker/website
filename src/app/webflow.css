@@ -10192,7 +10192,6 @@ ul {
   .hero-info {
     border-right: 0px solid var(--grey);
     background-color: var(--lightgrey);
-    flex: 1;
     margin-left: 1px;
     margin-right: 1px;
     padding-top: 1.5rem;
@@ -12136,7 +12135,7 @@ ul {
     opacity: 1;
   }
 
-  .portfolio-button.portfolio-button-next {
+.portfolio-button.portfolio-button-next {
     border-left-width: 0;
   }
 
@@ -13339,10 +13338,6 @@ ul {
     flex: 1;
     grid-template-columns: .75fr 2fr;
     display: flex;
-  }
-
-  .hero-info {
-    flex: 1;
   }
 
   .graphic-block.graphic-block-alt {
@@ -15310,4 +15305,17 @@ ul {
 .form-row-item.is-filled .field-head-nb {
 }
 .form-row-item.is-filled .field-head-check {
+}
+
+/* a tap sticks :hover on touch screens, which would leave the slider nav buttons inverted or dark after every press */
+@media not all and (hover: hover) {
+  .portfolio-button:hover,
+  .portfolio-button.portfolio-button-next:hover {
+    opacity: 1;
+    filter: none;
+  }
+
+  .team-nav-button:hover {
+    background-color: var(--light);
+  }
 }

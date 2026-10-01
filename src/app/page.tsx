@@ -25,6 +25,35 @@ function heroLetterDelays(text: string, seed: number, maxDelay: number): string[
   return text.split('').map(() => (rand() * maxDelay).toFixed(3));
 }
 
+function useSwipe(onSwipe: (dir: 1 | -1) => void, onGrab?: (grab: boolean) => void) {
+  const start = useRef(0);
+  const swiped = useRef(false);
+  return {
+    onPointerDown: (e: React.PointerEvent) => {
+      if (e.pointerType === 'mouse') return;
+      start.current = e.clientX;
+      swiped.current = false;
+      onGrab?.(true);
+    },
+    onPointerUp: (e: React.PointerEvent) => {
+      if (e.pointerType === 'mouse') return;
+      onGrab?.(false);
+      const d = e.clientX - start.current;
+      if (Math.abs(d) > 40) {
+        swiped.current = true;
+        onSwipe(d < 0 ? 1 : -1);
+      }
+    },
+    onPointerCancel: () => onGrab?.(false),
+    onClickCapture: (e: React.MouseEvent) => {
+      if (!swiped.current) return;
+      swiped.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+    },
+  };
+}
+
 function HeroTitle({ text, className }: { text: string; className?: string }) {
   const chars = text.split('');
   const delays = heroLetterDelays(text, 1337, 2.5);
@@ -511,7 +540,7 @@ All Events                  </div>
             </div>
             <div className="portfolio-slider">
 <div portfolio-slider-init="" className="swiper swiper-portfolio w-dyn-list swiper-initialized swiper-horizontal">
-                  <div ref={sliderRef} role="list" className="swiper-wrapper w-dyn-items" id="swiper-wrapper-dafc49337be281068" aria-live="off" style={{transitionDuration: "600ms", transform: `translate3d(-${portfolioSlide * step}px, 0px, 0px)`, transitionDelay: "0ms"}}>
+                  <div {...useSwipe((d) => (d > 0 ? portfolioNext() : portfolioPrev()))} ref={sliderRef} role="list" className="swiper-wrapper w-dyn-items" id="swiper-wrapper-dafc49337be281068" aria-live="off" style={{transitionDuration: "600ms", transform: `translate3d(-${portfolioSlide * step}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 {EVENTS.map((event, i) => (
                   <div role="group" className="swiper-slide portfolio-slide w-dyn-item" aria-label={`${i + 1} / ${EVENTS.length}`} key={event.slug} style={{ width: '424px', marginRight: '16px' }}>
                     <Link portfolio-card="" href={`/events/${event.slug}`} className="portfolio-item w-inline-block">
@@ -624,7 +653,7 @@ For Founders                    </h3>
             </div>
             <div className="team-slider-row-inner team">
 <div team-slider-init="" className="swiper team-slider swiper-initialized swiper-horizontal swiper-backface-hidden" ref={teamSliderRef} onMouseEnter={() => setTeamHover(true)} onMouseLeave={() => setTeamHover(false)}>
-              <div className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * teamStep}px, 0px, 0px)`, transitionDelay: "0ms"}}>
+              <div {...useSwipe((d) => (d > 0 ? teamNext() : teamPrev()), setTeamHover)} className="swiper-wrapper" id="swiper-wrapper-6897a10e55610441b7" aria-live="polite" style={{transitionDuration: "600ms", transform: `translate3d(-${teamSlide * teamStep}px, 0px, 0px)`, transitionDelay: "0ms"}}>
 
                   <div className="swiper-slide team-slide swiper-slide-active" role="group" aria-label="1 / 8" >
                     <div team-card="" className="team-card gsap-fade-up">
@@ -1061,7 +1090,7 @@ For two days, Astra 2K26 takes over Aditya Degree College in Visakhapatnam — a
                 </div>
                 <div className="venue-fact">
                   <span className="venue-fact-label">Dates</span>
-                  <span className="venue-fact-value">28 – 29 September 2026</span>
+                  <span className="venue-fact-value">06 October 2026</span>
                 </div>
                 <div className="venue-fact">
                   <span className="venue-fact-label">Entry</span>
@@ -1120,7 +1149,7 @@ Venue                    </Link>
                   </li>
                 </ul>
               </div>
-              <div className="footer-nav-col fnc-second">
+              <div className="footer-nav-col">
                 <h4 className="footer-nav-title">
 Game Registration                </h4>
                 <ul role="list" className="footer-nav">
@@ -1152,7 +1181,7 @@ INSTAGRAM                      </div>
                     </a>
                   </li>
                   <li className="footer-socials-item">
-                    <a rel="noreferer, noopener noreferrer" href="mailto:astra2k26.ai@gmail.com" className="footer-socials-link w-inline-block">
+                    <a target="_blank" rel="noopener noreferrer" href="https://mail.google.com/mail/?view=cm&fs=1&to=astra2k26.ai@gmail.com" className="footer-socials-link w-inline-block">
                       <div className="">
 MAIL                      </div>
                       <img width={14} height={14} alt="" src={ARROW_SVG} loading="lazy" />

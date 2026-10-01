@@ -184,14 +184,6 @@ html.lenis body {
   pointer-events: auto;
 }
 
-.events-empty {
-  grid-column: 1 / -1;
-  padding: 3rem 1.5rem;
-  text-align: center;
-  color: var(--dark-60);
-  font-size: var(--14px-size);
-}
-
 .pt-overlay {
   position: fixed;
   top: 0;
@@ -268,22 +260,15 @@ html.lenis body {
 
 /* ---- Events page redesign polish ---- */
 
-/* Filter bar: clean segmented tabs, no search chrome */
-.events-page .filters-panel {
-  position: static;
-}
-
-.events-page .filter-panel-inner {
-  justify-content: flex-start;
-}
-
-.events-page .radio-tab {
-  flex: 1 1 auto;
-  min-width: 8rem;
-}
-
-.events-page .radio-tab-label {
-  white-space: nowrap;
+/* Session sections (Morning / Afternoon) */
+.events-session-title {
+  margin: 2.5rem 1.5rem 0;
+  font-family: LabsAmiga, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--dark);
 }
 
 /* Stats grid: crisp 2x2 quarters without half-lines */
@@ -297,10 +282,6 @@ html.lenis body {
 }
 
 @media screen and (max-width: 767px) {
-  .events-page .radio-tab {
-    min-width: 0;
-  }
-
   /* Compact, centered event cards on mobile */
   .events-page .portfolio-listing {
     padding: 1.25rem .625rem 1.85rem;

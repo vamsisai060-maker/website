@@ -1,17 +1,25 @@
 export type EventCategory = 'External';
 
+export const EVENT_SESSIONS = ['Morning', 'Afternoon'] as const;
+
+export type EventSession = (typeof EVENT_SESSIONS)[number];
+
+export const SESSION_TIMES: Record<EventSession, string> = {
+  Morning: '9:30 AM',
+  Afternoon: '1:00 PM',
+};
+
 export type Event = {
   slug: string;
   name: string;
   category: EventCategory;
+  session: EventSession;
   teamSize: string;
   date: string;
   blurb: string;
   description: string;
   image: string;
 };
-
-export const EVENT_CATEGORIES: EventCategory[] = ['External'];
 
 export const EVENT_ENTRY_FEE = 'FREE';
 export const EVENT_PRIZE_POOL = 'Certificate';
@@ -26,8 +34,9 @@ const eventsByDate: Event[] = [
     slug: 'game-verse',
     name: 'Game Verse',
     category: 'External',
+    session: 'Morning',
     teamSize: '2',
-    date: '28-09-2026',
+    date: '06-10-2026',
     blurb: 'A competitive gaming challenge for teams of two. Laptop required, and teammates from the same college are not allowed.',
     description:
       'Game Verse is a competitive gaming challenge built for teams of exactly two. Each team must bring a laptop, and teammates from the same college are not allowed, so you will be pushed to compete alongside someone new. The event rewards coordination, quick decision-making, and head-to-head performance.',
@@ -37,8 +46,9 @@ const eventsByDate: Event[] = [
     slug: '3minds-1mission',
     name: '3Minds 1Mission',
     category: 'External',
+    session: 'Morning',
     teamSize: '3',
-    date: '28-09-2026',
+    date: '06-10-2026',
     blurb: 'A three-member team challenge built on collaboration and problem-solving. Exactly three members are compulsory, at least one laptop is required, and the team leader registers all members.',
     description:
       '3Minds 1Mission is a collaborative problem-solving challenge played by teams of exactly three. A full team of three is compulsory, and at least one laptop is required per team. One member acts as the team leader and registers all members, keeping the entire team under a single registration.',
@@ -48,8 +58,9 @@ const eventsByDate: Event[] = [
     slug: 'see-it-prompt-it',
     name: 'See It, Prompt It',
     category: 'External',
+    session: 'Afternoon',
     teamSize: '1',
-    date: '29-09-2026',
+    date: '06-10-2026',
     blurb: 'A solo prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',
     description:
       'See It, Prompt It is a solo prompt-engineering challenge. Participants look at what they see, then turn it into an effective prompt — testing observation, clarity, and control over AI output. A laptop is required, and each participant competes entirely on their own.',
@@ -59,8 +70,9 @@ const eventsByDate: Event[] = [
     slug: 'logical-duo',
     name: 'Logical Duo',
     category: 'External',
+    session: 'Afternoon',
     teamSize: '2',
-    date: '29-09-2026',
+    date: '06-10-2026',
     blurb: 'A two-member logical thinking challenge that tests teamwork and reasoning. No laptop required, but a team leader is required.',
     description:
       'Logical Duo is a two-member challenge centred on teamwork and reasoning. No laptop is required, so the focus stays purely on logic, communication, and quick thinking. As with every team event, a team leader is required to register the pair.',

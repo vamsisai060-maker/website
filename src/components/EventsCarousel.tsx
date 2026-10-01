@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EVENT_ENTRY_FEE, EVENT_PRIZE_POOL, EVENTS } from '@/data/events';
+import { EVENT_ENTRY_FEE, EVENTS } from '@/data/events';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -136,10 +136,6 @@ export default function EventsCarousel() {
                 <div className="event-card-stat">
                   <span className="event-card-stat-value">{EVENT_ENTRY_FEE}</span>
                   <span className="event-card-stat-label">Entry Fee</span>
-                </div>
-                <div className="event-card-stat">
-                  <span className="event-card-stat-value">{EVENT_PRIZE_POOL}</span>
-                  <span className="event-card-stat-label">Prize Pool</span>
                 </div>
                 <div className="event-card-stat">
                   <span className="event-card-stat-value">{event.teamSize}</span>
