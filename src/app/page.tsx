@@ -478,7 +478,7 @@ export default function Home() {
             <div className="hero-main">
               <div className="hero-info">
                 <div className="hero-description">
- Where Machines learn and ideas move                </div>
+ Where Machines learn &amp; ideas move                </div>
               </div>
               <div className="hero-bottom-space"></div>
               <div className="graphic-block hero-graphic-block">
@@ -602,7 +602,7 @@ All Events                  </div>
         <div className="w-layout-blockcontainer container w-container">
           <div className="team-slider-row">
             <div className="section-heading sh-grid-2-1-1">
-              <div className="section-title st-our-team">
+              <div className="section-title st-our-team" style={{ gridColumn: "1 / 3" }}>
                 <h2 anim-trigger="" className="h2 h2-lg" style={{textAlign: "left"}}>
                   <div style={{position: "relative", display: "inline-block"}} className="">
                     <DecryptedText text="OUR" animateOn="view" sequential revealDirection="start" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
@@ -611,16 +611,6 @@ All Events                  </div>
                     <DecryptedText text="VISIONARIES" animateOn="view" sequential revealDirection="start" className="h2-decrypt-letter" encryptedClassName="h2-decrypt-letter" />
                   </div>
                 </h2>
-              </div>
-              <div className="section-heading-descr shd-paddings-l hide-in-tablet">
-                <div className="section-heading-descr-inner">
-                  <div className="section-descr-info">
-                    <div className="section-descr-info-decor"></div>
-                    <h3 className="section-descr-title gsap-fade-up">
-Built by Founders                      <br className="" />
-For Founders                    </h3>
-                  </div>
-                </div>
               </div>
               <div className="section-heading-controls">
                 <div className="team-nav">
