@@ -61,9 +61,9 @@ const eventsByDate: Event[] = [
     session: 'Morning',
     teamSize: '1',
     date: '06-10-2026',
-    blurb: 'A solo debugging sprint to find what broke and fix it before the clock runs out. Laptop required.',
+    blurb: 'A solo debugging sprint to find what broke and fix it before the clock runs out. A laptop is optional.',
     description:
-      'Error 404 is a solo debugging sprint. You are handed a broken build and a ticking timer, and the only way out is to trace the fault, repair it, and ship the fix. There are no teammates to fall back on, so every decision is yours. A laptop is required.',
+      'Error 404 is a solo debugging sprint. You are handed a broken build and a ticking timer, and the only way out is to trace the fault, repair it, and ship the fix. There are no teammates to fall back on, so every decision is yours. A laptop is optional — the round is set up so you can still take part without one.',
     image: '/error-404.png',
   },
   {
@@ -97,9 +97,9 @@ const eventsByDate: Event[] = [
     session: 'Afternoon',
     teamSize: '2',
     date: '06-10-2026',
-    blurb: 'A two-member presentation event where the topic is handed to you on the spot. A laptop is optional, and a team leader is required.',
+    blurb: 'A two-member presentation event where the topic is handed to you on the spot. A laptop and a team leader are required.',
     description:
-      'Slides On Spot is a two-member presentation challenge. Teams receive a topic on the spot, then build and present a slide deck on it — testing how fast a pair can think, structure, and speak. A laptop is optional because the venue provides a presentation system. As with every team event, a team leader is required to register the pair.',
+      'Slides On Spot is a two-member presentation challenge. Teams receive a topic on the spot, then build and present a slide deck on it — testing how fast a pair can think, structure, and speak. A laptop is required to prepare and present the deck. As with every team event, a team leader is required to register the pair.',
     image: '/slides-on-spot.png',
   },
 ];
