@@ -119,6 +119,7 @@ export function CustomSelect({
     <div ref={containerRef} className="form-field-select">
       <button
         ref={triggerRef}
+        id={id}
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}

@@ -1,4 +1,4 @@
-export type EventCategory = 'External';
+export type EventCategory = 'Internal';
 
 export const EVENT_SESSIONS = ['Morning', 'Afternoon'] as const;
 
@@ -33,7 +33,7 @@ const eventsByDate: Event[] = [
   {
     slug: 'game-verse',
     name: 'Game Verse',
-    category: 'External',
+    category: 'Internal',
     session: 'Morning',
     teamSize: '2',
     date: '06-10-2026',
@@ -45,7 +45,7 @@ const eventsByDate: Event[] = [
   {
     slug: '3minds-1mission',
     name: '3Minds 1Mission',
-    category: 'External',
+    category: 'Internal',
     session: 'Morning',
     teamSize: '3',
     date: '06-10-2026',
@@ -55,9 +55,21 @@ const eventsByDate: Event[] = [
     image: '/3minds%201%20mission.png',
   },
   {
+    slug: 'error-404',
+    name: 'Error 404',
+    category: 'Internal',
+    session: 'Morning',
+    teamSize: '1',
+    date: '06-10-2026',
+    blurb: 'A solo debugging sprint to find what broke and fix it before the clock runs out. Laptop required.',
+    description:
+      'Error 404 is a solo debugging sprint. You are handed a broken build and a ticking timer, and the only way out is to trace the fault, repair it, and ship the fix. There are no teammates to fall back on, so every decision is yours. A laptop is required.',
+    image: '/error-404.png',
+  },
+  {
     slug: 'see-it-prompt-it',
     name: 'See It, Prompt It',
-    category: 'External',
+    category: 'Internal',
     session: 'Afternoon',
     teamSize: '1',
     date: '06-10-2026',
@@ -69,7 +81,7 @@ const eventsByDate: Event[] = [
   {
     slug: 'logical-duo',
     name: 'Logical Duo',
-    category: 'External',
+    category: 'Internal',
     session: 'Afternoon',
     teamSize: '2',
     date: '06-10-2026',
@@ -77,6 +89,18 @@ const eventsByDate: Event[] = [
     description:
       'Logical Duo is a two-member challenge centred on teamwork and reasoning. No laptop is required, so the focus stays purely on logic, communication, and quick thinking. As with every team event, a team leader is required to register the pair.',
     image: '/logical%20duo.png',
+  },
+  {
+    slug: 'slides-on-spot',
+    name: 'Slides On Spot',
+    category: 'Internal',
+    session: 'Afternoon',
+    teamSize: '2',
+    date: '06-10-2026',
+    blurb: 'A two-member presentation event where the topic is handed to you on the spot. A laptop is optional, and a team leader is required.',
+    description:
+      'Slides On Spot is a two-member presentation challenge. Teams receive a topic on the spot, then build and present a slide deck on it — testing how fast a pair can think, structure, and speak. A laptop is optional because the venue provides a presentation system. As with every team event, a team leader is required to register the pair.',
+    image: '/slides-on-spot.png',
   },
 ];
 

@@ -87,6 +87,24 @@ export const REGISTRATIONS: Record<string, RegistrationConfig> = {
     teamLeaderRequired: true,
     notes: 'A team leader is required to register.',
   },
+  'error-404': {
+    slug: 'error-404',
+    eventName: 'Error 404',
+    memberSlots: 1,
+    codeTag: 'E4',
+    laptop: 'Laptop required',
+    teamLeaderRequired: true,
+    notes: 'Individual event. You register yourself as a solo participant.',
+  },
+  'slides-on-spot': {
+    slug: 'slides-on-spot',
+    eventName: 'Slides On Spot',
+    memberSlots: 2,
+    codeTag: 'SO',
+    laptop: 'Laptop optional',
+    teamLeaderRequired: true,
+    notes: 'A team leader is required to register.',
+  },
 };
 
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

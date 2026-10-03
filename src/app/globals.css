@@ -175,10 +175,6 @@ html.lenis body {
   text-align: center;
 }
 
-.radio-tab:has(.w--redirected-checked) .radio-tab-label {
-  color: var(--lightgrey);
-}
-
 .clear-search.is-active {
   opacity: 1;
   pointer-events: auto;

@@ -2976,7 +2976,8 @@ ul {
 }
 
 .hero-description {
-  max-width: 13.9375rem;
+  max-width: none;
+  white-space: nowrap;
   font-size: 2vh;
   line-height: 130%;
 }
@@ -9852,6 +9853,7 @@ ul {
 
   .hero-description {
     max-width: none;
+    white-space: nowrap;
   }
 
   .swiper.blogs-swiper {
@@ -10200,7 +10202,8 @@ ul {
   }
 
   .hero-description {
-    max-width: 100%;
+    max-width: none;
+    white-space: nowrap;
     font-size: var(--16px-size);
   }
 
@@ -11676,6 +11679,7 @@ ul {
   }
 
   .hero-description {
+    white-space: nowrap;
     font-size: 14px;
   }
 

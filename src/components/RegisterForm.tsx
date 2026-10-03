@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { EVENTS } from '@/data/events';
+import { EVENTS, SESSION_TIMES } from '@/data/events';
 import { SmoothInput } from '@/components/smoothinput';
 import { CustomSelect } from '@/components/CustomSelect';
 import {
@@ -124,41 +124,7 @@ function FieldRow({
   );
 }
 
-function RadioTab({
-  name,
-  id,
-  value,
-  label,
-  checked,
-  onSelect,
-}: {
-  name: string;
-  id: string;
-  value: string;
-  label: string;
-  checked: boolean;
-  onSelect: (value: string) => void;
-}) {
-  return (
-    <label className="radio-tab w-radio">
-      <div
-        className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-tab-button w-radio-input${
-          checked ? ' w--redirected-checked' : ''
-        }`}
-      />
-      <input
-        type="radio"
-        name={name}
-        id={id}
-        value={value}
-        checked={checked}
-        onChange={() => onSelect(value)}
-        style={{ opacity: 0, position: 'absolute', zIndex: -1 }}
-      />
-      <span className="radio-tab-label w-form-label">{label}</span>
-    </label>
-  );
-}
+const EVENT_OPTIONS = EVENTS.map((event) => event.name);
 
 function MemberBlock({
   index,
@@ -245,17 +211,19 @@ export default function RegisterForm({
   const isSingle = config.memberSlots === 1;
   const teamNameError = !isSingle && submitted ? validateField(TEAM_NAME_FIELD, teamName) : null;
 
-  const onSelectEvent = (slug: string) => {
+  const onSelectEvent = (eventName: string) => {
     if (locked) return;
-    setSelectedEventSlug(slug);
+    const next = EVENTS.find((event) => event.name === eventName);
+    if (!next) return;
+    setSelectedEventSlug(next.slug);
     setMembers((prev) => {
-      const slots = REGISTRATIONS[slug].memberSlots;
+      const slots = REGISTRATIONS[next.slug].memberSlots;
       if (prev.length === slots) return prev;
-      const next = [...prev];
-      while (next.length < slots) {
-        next.push({ ...emptyMember(), college: prev[0]?.college ?? '' });
+      const nextMembers = [...prev];
+      while (nextMembers.length < slots) {
+        nextMembers.push({ ...emptyMember(), college: prev[0]?.college ?? '' });
       }
-      return next.slice(0, slots);
+      return nextMembers.slice(0, slots);
     });
   };
 
@@ -368,26 +336,26 @@ export default function RegisterForm({
                     <div className="field-head-nb">1.1</div>
                     <img width={16} height={12} src="/register/check.svg" alt="" loading="lazy" className="field-head-check" />
                   </div>
-                  <span className="field-head-label">Select Event</span>
+                  <label htmlFor="event-select" className="field-head-label">Select Event</label>
                 </div>
                 {locked ? (
                   <div className="form-field-text register-event-locked">{selectedEvent.name}</div>
                 ) : (
-                  <div className="form-radio-list" role="radiogroup" aria-label="Events">
-                    {EVENTS.map((event) => (
-                      <RadioTab
-                        key={event.slug}
-                        name="event"
-                        id={`event-${event.slug}`}
-                        value={event.slug}
-                        label={event.name}
-                        checked={selectedEventSlug === event.slug}
-                        onSelect={onSelectEvent}
-                      />
-                    ))}
-                  </div>
+                  <CustomSelect
+                    id="event-select"
+                    value={selectedEvent.name}
+                    options={EVENT_OPTIONS}
+                    placeholder="Select event"
+                    onChange={onSelectEvent}
+                  />
                 )}
                 <div className="register-rules" aria-label="Event rules">
+                  <div className="register-rules-key">Date</div>
+                  <div className="register-rules-value">{selectedEvent.date}</div>
+                  <div className="register-rules-key">Session</div>
+                  <div className="register-rules-value">
+                    {selectedEvent.session} · {SESSION_TIMES[selectedEvent.session]}
+                  </div>
                   <div className="register-rules-key">Team Size</div>
                   <div className="register-rules-value">{selectedEvent.teamSize}</div>
                   <div className="register-rules-key">Equipment</div>

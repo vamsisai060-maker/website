@@ -20,7 +20,7 @@ export async function generateMetadata({
   }
   return {
     title: `Register ${event.name} | ASTRA 2K26`,
-    description: `Register for ${event.name} at ASTRA 2K26 external events.`,
+    description: `Register for ${event.name} at ASTRA 2K26 internal events.`,
   };
 }
 

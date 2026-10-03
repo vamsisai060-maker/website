@@ -20,15 +20,7 @@
   opacity: 1;
 }
 
-/* --- radio label state colors (rules missing from webflow.css) --- */
-.register-page .radio-tab-button:hover ~ .radio-tab-label {
-  color: var(--dark);
-}
-.register-page .radio-tab-button.w--redirected-checked ~ .radio-tab-label {
-  color: var(--light);
-}
-
-/* --- campus / year custom dropdown --- */
+/* --- event dropdown + field dropdowns --- */
 .register-page .form-field-select {
   position: relative;
 }

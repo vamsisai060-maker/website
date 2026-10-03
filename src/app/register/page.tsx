@@ -4,7 +4,7 @@ import './register.css';
 
 export const metadata: Metadata = {
   title: 'Register | ASTRA 2K26',
-  description: 'Register your team for ASTRA 2K26 external events.',
+  description: 'Register your team for ASTRA 2K26 internal events.',
 };
 
 export default function RegisterPageRoute() {
