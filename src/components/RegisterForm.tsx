@@ -76,6 +76,7 @@ function FieldRow({
   value,
   onChange,
   error,
+  name,
 }: {
   id: string;
   nb: string;
@@ -83,6 +84,11 @@ function FieldRow({
   value: string;
   onChange: (value: string) => void;
   error?: string | null;
+  /**
+   * Overrides the submitted name attribute. Chrome reads it when guessing what
+   * a field holds, so the team name is deliberately not called "...-name".
+   */
+  name?: string;
 }) {
   const filled = value.trim() !== '';
   const className = [
@@ -121,7 +127,11 @@ function FieldRow({
       ) : (
         <SmoothInput
           id={id}
-          name={id}
+          name={name ?? id}
+          // Every field here belongs to somebody else: autofilling the browser
+          // profile would repeat one person across the team, and Chrome offered
+          // the member names as suggestions in the team name box.
+          autoComplete="off"
           type={field.type}
           placeholder={field.placeholder}
           value={value}
@@ -350,7 +360,7 @@ export default function RegisterForm({
 
   return (
     <div className="page-form w-form">
-      <form data-form-anim-init="" id="wf-form-register-form" name="wf-form-register-form" onSubmit={handleSubmit} noValidate aria-label="Register form"
+      <form data-form-anim-init="" id="wf-form-register-form" name="wf-form-register-form" onSubmit={handleSubmit} noValidate autoComplete="off" aria-label="Register form"
         style={submitState === 'success' ? { display: 'none' } : undefined}
       >
         <div className="form-section" id="create">
@@ -413,6 +423,7 @@ export default function RegisterForm({
               {!isSingle && (
                 <FieldRow
                   id="team-name"
+                  name="team"
                   nb="1.2"
                   field={TEAM_NAME_FIELD}
                   value={teamName}
