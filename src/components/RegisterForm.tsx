@@ -190,13 +190,14 @@ export default function RegisterForm({
   locked?: boolean;
 }) {
   const initialEvent = EVENTS.find((event) => event.slug === initialEventSlug);
-  const [selectedEventSlug, setSelectedEventSlug] = useState(
-    initialEvent?.slug ?? EVENTS.find((event) => event.slug === 'game-verse')!.slug
+  const [selectedEventSlug, setSelectedEventSlug] = useState<string | undefined>(
+    initialEvent?.slug
   );
   const [teamName, setTeamName] = useState('');
-  const [members, setMembers] = useState<Member[]>(() =>
-    Array.from({ length: REGISTRATIONS[selectedEventSlug].memberSlots }, () => emptyMember())
-  );
+  const [members, setMembers] = useState<Member[]>(() => {
+    if (!initialEvent?.slug) return [];
+    return Array.from({ length: REGISTRATIONS[initialEvent.slug].memberSlots }, () => emptyMember());
+  });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
@@ -205,12 +206,12 @@ export default function RegisterForm({
   const router = useRouter();
 
   const selectedEvent = useMemo(
-    () => EVENTS.find((event) => event.slug === selectedEventSlug)!,
+    () => (selectedEventSlug ? EVENTS.find((event) => event.slug === selectedEventSlug) : undefined),
     [selectedEventSlug]
   );
-  const config = REGISTRATIONS[selectedEventSlug];
+  const config = selectedEventSlug ? REGISTRATIONS[selectedEventSlug] : undefined;
 
-  const isSingle = config.memberSlots === 1;
+  const isSingle = config?.memberSlots === 1;
   const teamNameError = !isSingle && submitted ? validateField(TEAM_NAME_FIELD, teamName) : null;
 
   const onSelectEvent = (eventName: string) => {
@@ -220,7 +221,6 @@ export default function RegisterForm({
     setSelectedEventSlug(next.slug);
     setMembers((prev) => {
       const slots = REGISTRATIONS[next.slug].memberSlots;
-      if (prev.length === slots) return prev;
       const nextMembers = [...prev];
       while (nextMembers.length < slots) {
         nextMembers.push({ ...emptyMember(), college: prev[0]?.college ?? '' });
@@ -230,6 +230,7 @@ export default function RegisterForm({
   };
 
   const isFormValid = () => {
+    if (!selectedEventSlug || !config) return false;
     if (!isSingle && validateField(TEAM_NAME_FIELD, teamName)) return false;
     const requiredSlots = config.memberSlots;
     if (members.length !== requiredSlots) return false;
@@ -261,6 +262,10 @@ export default function RegisterForm({
     setSubmitError(null);
     let rejectMessage: string | null = null;
     try {
+      if (!selectedEventSlug || !selectedEvent || !config) {
+        setSubmitError('Please select an event before submitting.');
+        throw new Error('Event not selected');
+      }
       const payload = {
         eventSlug: selectedEventSlug,
         eventName: selectedEvent.name,
@@ -343,31 +348,33 @@ export default function RegisterForm({
                   <label htmlFor="event-select" className="field-head-label">Select Event</label>
                 </div>
                 {locked ? (
-                  <div className="form-field-text register-event-locked">{selectedEvent.name}</div>
+                  <div className="form-field-text register-event-locked">{selectedEvent?.name ?? ''}</div>
                 ) : (
                   <CustomSelect
                     id="event-select"
-                    value={selectedEvent.name}
+                    value={selectedEvent?.name ?? ''}
                     options={EVENT_OPTIONS}
                     placeholder="Select event"
                     onChange={onSelectEvent}
                   />
                 )}
-                <div className="register-rules" aria-label="Event rules">
-                  <div className="register-rules-key">Date</div>
-                  <div className="register-rules-value">{selectedEvent.date}</div>
-                  <div className="register-rules-key">Session</div>
-                  <div className="register-rules-value">
-                    {selectedEvent.session} · {SESSION_TIMES[selectedEvent.session]}
+                {selectedEvent && config && (
+                  <div className="register-rules" aria-label="Event rules">
+                    <div className="register-rules-key">Date</div>
+                    <div className="register-rules-value">{selectedEvent.date}</div>
+                    <div className="register-rules-key">Session</div>
+                    <div className="register-rules-value">
+                      {selectedEvent.session} · {SESSION_TIMES[selectedEvent.session]}
+                    </div>
+                    <div className="register-rules-key">Team Size</div>
+                    <div className="register-rules-value">{selectedEvent.teamSize}</div>
+                    <div className="register-rules-key">Equipment</div>
+                    <div className="register-rules-value">{config.laptop}</div>
+                    <div className="register-rules-key">Team Leader</div>
+                    <div className="register-rules-value">{config.teamLeaderRequired ? 'Required' : 'Optional'}</div>
+                    <div className="register-rules-note">{config.notes}</div>
                   </div>
-                  <div className="register-rules-key">Team Size</div>
-                  <div className="register-rules-value">{selectedEvent.teamSize}</div>
-                  <div className="register-rules-key">Equipment</div>
-                  <div className="register-rules-value">{config.laptop}</div>
-                  <div className="register-rules-key">Team Leader</div>
-                  <div className="register-rules-value">{config.teamLeaderRequired ? 'Required' : 'Optional'}</div>
-                  <div className="register-rules-note">{config.notes}</div>
-                </div>
+                )}
               </div>
             </div>
             <div className="form-row fr-last">
@@ -432,11 +439,11 @@ export default function RegisterForm({
             <div className="register-summary">
               <div className="register-summary-row">
                 <div>Event</div>
-                <div>{selectedEvent.name}</div>
+                <div>{selectedEvent?.name ?? '—'}</div>
               </div>
               <div className="register-summary-row">
                 <div>Event Date</div>
-                <div>{selectedEvent.date}</div>
+                <div>{selectedEvent?.date ?? '—'}</div>
               </div>
               {!isSingle && (
                 <div className="register-summary-row">

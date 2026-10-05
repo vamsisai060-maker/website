@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import {
   EVENT_ENTRY_FEE,
-  EVENT_SESSIONS,
   EVENTS,
   SESSION_TIMES,
   type Event,
@@ -16,7 +15,7 @@ function Stats({ teamSize, date, session }: { teamSize: string; date: string; se
     { value: EVENT_ENTRY_FEE, label: 'Entry Fee' },
     { value: teamSize, label: 'Team Size' },
     { value: date, label: 'Date' },
-    { value: SESSION_TIMES[session], label: session },
+    { value: SESSION_TIMES[session], label: 'Starts' },
   ];
 
   return (
@@ -57,25 +56,14 @@ function EventCard({ event }: { event: Event }) {
 }
 
 export default function EventsListing() {
+  // EVENTS is already sorted by date, so the whole fest reads as one timeline.
   return (
-    <>
-      {EVENT_SESSIONS.map((session) => {
-        const events = EVENTS.filter((event) => event.session === session);
-        if (events.length === 0) return null;
-
-        return (
-          <section key={session} className="events-session">
-            <h2 className="events-session-title">{session}</h2>
-            <div className="w-dyn-list">
-              <div role="list" className="portfolio-listing w-dyn-items">
-                {events.map((event) => (
-                  <EventCard key={event.slug} event={event} />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })}
-    </>
+    <div className="w-dyn-list">
+      <div role="list" className="portfolio-listing w-dyn-items">
+        {EVENTS.map((event) => (
+          <EventCard key={event.slug} event={event} />
+        ))}
+      </div>
+    </div>
   );
 }

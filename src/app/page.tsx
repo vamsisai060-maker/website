@@ -12,6 +12,13 @@ import { EVENT_ENTRY_FEE, EVENTS } from '@/data/events';
 
 const ARROW_SVG = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDIzIDIzIiB3aWR0aD0iMjMiIGhlaWdodD0iMjMiPjxzdHlsZT4uYXtmaWxsOiMwZTBlMGV9PC9zdHlsZT48cGF0aCBjbGFzcz0iYSIgZD0ibTEwLjYgNGMtMC41IDAtMC45IDAuNC0wLjkgMC45djEuN2MwIDAuNSAwLjQgMC45IDAuOSAwLjloMS4zYzAuNSAwIDAuOCAwLjQgMC44IDAuOHYxLjRxMCAwLjEgMC4xIDAuM2gtNy41Yy0wLjYgMC0xIDAuNC0xIDF2MWMwIDAuNiAwLjQgMSAxIDFoNy4ycS0wLjIgMC4yLTAuMiAwLjZ2MS4zYzAgMC40LTAuNCAwLjgtMC45IDAuOGgtMS4zYy0wLjQgMC0wLjggMC40LTAuOCAwLjl2MS43YzAgMC41IDAuNCAwLjkgMC44IDAuOWgxLjhjMC41IDAgMC44LTAuNCAwLjgtMC45di0xLjNjMC0wLjQgMC40LTAuOCAwLjktMC44aDEuM2MwLjUgMCAwLjktMC40IDAuOS0wLjl2LTAuOWMwLTAuNCAwLjQtMC44IDAuOS0wLjhoMS43YzAuNSAwIDAuOS0wLjQgMC45LTAuOXYtMS43cTAtMC40LTAuMi0wLjZjLTAuMi0wLjItMC41LTAuNC0wLjgtMC40aC0xLjZjLTAuMy0wLjEtMC41LTAuNC0wLjUtMC44di0xLjNjMC0wLjUtMC40LTAuOS0wLjktMC45aC0xLjNjLTAuNCAwLTAuOC0wLjMtMC44LTAuOHYtMS4zYzAtMC41LTAuNC0wLjktMC45LTAuOXoiLz48L3N2Zz4=';
 
+// Placeholder contacts - swap the real numbers in before launch.
+const STUDENT_COORDINATORS = [
+  { name: 'Naveen', phone: '9063428457' },
+  { name: 'Faizan', phone: '7032806199' },
+  { name: 'Mohith', phone: '7989477725' },
+];
+
 gsap.registerPlugin(ScrollTrigger);
 
 function heroLetterDelays(text: string, seed: number, maxDelay: number): string[] {
@@ -1079,8 +1086,8 @@ For two days, Astra 2K26 takes over Aditya Degree College in Visakhapatnam — a
                   <span className="venue-fact-value">Visakhapatnam, Andhra Pradesh</span>
                 </div>
                 <div className="venue-fact">
-                  <span className="venue-fact-label">Dates</span>
-                  <span className="venue-fact-value">06 October 2026</span>
+                  <span className="venue-fact-label">Date</span>
+                  <span className="venue-fact-value">10 October 2026</span>
                 </div>
                 <div className="venue-fact">
                   <span className="venue-fact-label">Entry</span>
@@ -1119,24 +1126,29 @@ Aditya Degree Gwk College                    </a>
               </div>
               <div className="footer-nav-col fnc-second">
                 <h4 className="footer-nav-title">
-Quick Links                </h4>
+ Student Coordinators                </h4>
                 <ul role="list" className="footer-nav">
-                  <li className="footer-nav-item">
-                    <Link href="/" className="footer-nav-link">
-Home                    </Link>
-                  </li>
-                  <li className="footer-nav-item">
-                    <Link href="/events" className="footer-nav-link">
-Our Events                    </Link>
-                  </li>
-                  <li className="footer-nav-item">
-                    <Link href="/#team-section" className="footer-nav-link">
-Our Visionaries                    </Link>
-                  </li>
-                  <li className="footer-nav-item">
-                    <Link href="/#venue-section" className="footer-nav-link">
-Venue                    </Link>
-                  </li>
+                  {STUDENT_COORDINATORS.map((coordinator) => (
+                    <li className="footer-nav-item coordinator-item" key={coordinator.name}>
+                      <div className="coordinator-name">{coordinator.name}</div>
+                      <a
+                        className="coordinator-phone"
+                        href={`tel:+91${coordinator.phone}`}
+                        aria-label={`Call ${coordinator.name}`}
+                      >
+                        <span className="coordinator-phone-number">{coordinator.phone}</span>
+                        <img
+                          className="coordinator-call-arrow"
+                          width={12}
+                          height={12}
+                          alt=""
+                          aria-hidden="true"
+                          src={ARROW_SVG}
+                          loading="lazy"
+                        />
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="footer-nav-col">
@@ -1152,6 +1164,10 @@ Game Verse                    </Link>
 3 Minds 1 Mission                    </Link>
                   </li>
                   <li className="footer-nav-item">
+                    <Link href="/register/slides-on-spot" className="footer-nav-link">
+Slides On Spot                    </Link>
+                  </li>
+                  <li className="footer-nav-item">
                     <Link href="/register/see-it-prompt-it" className="footer-nav-link">
 See It Prompt It                    </Link>
                   </li>
@@ -1159,12 +1175,16 @@ See It Prompt It                    </Link>
                     <Link href="/register/logical-duo" className="footer-nav-link">
 Logical Duo                    </Link>
                   </li>
+                  <li className="footer-nav-item">
+                    <Link href="/register/error-404" className="footer-nav-link">
+Error 404                    </Link>
+                  </li>
                 </ul>
               </div>
               <div className="footer-nav-col">
                 <ul role="list" className="footer-socials">
                   <li className="footer-socials-item">
-                    <a rel="noreferer, noopener noreferrer" href="https://www.instagram.com/" target="_blank" className="footer-socials-link w-inline-block">
+                    <a rel="noreferer, noopener noreferrer" href="https://www.instagram.com/astra2k26?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" className="footer-socials-link w-inline-block">
                       <div className="">
 INSTAGRAM                      </div>
                       <img width={14} height={14} alt="" src={ARROW_SVG} loading="lazy" />

@@ -256,17 +256,6 @@ html.lenis body {
 
 /* ---- Events page redesign polish ---- */
 
-/* Session sections (Morning / Afternoon) */
-.events-session-title {
-  margin: 2.5rem 1.5rem 0;
-  font-family: LabsAmiga, sans-serif;
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  line-height: 1.05;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--dark);
-}
-
 /* Stats grid: crisp 2x2 quarters without half-lines */
 .portfolio-item-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -284,7 +273,7 @@ html.lenis body {
   }
 
   .events-page .portfolio-item-thumb {
-    padding: 44px 20px 28px;
+    padding: 40px 1.25rem 2rem;
   }
 
   .events-page .portfolio-item-name {
@@ -672,9 +661,29 @@ body.has-preloader {
   padding: 1.25rem 1.5rem;
 }
 
-@media screen and (max-width: 767px) {
+/* Kill the inherited `p { margin-bottom: 1rem }` so it does not
+   push dead space inside the bordered caption box. */
+.event-detail-about > p {
+  margin: 0;
+}
+
+@media screen and (max-width: 991px) {
   .event-detail-about {
-    padding: 1rem;
+    font-size: 1rem;
+    line-height: 155%;
+    padding: 1.25rem 1.125rem;
+    overflow-wrap: break-word;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Give the caption room to breathe on phones: full-bleed inside the
+     card, roomier padding, and a slightly larger measure-friendly size. */
+  .event-detail-about {
+    font-size: clamp(1rem, 4.2vw, 1.0625rem);
+    line-height: 150%;
+    padding: 1.5rem 1.25rem;
+    margin-top: .5rem;
   }
 }
 
@@ -688,5 +697,66 @@ body.has-preloader {
   .footer-nav-row .footer-nav-col {
     flex: 0 0 50%;
     width: 50%;
+  }
+}
+
+/* ---- Footer: student coordinators ---- */
+.coordinator-item {
+  margin-bottom: 1.1875rem;
+}
+
+.coordinator-name {
+  color: var(--dark);
+  font-size: .8125rem;
+  margin-bottom: .25rem;
+}
+
+.coordinator-phone {
+  align-items: center;
+  grid-column-gap: .4375rem;
+  display: inline-flex;
+  width: fit-content;
+  color: var(--dark-60);
+  font-size: .8125rem;
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.coordinator-phone:hover .coordinator-phone-number {
+  text-decoration: underline;
+}
+
+.coordinator-phone-number {
+  color: var(--dark);
+}
+
+/* Call arrow is a mobile-only affordance; laptops just read the number. */
+.coordinator-call-arrow {
+  display: none;
+  width: .75rem;
+  height: .75rem;
+}
+
+@media screen and (max-width: 991px) {
+  .coordinator-call-arrow {
+    display: block;
+  }
+
+  /* Grow the tap area for the call action without changing the layout
+     rhythm (the negative margin cancels the added padding). */
+  .coordinator-phone {
+    padding: .55rem 0;
+    margin-bottom: -.55rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .coordinator-item {
+    margin-bottom: 1.14rem;
+  }
+
+  .coordinator-name,
+  .coordinator-phone {
+    font-size: .85rem;
   }
 }
