@@ -16,7 +16,7 @@ const ARROW_SVG = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIHhtbG5zPSJ
 const STUDENT_COORDINATORS = [
   { name: 'Naveen', phone: '9063428457' },
   { name: 'Faizan', phone: '7032806199' },
-  { name: 'Mohith', phone: '7989477725' },
+  { name: 'Mohith', phone: '7989497725' },
 ];
 
 gsap.registerPlugin(ScrollTrigger);

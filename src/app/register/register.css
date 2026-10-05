@@ -184,6 +184,11 @@
   color: var(--dark-60);
   font-size: var(--12px-size);
 }
+.register-rules-note.is-clash {
+  border-top: none;
+  padding-top: 0;
+  color: var(--dark);
+}
 
 /* --- member blocks --- */
 .register-page .register-member-block {

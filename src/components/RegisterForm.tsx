@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { EVENTS, SESSION_TIMES } from '@/data/events';
+import { EVENTS, SESSION_TIMES, clashingEvents } from '@/data/events';
 import { SmoothInput } from '@/components/smoothinput';
 import { CustomSelect } from '@/components/CustomSelect';
 import {
@@ -40,6 +40,8 @@ function newRequestId(): string {
 
 type FieldRowDef = { fields: RegisterField[]; cls: string };
 
+const WARMED_KEY = 'astra-register-warmed';
+
 const LEADER_ROWS: FieldRowDef[] = [
   { fields: [MEMBER_FIELDS[0], MEMBER_FIELDS[1]], cls: 'fr-double' },
   { fields: [MEMBER_FIELDS[2], MEMBER_FIELDS[3]], cls: 'fr-double' },
@@ -68,6 +70,31 @@ const emptyMember = (): Member => ({
   year: '',
   college: '',
 });
+
+/**
+ * Catches a repeat of the same person inside one team before the sheet is
+ * touched: the backend rejects it, but telling someone while they are still
+ * looking at the form beats a red banner after a round trip.
+ */
+function repeatInTeam(members: Member[]): string | null {
+  const seen: { phone: Map<string, number>; email: Map<string, number> } = {
+    phone: new Map(),
+    email: new Map(),
+  };
+  for (let i = 0; i < members.length; i++) {
+    const phone = members[i].phone.replace(/\D/g, '');
+    const email = members[i].email.trim().toLowerCase();
+    if (phone && seen.phone.has(phone)) {
+      return `Member ${i + 1} and Member ${seen.phone.get(phone)! + 1} have the same phone number.`;
+    }
+    if (email && seen.email.has(email)) {
+      return `Member ${i + 1} and Member ${seen.email.get(email)! + 1} have the same email address.`;
+    }
+    if (phone) seen.phone.set(phone, i);
+    if (email) seen.email.set(email, i);
+  }
+  return null;
+}
 
 function FieldRow({
   id,
@@ -234,10 +261,17 @@ export default function RegisterForm({
 
   const router = useRouter();
 
-  // A cold Apps Script instance takes ~55s to start, which used to be charged to
-  // whoever submitted first. doGet only reports health and writes nothing, so
-  // waking it here means the form is ready by the time someone hits submit.
+  // A cold Apps Script instance takes up to ~55s to start, which used to be
+  // charged to whoever submitted first. doGet only reports health and touches
+  // nothing, so waking it here means the form is ready by the time someone hits
+  // submit. Once per tab is enough: the instance stays warm for the visit.
   useEffect(() => {
+    try {
+      if (sessionStorage.getItem(WARMED_KEY)) return;
+      sessionStorage.setItem(WARMED_KEY, '1');
+    } catch {
+      // Private mode: warming twice is cheaper than never warming.
+    }
     fetch('/api/register', { cache: 'no-store' }).catch(() => {});
   }, []);
 
@@ -249,6 +283,11 @@ export default function RegisterForm({
 
   const isSingle = config?.memberSlots === 1;
   const teamNameError = !isSingle && submitted ? validateField(TEAM_NAME_FIELD, teamName) : null;
+  /** Events sharing this one's slot - the ones a team cannot also span. */
+  const clash = useMemo(
+    () => (selectedEventSlug ? clashingEvents(selectedEventSlug) : []),
+    [selectedEventSlug]
+  );
 
   const onSelectEvent = (eventName: string) => {
     if (locked) return;
@@ -294,6 +333,18 @@ export default function RegisterForm({
       scrollToFirstError();
       return;
     }
+    // One person twice inside a single team is a typo, not a schedule clash, so
+    // it is worth catching before the round trip.
+    const repeat = repeatInTeam(members);
+    if (repeat) {
+      setSubmitError(repeat);
+      setSubmitState('error');
+      requestAnimationFrame(() => {
+        const failBanner = document.querySelector('.w-form-fail') as HTMLElement | null;
+        if (failBanner) scrollToElement(failBanner);
+      });
+      return;
+    }
     submittingRef.current = true;
     setSending(true);
     setSubmitState('idle');
@@ -334,16 +385,12 @@ export default function RegisterForm({
         body: JSON.stringify({ ...payload, requestId: requestIdRef.current }),
       });
       const result = (await response.json().catch(() => null)) as
-        | { ok?: boolean; code?: string; message?: string }
+        | { ok?: boolean; code?: string; reason?: string; message?: string }
         | null;
       if (!response.ok || !result?.ok || !result.code) {
-        if (result?.code === 'DUPLICATE') {
-          rejectMessage =
-            result.message ??
-            `This phone number or email is already registered. Each person can register for only one game.`;
-        } else {
-          rejectMessage = result?.message ?? null;
-        }
+        // CLASH and ALREADY_REGISTERED both arrive with a sentence written for
+        // the person filling this in, so they are used as-is.
+        rejectMessage = result?.message ?? null;
         throw new Error(rejectMessage ?? 'Submission failed');
       }
       setSubmitState('success');
@@ -421,7 +468,20 @@ export default function RegisterForm({
                     <div className="register-rules-value">{config.laptop}</div>
                     <div className="register-rules-key">Team Leader</div>
                     <div className="register-rules-value">{config.teamLeaderRequired ? 'Required' : 'Optional'}</div>
+                    {clash.map((other) => (
+                      <Fragment key={other.slug}>
+                        <div className="register-rules-key">Same time as</div>
+                        <div className="register-rules-value">{other.name}</div>
+                      </Fragment>
+                    ))}
                     <div className="register-rules-note">{config.notes}</div>
+                    {clash.length > 0 && (
+                      <div className="register-rules-note is-clash">
+                        {clash.length === 1
+                          ? `${clash[0].name} runs in this same slot, so one person cannot be in both.`
+                          : `${clash.map((other) => other.name).join(' and ')} run in this same slot, so one person cannot be in more than one of them.`}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

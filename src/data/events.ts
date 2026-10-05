@@ -107,3 +107,46 @@ const eventsByDate: Event[] = [
 export const EVENTS: Event[] = [...eventsByDate].sort(
   (a, b) => dateKey(a.date) - dateKey(b.date)
 );
+
+/* ------------------------------------------------------------------ *
+ * Session slots — the rule the whole site is built around
+ * ------------------------------------------------------------------ */
+
+/**
+ * Two events clash when they run in the same slot, i.e. the same day *and* the
+ * same session. A person may hold one registration per slot and no more, so
+ * the current timetable gives every participant at most four registrations:
+ *
+ *   06-10-2026  Morning    9:30 AM   3Minds 1Mission | Slides On Spot
+ *   06-10-2026  Afternoon  1:30 PM   Game Verse
+ *   07-10-2026  Morning    9:30 AM   Logical Duo     | See It, Prompt It
+ *   07-10-2026  Afternoon  1:30 PM   Error 404
+ *
+ * Keep this in step with EVENT_TABS in google-apps-script/Code.gs, which
+ * enforces the same rule on the sheet.
+ */
+export type EventSlot = { date: string; session: EventSession; time: string };
+
+export function slotOf(slug: string): EventSlot | undefined {
+  const event = EVENTS.find((item) => item.slug === slug);
+  if (!event) return undefined;
+  return { date: event.date, session: event.session, time: SESSION_TIMES[event.session] };
+}
+
+const slotKey = (date: string, session: EventSession) => `${date}|${session}`;
+
+/** Events that run at the very same hour as `slug`, so a team cannot span them. */
+export function clashingEvents(slug: string): Event[] {
+  const event = EVENTS.find((item) => item.slug === slug);
+  if (!event) return [];
+  const key = slotKey(event.date, event.session);
+  return EVENTS.filter((item) => item.slug !== slug && slotKey(item.date, item.session) === key);
+}
+
+/** Events a participant can still register for once they hold `slug`. */
+export function otherSlots(slug: string): Event[] {
+  const event = EVENTS.find((item) => item.slug === slug);
+  if (!event) return [];
+  const key = slotKey(event.date, event.session);
+  return EVENTS.filter((item) => slotKey(item.date, item.session) !== key);
+}
