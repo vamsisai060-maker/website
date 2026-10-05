@@ -87,8 +87,10 @@ function doPost(e) {
       }
     }
 
-    // One game per person, across every event tab.
-    const taken = findExistingRegistration_(data);
+    // One game per person, across every event tab. The same spreadsheet handle
+    // is reused for the write below, so the file is only opened once.
+    const ss = openSheet_();
+    const taken = findExistingRegistration_(data, ss);
     if (taken) {
       return json_({
         ok: false,
@@ -102,7 +104,7 @@ function doPost(e) {
       });
     }
 
-    const sheet = getSheet_(cfg, data.members.length);
+    const sheet = getSheet_(cfg, data.members.length, ss);
     const code = nextCode_(sheet, cfg);
     appendRow_(sheet, cfg, data, code);
     if (requestId) recordRequest_(requestId, cfg, code);
@@ -347,8 +349,8 @@ function normalise_(payload, cfg) {
  * Returns { name, games: ['Game Verse', ...] } for the first member who already
  * holds a spot anywhere, or null when the whole team is clear.
  */
-function findExistingRegistration_(data) {
-  const taken = indexRegisteredPeople_();
+function findExistingRegistration_(data, ss) {
+  const taken = indexRegisteredPeople_(ss || openSheet_());
   for (const m of data.members) {
     const games = [];
     if (m.phone && taken.phone[m.phone]) {
@@ -370,11 +372,7 @@ function findExistingRegistration_(data) {
  * phone/email -> the event tabs that person already appears in. Phones come back
  * as numbers from Sheets, so they are compared digits only.
  */
-function indexRegisteredPeople_() {
-  const ss = SPREADSHEET_ID
-    ? SpreadsheetApp.openById(SPREADSHEET_ID)
-    : SpreadsheetApp.getActiveSpreadsheet();
-
+function indexRegisteredPeople_(ss) {
   const index = { phone: {}, email: {} };
 
   Object.keys(EVENT_TABS).forEach(function (slug) {
@@ -382,17 +380,21 @@ function indexRegisteredPeople_() {
     const sheet = ss.getSheetByName(cfg.tab);
     if (!sheet) return;
 
-    const lastRow = sheet.getLastRow();
-    if (lastRow < 2) return;
+    // One call per tab, not getLastRow + getLastColumn + getRange: Apps Script
+    // charges a network round trip for each, and the scan is on the critical
+    // path of every submission.
+    const all = sheet.getDataRange().getValues();
+    if (all.length < 2) return;
 
-    // Read every column the tab actually has: a tab written with more member
-    // slots than the current config must still be checked.
-    const lastCol = sheet.getLastColumn();
+    // Skip the header row and read every column the tab actually has: a tab
+    // written with more member slots than the current config must still be
+    // checked.
+    const rows = all.slice(1);
+    const lastCol = all[0].length;
     const slots = Math.max(
       cfg.memberSlots,
       Math.floor((lastCol - FIXED_COLUMNS) / COLUMNS_PER_MEMBER)
     );
-    const rows = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
 
     rows.forEach(function (row) {
       for (let i = 0; i < slots; i++) {
@@ -423,13 +425,18 @@ function listGames_(games) {
  * Sheet access
  * ------------------------------------------------------------------ */
 
-function getSheet_(cfg, slots) {
-  const ss = SPREADSHEET_ID
+/** The registration spreadsheet, opened once per request. */
+function openSheet_() {
+  return SPREADSHEET_ID
     ? SpreadsheetApp.openById(SPREADSHEET_ID)
     : SpreadsheetApp.getActiveSpreadsheet();
+}
 
-  let sheet = ss.getSheetByName(cfg.tab);
-  if (!sheet) sheet = ss.insertSheet(cfg.tab);
+function getSheet_(cfg, slots, ss) {
+  const book = ss || openSheet_();
+
+  let sheet = book.getSheetByName(cfg.tab);
+  if (!sheet) sheet = book.insertSheet(cfg.tab);
 
   ensureHeaders_(sheet, cfg, cfg.memberSlots);
   return sheet;

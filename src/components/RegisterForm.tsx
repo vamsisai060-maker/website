@@ -234,6 +234,13 @@ export default function RegisterForm({
 
   const router = useRouter();
 
+  // A cold Apps Script instance takes ~55s to start, which used to be charged to
+  // whoever submitted first. doGet only reports health and writes nothing, so
+  // waking it here means the form is ready by the time someone hits submit.
+  useEffect(() => {
+    fetch('/api/register', { cache: 'no-store' }).catch(() => {});
+  }, []);
+
   const selectedEvent = useMemo(
     () => (selectedEventSlug ? EVENTS.find((event) => event.slug === selectedEventSlug) : undefined),
     [selectedEventSlug]
