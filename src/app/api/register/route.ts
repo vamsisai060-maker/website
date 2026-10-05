@@ -27,7 +27,8 @@ async function callScript(webAppUrl: string, payload: string) {
       if (last?.code || !HEALTH_MARKER.test(last?.message ?? '')) {
         return last;
       }
-    } catch {
+    } catch (e) {
+      console.error('[register] attempt failed:', e);
       // Cold-start timeouts land here; fall through and try again.
     }
   }
@@ -35,29 +36,9 @@ async function callScript(webAppUrl: string, payload: string) {
 }
 
 export async function POST(request: NextRequest) {
-  const webAppUrl = process.env.GSHEET_WEB_APP_URL;
-  if (!webAppUrl) {
-    return Response.json(
-      { ok: false, message: 'Registration backend is not configured.' },
-      { status: 500 }
-    );
-  }
-
-  const payload = await request.text();
-
-  try {
-    const result = await callScript(webAppUrl, payload);
-    if (!result?.ok || !result.code) {
-      return Response.json(
-        { ok: false, code: result?.code, message: result?.message ?? 'Submission failed' },
-        { status: 200 }
-      );
-    }
-    return Response.json(result);
-  } catch {
-    return Response.json(
-      { ok: false, message: 'Submission failed. Please try again.' },
-      { status: 502 }
-    );
-  }
+  // Maintenance mode - block all registrations
+  return Response.json(
+    { ok: false, message: 'Registrations are temporarily stopped. We will be back at 7 PM today.' },
+    { status: 503 }
+  );
 }
