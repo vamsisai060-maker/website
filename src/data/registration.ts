@@ -23,13 +23,8 @@ export type RegistrationConfig = {
 };
 
 export const CAMPUSES = [
-  "ADITYA DEGREE COLLEGE, Gopalapatnam",
-  "ADITYA DEGREE COLLEGE, Gopalapatnam Women's",
-  "ADITYA DEGREE COLLEGE, Asilmetta",
-  "ADITYA DEGREE COLLEGE, Ramnagar",
-  "ADITYA DEGREE COLLEGE, Dabagardens",
-  "ADITYA DEGREE COLLEGE, Dabagardens Women's",
-  "ADITYA DEGREE COLLEGE, Gajuwaka Women's",
+  'ADITYA DEGREE CO-ED CAMPUS, GWK',
+  'ADITYA DEGREE WOMENS, GWK',
 ];
 
 export const YEARS = ['1st Year', '2nd Year', '3rd Year'];

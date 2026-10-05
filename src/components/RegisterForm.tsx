@@ -133,6 +133,7 @@ function MemberBlock({
   isLeader,
   showErrors,
   onUpdate,
+  isSingle,
 }: {
   index: number;
   pfx: number;
@@ -140,6 +141,7 @@ function MemberBlock({
   isLeader: boolean;
   showErrors: boolean;
   onUpdate: (member: Member) => void;
+  isSingle: boolean;
 }) {
   const set = (key: MemberField, value: string) => {
     const field = MEMBER_FIELDS.find((item) => item.key === key);
@@ -153,8 +155,8 @@ function MemberBlock({
   return (
     <div className="register-member-block">
       <div className="register-member-title">
-        <span>Member {index + 1}</span>
-        {isLeader && <small>Team Leader</small>}
+        <span>{isSingle ? 'Participant' : `Member ${index + 1}`}</span>
+        {isLeader && !isSingle && <small>Team Leader</small>}
       </div>
       {(isLeader ? LEADER_ROWS : MEMBER_ROWS).map((row, rowIndex) => (
         <div className={`form-row ${row.cls}`} key={rowIndex}>
@@ -229,6 +231,8 @@ export default function RegisterForm({
 
   const isFormValid = () => {
     if (!isSingle && validateField(TEAM_NAME_FIELD, teamName)) return false;
+    const requiredSlots = config.memberSlots;
+    if (members.length !== requiredSlots) return false;
     return members.every((member) =>
       MEMBER_FIELDS.every((field) => !validateField(field, member[field.key]))
     );
@@ -293,7 +297,7 @@ export default function RegisterForm({
       router.push(
         `/register/${selectedEventSlug}/success?code=${encodeURIComponent(
           result.code
-        )}&team=${encodeURIComponent(teamName.trim())}`
+        )}&team=${encodeURIComponent(isSingle ? (members[0]?.name.trim()) : teamName.trim())}`
       );
     } catch {
       setSubmitError(rejectMessage);
@@ -386,7 +390,7 @@ export default function RegisterForm({
           <div className="form-col form-col-second">
             <div className="form-step">
               <img width={76} height={84} src="/register/step-2.svg" alt="" loading="lazy" className="form-step-nb" />
-              <div className="form-step-name">Team Members</div>
+              <div className="form-step-name">{isSingle ? 'Participant Details' : 'Team Members'}</div>
               <div className="form-step-sub-info">STEP 2 of 3</div>
             </div>
           </div>
@@ -399,10 +403,11 @@ export default function RegisterForm({
                 member={member}
                 isLeader={index === 0}
                 showErrors={submitted}
+                isSingle={isSingle}
                 onUpdate={(updated) => {
                   const next = [...members];
                   next[index] = updated;
-                  if (index === 0) {
+                  if (index === 0 && !isSingle) {
                     for (let i = 1; i < next.length; i++) {
                       next[i] = { ...next[i], college: updated.college };
                     }
@@ -440,8 +445,8 @@ export default function RegisterForm({
                 </div>
               )}
               <div className="register-summary-row">
-                <div>Team Size</div>
-                <div>{selectedEvent.teamSize}</div>
+                <div>{isSingle ? 'Participant Count' : 'Team Size'}</div>
+                <div>{members.length}</div>
               </div>
               <div className="register-summary-row">
                 <div>Campus</div>
@@ -449,7 +454,7 @@ export default function RegisterForm({
               </div>
               {members.map((member, index) => (
                 <div className="register-summary-row" key={index}>
-                  <div>Member {index + 1}</div>
+                  <div>{isSingle ? 'Participant' : `Member ${index + 1}`}</div>
                   <div>{member.name}</div>
                 </div>
               ))}
@@ -458,7 +463,7 @@ export default function RegisterForm({
               <button type="submit" disabled={sending} className="button-primary width-100 w-inline-block">
                 <div className="button-primary-border">
                   <div className="button-primary-text button-size-text-lg button-with-icon">
-                    <div>{sending ? 'Submitting…' : 'Register team'}</div>
+                    <div>{sending ? 'Submitting…' : (isSingle ? 'Register' : 'Register team')}</div>
                     <img width={23} height={23} src="/register/arrow.svg" alt="" loading="lazy" className="button-primary-icon" />
                   </div>
                 </div>
