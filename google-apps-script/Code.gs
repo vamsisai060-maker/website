@@ -44,8 +44,18 @@ const EVENT_TABS = {
 const FIXED_COLUMNS = 5;
 const COLUMNS_PER_MEMBER = 6;
 
+/**
+ * Every POST carries a requestId minted by the browser. The tab maps it to the
+ * registration code it produced, so a replayed request (the /api/register retry
+ * after an Apps Script cold start, or a double-tapped submit button) returns the
+ * original code instead of writing a second row.
+ */
+const REQUEST_TAB = '_requests';
+const REQUEST_COLUMNS = ['Request ID', 'Event', 'Registration Code', 'Created At'];
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\d{10}$/;
+const REQUEST_ID_RE = /^[A-Za-z0-9-]{8,64}$/;
 
 /* ------------------------------------------------------------------ *
  * Entry points
@@ -62,23 +72,40 @@ function doPost(e) {
     if (!cfg) throw new Error('Unknown event: ' + payload.eventSlug);
 
     const data = normalise_(payload, cfg);
+    const requestId = normaliseRequestId_(payload.requestId);
 
-    const dup = findDuplicate_(data);
-    if (dup) {
+    // Replay of a request that already wrote a row: hand back the same code.
+    if (requestId) {
+      const existing = lookupRequest_(requestId);
+      if (existing) {
+        return json_({
+          ok: true,
+          code: existing,
+          duplicate: true,
+          message: 'Already registered.',
+        });
+      }
+    }
+
+    // One game per person, across every event tab.
+    const taken = findExistingRegistration_(data);
+    if (taken) {
       return json_({
         ok: false,
         code: 'DUPLICATE',
+        games: taken.games,
         message:
-          dup +
+          taken.name +
           ' is already registered for ' +
-          cfg.tab +
-          '. Each person can register only once for this game.',
+          listGames_(taken.games) +
+          '. Each person can register for only one game.',
       });
     }
 
     const sheet = getSheet_(cfg, data.members.length);
     const code = nextCode_(sheet, cfg);
     appendRow_(sheet, cfg, data, code);
+    if (requestId) recordRequest_(requestId, cfg, code);
 
     return json_({ ok: true, code: code, message: 'Registered.' });
   } catch (error) {
@@ -89,6 +116,151 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * Dry run. Flags every row that breaks the one-game-per-person rule:
+ *   reason 'repeat'     - the person is registered again in the same game
+ *   reason 'other-game' - the person already holds a spot in a different game
+ * Pass true to include the 'other-game' rows.
+ */
+function findDuplicateRows(includeOtherGames) {
+  return duplicateRows_(includeOtherGames);
+}
+
+/**
+ * Keeps the first registration of every person and deletes the later rows.
+ * Only 'repeat' rows are removed unless includeOtherGames is true, which also
+ * drops the person from the game where they are already registered elsewhere.
+ * Run findDuplicateRows() first to see what it would remove.
+ */
+function removeDuplicateRows(includeOtherGames) {
+  const dupes = duplicateRows_(includeOtherGames);
+  // Delete bottom-up so earlier row numbers stay valid while we go.
+  const byTab = {};
+  dupes.forEach(function (d) {
+    if (!byTab[d.tab]) byTab[d.tab] = [];
+    byTab[d.tab].push(d);
+  });
+
+  const summary = [];
+  Object.keys(byTab).forEach(function (tab) {
+    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(tab);
+    if (!sheet) return;
+    const rows = byTab[tab]
+      .map(function (d) {
+        return d.row;
+      })
+      .sort(function (a, b) {
+        return b - a;
+      });
+    for (let i = 0; i < rows.length; i++) sheet.deleteRow(rows[i]);
+    summary.push({ tab: tab, deleted: rows.length, rows: rows });
+  });
+
+  console.log(JSON.stringify(summary, null, 2));
+  return summary;
+}
+
+/**
+ * Walks every event tab in order and flags registrations that break the
+ * one-game-per-person rule. For every person the earliest registration is the
+ * keeper; anything after it is a violation:
+ *   reason 'repeat'     - registered again in the game they were already in
+ *   reason 'other-game' - the person already holds a spot in a different game
+ * Pass true to include the 'other-game' rows.
+ */
+function duplicateRows_(includeOtherGames) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const found = [];
+  const seen = {};
+
+  Object.keys(EVENT_TABS).forEach(function (slug) {
+    const cfg = EVENT_TABS[slug];
+    const sheet = ss.getSheetByName(cfg.tab);
+    if (!sheet) return;
+
+    const lastRow = sheet.getLastRow();
+    if (lastRow < 2) return;
+
+    const lastCol = sheet.getLastColumn();
+    const slots = Math.max(
+      cfg.memberSlots,
+      Math.floor((lastCol - FIXED_COLUMNS) / COLUMNS_PER_MEMBER)
+    );
+    const rows = sheet
+      .getRange(2, 1, lastRow - 1, lastCol)
+      .getValues();
+
+    rows.forEach(function (row, index) {
+      const rowNumber = index + 2;
+      const code = str_(row[0]);
+      const rowKeys = [];
+      let flagged = null;
+
+      for (let i = 0; i < slots && !flagged; i++) {
+        const base = FIXED_COLUMNS + i * COLUMNS_PER_MEMBER;
+        if (base + 2 >= lastCol) break;
+        const name = str_(row[base]);
+        const phone = digits_(row[base + 1]);
+        const email = str_(row[base + 2]).toLowerCase();
+        if (!phone && !email) continue;
+
+        const keys = [];
+        if (phone) keys.push('p:' + phone);
+        if (email) keys.push('e:' + email);
+
+        for (let k = 0; k < keys.length; k++) {
+          const key = keys[k];
+          const rec = seen[key];
+
+          if (!rec) {
+            rowKeys.push(key);
+            continue;
+          }
+
+          const inThisTab = rec.byTab[cfg.tab];
+          flagged = {
+            tab: cfg.tab,
+            row: rowNumber,
+            code: code,
+            person: name || phone || email,
+            reason: inThisTab ? 'repeat' : 'other-game',
+            firstSeenTab: inThisTab ? cfg.tab : rec.firstTab,
+            firstSeenRow: inThisTab ? inThisTab.row : rec.firstRow,
+            firstSeenCode: inThisTab ? inThisTab.code : rec.firstCode,
+            key: key,
+          };
+          break;
+        }
+      }
+
+      if (!flagged) {
+        remember_(seen, rowKeys, cfg, rowNumber, code);
+        return;
+      }
+
+      // The clashing member is remembered too, so the next row that repeats
+      // this person is reported as a repeat here rather than a fresh clash.
+      remember_(seen, rowKeys.concat([flagged.key]), cfg, rowNumber, code);
+
+      if (flagged.reason === 'repeat' || includeOtherGames) found.push(flagged);
+    });
+  });
+
+  return found;
+}
+
+/** Records the first row each key was seen on, per tab. */
+function remember_(seen, keys, cfg, rowNumber, code) {
+  keys.forEach(function (key) {
+    let rec = seen[key];
+    if (!rec) {
+      rec = { firstTab: cfg.tab, firstRow: rowNumber, firstCode: code, byTab: {} };
+      seen[key] = rec;
+    }
+    if (!rec.byTab[cfg.tab]) rec.byTab[cfg.tab] = { row: rowNumber, code: code };
+  });
 }
 
 /** Health check, so the URL can be confirmed before it is wired up. */
@@ -169,33 +341,82 @@ function normalise_(payload, cfg) {
 }
 
 /**
- * A person may register once per event. Scoped to this event's tab, so the
- * same person is still free to sign up for a different game.
- * Returns the offending member's name, or null when the team is clear.
+ * A person may register for exactly one game, so every event tab is scanned -
+ * not just this event's. Holds good across sessions too: a morning slot does
+ * not free up an afternoon one.
+ * Returns { name, games: ['Game Verse', ...] } for the first member who already
+ * holds a spot anywhere, or null when the whole team is clear.
  */
-function findDuplicate_(data) {
-  const cfg = EVENT_TABS[data.eventSlug];
-  const sheet = getSheet_(cfg, data.members.length);
-  const lastRow = sheet.getLastRow();
-  if (lastRow < 2) return null;
-
-  const slots = cfg.memberSlots;
-  const rows = sheet
-    .getRange(2, 1, lastRow - 1, FIXED_COLUMNS + slots * COLUMNS_PER_MEMBER)
-    .getValues();
-
-  for (const row of rows) {
-    for (let i = 0; i < slots; i++) {
-      const base = FIXED_COLUMNS + i * COLUMNS_PER_MEMBER;
-      const phone = str_(row[base + 1]);
-      const email = str_(row[base + 2]).toLowerCase();
-      for (const m of data.members) {
-        if (m.phone && m.phone === phone) return m.name;
-        if (m.email && m.email === email) return m.name;
-      }
+function findExistingRegistration_(data) {
+  const taken = indexRegisteredPeople_();
+  for (const m of data.members) {
+    const games = [];
+    if (m.phone && taken.phone[m.phone]) {
+      taken.phone[m.phone].forEach(function (t) {
+        if (games.indexOf(t) === -1) games.push(t);
+      });
     }
+    if (m.email && taken.email[m.email]) {
+      taken.email[m.email].forEach(function (t) {
+        if (games.indexOf(t) === -1) games.push(t);
+      });
+    }
+    if (games.length) return { name: m.name, games: games };
   }
   return null;
+}
+
+/**
+ * phone/email -> the event tabs that person already appears in. Phones come back
+ * as numbers from Sheets, so they are compared digits only.
+ */
+function indexRegisteredPeople_() {
+  const ss = SPREADSHEET_ID
+    ? SpreadsheetApp.openById(SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
+
+  const index = { phone: {}, email: {} };
+
+  Object.keys(EVENT_TABS).forEach(function (slug) {
+    const cfg = EVENT_TABS[slug];
+    const sheet = ss.getSheetByName(cfg.tab);
+    if (!sheet) return;
+
+    const lastRow = sheet.getLastRow();
+    if (lastRow < 2) return;
+
+    // Read every column the tab actually has: a tab written with more member
+    // slots than the current config must still be checked.
+    const lastCol = sheet.getLastColumn();
+    const slots = Math.max(
+      cfg.memberSlots,
+      Math.floor((lastCol - FIXED_COLUMNS) / COLUMNS_PER_MEMBER)
+    );
+    const rows = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+
+    rows.forEach(function (row) {
+      for (let i = 0; i < slots; i++) {
+        const base = FIXED_COLUMNS + i * COLUMNS_PER_MEMBER;
+        if (base + 2 >= lastCol) break;
+        const phone = digits_(row[base + 1]);
+        const email = str_(row[base + 2]).toLowerCase();
+        if (phone && !index.phone[phone]) index.phone[phone] = [cfg.tab];
+        else if (phone) index.phone[phone].push(cfg.tab);
+        if (email && !index.email[email]) index.email[email] = [cfg.tab];
+        else if (email) index.email[email].push(cfg.tab);
+      }
+    });
+  });
+
+  return index;
+}
+
+/** "Game Verse" / "Game Verse and Slides On Spot" */
+function listGames_(games) {
+  if (!games.length) return '';
+  if (games.length === 1) return games[0];
+  if (games.length === 2) return games[0] + ' and ' + games[1];
+  return games.slice(0, -1).join(', ') + ' and ' + games[games.length - 1];
 }
 
 /* ------------------------------------------------------------------ *
@@ -283,10 +504,89 @@ function appendRow_(sheet, cfg, data, code) {
   }
 }
 
+/**
+ * Registration codes must never repeat. getLastRow() is not a counter - delete
+ * one row and the next registration reuses an existing code - so take the
+ * highest sequence already used for this tag and add one.
+ */
 function nextCode_(sheet, cfg) {
-  const seq = sheet.getLastRow();
-  const tag = cfg.codeTag ? cfg.codeTag + '-' : '';
-  return 'ASTRA2K26-' + tag + String(seq).padStart(3, '0');
+  const prefix = 'ASTRA2K26-' + (cfg.codeTag ? cfg.codeTag + '-' : '');
+  const pattern = new RegExp('^' + prefix.replace(/-/g, '\\-') + '(\\d+)$');
+  const lastRow = sheet.getLastRow();
+
+  let max = 0;
+  if (lastRow >= 2) {
+    const codes = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+    for (const row of codes) {
+      const match = pattern.exec(str_(row[0]));
+      if (match) {
+        const seq = Number(match[1]);
+        if (seq > max) max = seq;
+      }
+    }
+  }
+
+  const seq = max + 1;
+  let code = prefix + String(seq).padStart(3, '0');
+  // Belt and braces: never hand out a code that is already in the column.
+  let bump = seq;
+  while (codeExists_(sheet, code)) {
+    bump += 1;
+    code = prefix + String(bump).padStart(3, '0');
+  }
+  return code;
+}
+
+function codeExists_(sheet, code) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return false;
+  const codes = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+  for (const row of codes) {
+    if (str_(row[0]) === code) return true;
+  }
+  return false;
+}
+
+/* ------------------------------------------------------------------ *
+ * Request log (idempotency)
+ * ------------------------------------------------------------------ */
+
+function normaliseRequestId_(value) {
+  const id = str_(value);
+  return REQUEST_ID_RE.test(id) ? id : '';
+}
+
+function getRequestSheet_() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName(REQUEST_TAB);
+  if (!sheet) sheet = ss.insertSheet(REQUEST_TAB);
+  if (str_(sheet.getRange(1, 1).getValue()) !== REQUEST_COLUMNS[0]) {
+    sheet.getRange(1, 1, 1, REQUEST_COLUMNS.length).setValues([REQUEST_COLUMNS]);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+/** Returns the registration code this requestId already produced, or ''. */
+function lookupRequest_(requestId) {
+  const sheet = getRequestSheet_();
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return '';
+
+  // Columns A (Request ID) and C (Registration Code) - B is the event tab.
+  const rows = sheet.getRange(2, 1, lastRow - 1, 3).getValues();
+  for (const row of rows) {
+    if (str_(row[0]) === requestId) return str_(row[2]);
+  }
+  return '';
+}
+
+function recordRequest_(requestId, cfg, code) {
+  const sheet = getRequestSheet_();
+  const rowNumber = sheet.getLastRow() + 1;
+  sheet
+    .getRange(rowNumber, 1, 1, REQUEST_COLUMNS.length)
+    .setValues([[requestId, cfg.tab, code, new Date()]]);
 }
 
 /* ------------------------------------------------------------------ *
@@ -295,6 +595,11 @@ function nextCode_(sheet, cfg) {
 
 function str_(v) {
   return v == null ? '' : String(v).trim();
+}
+
+/** Stamps and formats collapse: 98765 43210 and 9876543210 are the same person. */
+function digits_(v) {
+  return str_(v).replace(/\D/g, '');
 }
 
 function json_(payload) {

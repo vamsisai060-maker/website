@@ -6,7 +6,7 @@ export type EventSession = (typeof EVENT_SESSIONS)[number];
 
 export const SESSION_TIMES: Record<EventSession, string> = {
   Morning: '9:30 AM',
-  Afternoon: '1:00 PM',
+  Afternoon: '1:30 PM',
 };
 
 export type Event = {
@@ -34,7 +34,7 @@ const eventsByDate: Event[] = [
     slug: 'game-verse',
     name: 'Game Verse',
     category: 'Internal',
-    session: 'Morning',
+    session: 'Afternoon',
     teamSize: '2',
     date: '06-10-2026',
     blurb: 'A competitive gaming challenge for teams of two. Laptop required, and teammates from the same college are not allowed.',
@@ -58,7 +58,7 @@ const eventsByDate: Event[] = [
     slug: 'slides-on-spot',
     name: 'Slides On Spot',
     category: 'Internal',
-    session: 'Afternoon',
+    session: 'Morning',
     teamSize: '2',
     date: '06-10-2026',
     blurb: 'A two-member presentation event where the topic is handed to you on the spot. A laptop and a team leader are required.',
@@ -94,7 +94,7 @@ const eventsByDate: Event[] = [
     slug: 'see-it-prompt-it',
     name: 'See It, Prompt It',
     category: 'Internal',
-    session: 'Afternoon',
+    session: 'Morning',
     teamSize: '1',
     date: '07-10-2026',
     blurb: 'A solo prompt-engineering challenge where participants turn what they see into effective prompts. Laptop required.',

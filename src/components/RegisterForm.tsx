@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { EVENTS, SESSION_TIMES } from '@/data/events';
 import { SmoothInput } from '@/components/smoothinput';
@@ -24,6 +24,19 @@ type Member = {
 type MemberField = keyof Member;
 
 type SubmitState = 'idle' | 'success' | 'error';
+
+/**
+ * Identifies one registration attempt. The backend stores it, so a replayed
+ * POST (the /api/register cold-start retry, a double-tapped submit, a refresh
+ * mid-flight) is answered with the original code instead of a second row.
+ * A new id is minted whenever the team details change.
+ */
+function newRequestId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `req-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+}
 
 type FieldRowDef = { fields: RegisterField[]; cls: string };
 
@@ -203,6 +216,12 @@ export default function RegisterForm({
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // Refs, not state: the guard has to be live before React re-renders, or a
+  // fast double click sends two POSTs.
+  const submittingRef = useRef(false);
+  const requestIdRef = useRef<string>('');
+  const requestSignatureRef = useRef<string>('');
+
   const router = useRouter();
 
   const selectedEvent = useMemo(
@@ -251,12 +270,14 @@ export default function RegisterForm({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submittingRef.current) return;
     setSubmitted(true);
     if (submitState === 'success') return;
     if (!isFormValid()) {
       scrollToFirstError();
       return;
     }
+    submittingRef.current = true;
     setSending(true);
     setSubmitState('idle');
     setSubmitError(null);
@@ -280,10 +301,20 @@ export default function RegisterForm({
           college: member.college,
         })),
       };
+
+      // Same details -> same id, so a retry is recognised as a replay.
+      // Edited details -> new id, otherwise the backend would answer with the
+      // code from the earlier attempt.
+      const signature = JSON.stringify(payload);
+      if (signature !== requestSignatureRef.current) {
+        requestSignatureRef.current = signature;
+        requestIdRef.current = newRequestId();
+      }
+
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, requestId: requestIdRef.current }),
       });
       const result = (await response.json().catch(() => null)) as
         | { ok?: boolean; code?: string; message?: string }
@@ -292,7 +323,7 @@ export default function RegisterForm({
         if (result?.code === 'DUPLICATE') {
           rejectMessage =
             result.message ??
-            `This phone number or email is already registered for ${selectedEvent.name}. Each person can register only once for this game.`;
+            `This phone number or email is already registered. Each person can register for only one game.`;
         } else {
           rejectMessage = result?.message ?? null;
         }
@@ -312,6 +343,7 @@ export default function RegisterForm({
         if (failBanner) scrollToElement(failBanner);
       });
     } finally {
+      submittingRef.current = false;
       setSending(false);
     }
   };
