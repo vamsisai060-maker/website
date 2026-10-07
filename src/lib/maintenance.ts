@@ -10,6 +10,6 @@
 export const MAINTENANCE_MODE = false;
 
 /** Shown on the maintenance page and returned by /api/register while closed. */
-export const MAINTENANCE_BACK_AT = '8 PM today';
+export const MAINTENANCE_BACK_AT = 'Registrations closed';
 
-export const MAINTENANCE_MESSAGE = `Registrations are temporarily stopped. We will be back at ${MAINTENANCE_BACK_AT}.`;
+export const MAINTENANCE_MESSAGE = `Registrations are now closed.`;

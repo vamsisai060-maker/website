@@ -232,6 +232,9 @@ function MemberBlock({
   );
 }
 
+export const REGISTRATIONS_CLOSED_MESSAGE =
+  'Registration time is up. You cannot register now.';
+
 export default function RegisterForm({
   initialEventSlug,
   locked,
@@ -240,6 +243,7 @@ export default function RegisterForm({
   locked?: boolean;
 }) {
   const initialEvent = EVENTS.find((event) => event.slug === initialEventSlug);
+  const registrationsClosed = true;
   const [selectedEventSlug, setSelectedEventSlug] = useState<string | undefined>(
     initialEvent?.slug
   );
@@ -417,6 +421,9 @@ export default function RegisterForm({
       <form data-form-anim-init="" id="wf-form-register-form" name="wf-form-register-form" onSubmit={handleSubmit} noValidate autoComplete="off" aria-label="Register form"
         style={submitState === 'success' ? { display: 'none' } : undefined}
       >
+        <div className="form-banner" style={{ background: '#fee2e2', border: '1px solid #fc9292', padding: '1rem', marginBottom: '1rem', color: '#991b1b' }}>
+          <strong>{REGISTRATIONS_CLOSED_MESSAGE}</strong>
+        </div>
         <div className="form-section" id="create">
           <div className="form-col form-col-first"></div>
           <div className="form-col form-col-second">
@@ -577,7 +584,7 @@ export default function RegisterForm({
               ))}
             </div>
             <div className="form-actions">
-              <button type="submit" disabled={sending} className="button-primary width-100 w-inline-block">
+              <button type="submit" disabled={sending || registrationsClosed} className="button-primary width-100 w-inline-block">
                 <div className="button-primary-border">
                   <div className="button-primary-text button-size-text-lg button-with-icon">
                     <div>{sending ? 'Submitting…' : (isSingle ? 'Register' : 'Register team')}</div>
